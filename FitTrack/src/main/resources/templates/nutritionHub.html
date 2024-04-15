@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
+  <script defer src="/js/scriptNutrition.js"></script>
+  <link rel="stylesheet" href="/css/styleNutrition.css" />
+  <title>Nutrition Hub</title>
+  <!-- <script defer src="script.js"></script> -->
+</head>
+<body>
+<!-- Sidebar -->
+<div class="hlavne">
+  <div class="sidebar">
+    <div class="button-container">
+      <a th:href="@{'/workout/zone/' + ${id}}" class="sidebar-btn sidebar--1">
+        <img src="/images/fire.png" />
+        <h6>Workout Zone</h6>
+      </a>
+      <a th:href="@{'/activities/' + ${id}}" class="sidebar-btn sidebar--2">
+        <img src="/images/location2.png" />
+        <h6>Activity Spot</h6>
+      </a>
+      <a class="sidebar-btn sidebar--2 icon_color">
+        <img src="/images/spoon-knife.png" />
+        <h6>Nutrition Hub</h6>
+      </a>
+      <div class="food--btns">
+        <a href="#" class="food-btn">
+          <h6>Add Food</h6>
+        </a>
+        <a href="#" class="own-food">
+          <h6>Create Food</h6>
+        </a>
+      </div>
+      <a href="#" class="sidebar-btn sidebar--3">
+        <img src="/images/clipboard.png" />
+        <h6>Progres Tracker</h6>
+      </a>
+    </div>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="logo">
+      <img
+        style="
+              width: 500px;
+              height: 300px;
+              margin-top: 10px;
+              margin-left: -160px;
+            "
+        src="/images/logo2.png"
+        alt="Your Logo"
+      />
+    </div>
+    <div class="user_info">
+      <a href="#" class="top-image">
+        <img src="/images/user.png" />
+      </a>
+      <h1 th:text='${user.name}' th:id="${user.id}" class='user-id'></h1>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="user--menu hidden">
+      <a href="#">
+        <img src="/images/history.png" />
+      </a>
+      <h2>History</h2>
+      <a href="#">
+        <img src="/images/cog.png" />
+      </a>
+      <h2>Settings</h2>
+      <a href="#">
+        <img src="/images/exit.png" />
+      </a>
+      <h2>Log out</h2>
+    </div>
+    <!-- Larger Rectangle on the Right -->
+    <div class="large-rectangle">
+      <div class="section--2">
+        <div class="text-section--2">
+          <div class="head-nutrition">
+            <div class="arrow-container">
+              <div class="arrow left-arrow"></div>
+              <a href="#">
+                <img
+                  class="text--exercises"
+                  src="/images/calendar.png"
+                  alt="Your Logo"
+                />
+              </a>
+              <h2 class="date">Today</h2>
+              <div class="arrow right-arrow hidden"></div>
+            </div>
+            <h1 class="total-cal hidden">0</h1>
+          </div>
+          <div class="section--content">
+<!--            <div class="no-food">-->
+<!--              <h1>No food entries for today.</h1>-->
+<!--            </div>-->
+<!--            <div class="trainings-table-container">-->
+<!--              <table class="trainings-table">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                  <th>Remove</th>-->
+<!--                  <th>Food</th>-->
+<!--                  <th>Grams</th>-->
+<!--                  <th>Proteins</th>-->
+<!--                  <th>Carbs</th>-->
+<!--                  <th>Fats</th>-->
+<!--                  <th>Calories</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody class="table&#45;&#45;body">-->
+<!--                <tr class="tr">-->
+<!--                  <td>-->
+<!--                    <button id="1">X</button>-->
+<!--                  </td>-->
+<!--                  <td>Checken breast</td>-->
+<!--                  <td>50g</td>-->
+<!--                  <td>25.34</td>-->
+<!--                  <td>158</td>-->
+<!--                  <td>30.15</td>-->
+<!--                  <td>90.35</td>-->
+<!--                </tr>-->
+<!--                <tr class="tr">-->
+<!--                  <td>-->
+<!--                    <button id="2">X</button>-->
+<!--                  </td>-->
+<!--                  <td>Rice</td>-->
+<!--                  <td>50g</td>-->
+<!--                  <td>15.45</td>-->
+<!--                  <td>120</td>-->
+<!--                  <td>15.89</td>-->
+<!--                  <td>148.75</td>-->
+<!--                </tr>-->
+<!--                <tr class="tr">-->
+<!--                  <td>-->
+<!--                    <button id="3">X</button>-->
+<!--                  </td>-->
+<!--                  <td>Rice</td>-->
+<!--                  <td>50g</td>-->
+<!--                  <td>15.45</td>-->
+<!--                  <td>120</td>-->
+<!--                  <td>15.89</td>-->
+<!--                  <td>148.75</td>-->
+<!--                </tr>-->
+<!--                <tr class="tr">-->
+<!--                  <td>-->
+<!--                    <button id="4">X</button>-->
+<!--                  </td>-->
+<!--                  <td>Melted beef meat</td>-->
+<!--                  <td>50g</td>-->
+<!--                  <td>20.5</td>-->
+<!--                  <td>158</td>-->
+<!--                  <td>185</td>-->
+<!--                  <td>250.1</td>-->
+<!--                </tr>-->
+<!--                <tr class="tr">-->
+<!--                  <td>-->
+<!--                    <button id="5">X</button>-->
+<!--                  </td>-->
+<!--                  <td>Fish</td>-->
+<!--                  <td>50g</td>-->
+<!--                  <td>20.5</td>-->
+<!--                  <td>158</td>-->
+<!--                  <td>185</td>-->
+<!--                  <td>250.1</td>-->
+<!--                </tr>-->
+<!--                <tr class="tr">-->
+<!--                  <td>-->
+<!--                    <button id="5">X</button>-->
+<!--                  </td>-->
+<!--                  <td>fsdfd</td>-->
+<!--                  <td>50g</td>-->
+<!--                  <td>20.5</td>-->
+<!--                  <td>158</td>-->
+<!--                  <td>185</td>-->
+<!--                  <td>250.1</td>-->
+<!--                </tr>-->
+<!--                <tr class="tr">-->
+<!--                  <td>-->
+<!--                    <button id="5">X</button>-->
+<!--                  </td>-->
+<!--                  <td>Faaish</td>-->
+<!--                  <td>50g</td>-->
+<!--                  <td>20.5</td>-->
+<!--                  <td>158</td>-->
+<!--                  <td>185</td>-->
+<!--                  <td>250.1</td>-->
+<!--                </tr>-->
+<!--                <tr class="tr">-->
+<!--                  <td>-->
+<!--                    <button id="5">X</button>-->
+<!--                  </td>-->
+<!--                  <td>Fish</td>-->
+<!--                  <td>50g</td>-->
+<!--                  <td>20.5</td>-->
+<!--                  <td>158</td>-->
+<!--                  <td>185</td>-->
+<!--                  <td>250.1</td>-->
+<!--                </tr>-->
+<!--                <tr class="totals-row">-->
+<!--                  <td class="totals-rows"></td>-->
+<!--                  <td class="totals-rows">TOTALS</td>-->
+<!--                  <td class="totals-rows"></td>-->
+<!--                  <td class="totals-rows" id="total-proteins">0</td>-->
+<!--                  <td class="totals-rows" id="total-carbs">0</td>-->
+<!--                  <td class="totals-rows" id="total-fats">0</td>-->
+<!--                  <td class="totals-rows" id="total-calories">0</td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--              </table>-->
+<!--            </div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="overlay hidden"></div>
+<div class="remove hidden">
+  <!-- <button class="btn--close-modal">&times;</button> -->
+  <h1 class="remove-msg"></h1>
+  <div class="remove--btns">
+    <button class="remove--no">No</button>
+    <button class="remove--yes">Yes</button>
+  </div>
+</div>
+<div class="add-food-modal hidden">
+  <button class="btn--close-modal close-add">&times;</button>
+  <h1 style="color: #ff8c00">Add food to your plan</h1>
+  <h2
+    class="wrong-food"
+    style="margin-left: 10px; margin-top: 10px; color: #222831"
+  ></h2>
+  <form class="search-form">
+    <div class="search">
+      <span class="search-icon material-symbols-outlined"> search </span>
+      <input class="search-input" type="search" placeholder="search food" />
+    </div>
+  </form>
+</div>
+<div class="create-own-food hidden">
+  <button class="btn--close-modal close-own-modal">&times;</button>
+  <h1 style="color: #ff8c00; font-size: 25px; margin-left: 73px">
+    Create food
+  </h1>
+  <h2
+    class="wrong-inputs-create"
+    style="margin-left: 33px; margin-top: 10px; color: #222831"
+  ></h2>
+  <form>
+    <div class="own-food-container">
+      <div style="margin-bottom: 10px; margin-top: 30px">
+        <span class="food-name-input">Food</span>
+        <input
+          class="input-value food-name-input-value"
+          type="text"
+          placeholder="Enter food name"
+        />
+      </div>
+      <div style="margin-bottom: 10px">
+        <span class="proteins-input">Proteins</span>
+        <input
+          class="input-value proteins-input-value"
+          type="number"
+          placeholder="Enter proteins"
+        />
+      </div>
+      <div style="margin-bottom: 10px">
+        <span class="carbs-input">Carbs</span>
+        <input
+          class="input-value carbs-input-value"
+          type="number"
+          placeholder="Enter carbs"
+        />
+      </div>
+      <div style="margin-bottom: 10px">
+        <span class="fats-input">Fats</span>
+        <input
+          class="input-value fats-input-value"
+          type="number"
+          placeholder="Enter fats"
+        />
+      </div>
+      <div style="margin-bottom: 10px">
+        <span class="calories-input">Calories</span>
+        <input
+          class="input-value calories-input-value"
+          type="number"
+          placeholder="Enter calories"
+        />
+      </div>
+      <div>
+        <button class="create-food-btn">Create food</button>
+<!--        <button class="create-add-btn">Add to plan</button>-->
+      </div>
+    </div>
+  </form>
+</div>
+<div class="choose-food hidden">
+  <!-- <h1>
+    Sorry, the food you're looking for is not in our database. You can add
+    your own custom entry.
+  </h1> -->
+  <button class="btn--close-modal close-found-foods">&times;</button>
+  <h1 style="color: #ff8c00; font-size: 25px; display: flex; align-items: center; justify-content: center">Found Foods</h1>
+  <div class="food-items">
+<!--    <div class="food-item">-->
+<!--      <h2 style="display: flex; justify-content: center">Chicken breast</h2>-->
+<!--      <div class="rows">-->
+<!--        <div class="row">-->
+<!--          <h2>Proteins: 158</h2>-->
+<!--          <h2>Carbs: 185.25</h2>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--          <h2>Fats: 85.75</h2>-->
+<!--          <h2>Calories: 185.4</h2>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="food-item">-->
+<!--      <h2 style="display: flex; justify-content: center">Chicken breast</h2>-->
+<!--      <div class="rows">-->
+<!--        <div class="row">-->
+<!--          <h2>Proteins: 158</h2>-->
+<!--          <h2>Carbs: 185.25</h2>-->
+<!--        </div>-->
+<!--        <div class="row">-->
+<!--          <h2>Fats: 85.75</h2>-->
+<!--          <h2>Calories: 185.4</h2>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+  </div>
+  <div class='grams-container hidden' style='transition: all 0.5s;'>
+    <h3 style='margin-left: 25px;' class='grams-wrong hidden'>Please select the portion size in grams</h3>
+    <span class="grams-input">Grams</span>
+    <input class="input-value grams-input-value" type="number" placeholder="Enter grams" />
+  </div>
+  <button class="add-to-plan hidden">Add Food</button>
+</div>
+<div class="set-desire-calories hidden">
+  <h1
+    style="
+          color: #ff8c00;
+          font-size: 25px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        "
+  >
+    Welcome to the Nutrition Hub! Set your daily calorie goal to track your
+    nutrition effectively. You can adjust this value anytime in the settings
+    to match your needs and goals.
+  </h1>
+  <h2
+    class="desire-calories-wrong"
+    style="margin-left: 55px; margin-top: 10px; color: #222831"
+  ></h2>
+  <form>
+    <div style="margin-bottom: 10px; margin-top: 30px">
+      <span class="desire-calories-input">Daily Calorie Goal</span>
+      <input
+        class="desire-input-value desire-calories-input-value"
+        type="number"
+        placeholder="Calories"
+      />
+      <div>
+        <button class="desire-calories-btn">Set Calories</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="created-modal hidden">
+  <!-- <button class="btn--close-modal">&times;</button> -->
+  <h1 class="created-msg">Chicken added to our database</h1>
+</div>
+</body>
+</html>

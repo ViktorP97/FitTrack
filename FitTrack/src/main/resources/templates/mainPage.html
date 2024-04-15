@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<!--  <link rel="shortcut icon" type="image/png" href="img/icon.png" />-->
+
+  <link rel="icon" href="data:,">
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href='/css/styleMain.css' />
+  <title>FitTrack</title>
+</head>
+<body>
+<header class="header">
+  <nav class="nav">
+    <h1 class="app_logo"></h1>
+    <ul class="nav__links">
+      <li class="nav__item">
+        <a class="nav__link" href="#section--1">Nutrition Hub</a>
+      </li>
+      <li class="nav__item">
+        <a class="nav__link" href="#section--2">Workout Zone</a>
+      </li>
+      <li class="nav__item">
+        <a class="nav__link" href="#section--3">Progress Tracker</a>
+      </li>
+      <li class="nav__item">
+        <a th:href="@{/login}" class="nav__link nav__link--login">Login</a>
+      </li>
+      <li class="nav__item">
+        <a th:href="@{/register}" class="nav__link nav__link--btn btn--show-modal">Let's go!</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="header__title">
+    <div class="info__text">
+      <h1>Welcome to FitTrack</h1>
+      <h4 class='space'>
+        Elevate your fitness journey with personalized training,<br />diet
+        tracking, and progress monitoring in one application.
+      </h4>
+      <a th:href="@{/register}" class="nav__link nav__link--btn btn--show-modal register">Let's go!</a>
+    </div>
+  </div>
+</header>
+
+<div class="white_section">
+  <section class="section" id="section--1">
+    <div class="section__title">
+      <h1 class="section__description">Nutrition Hub</h1>
+      <h4 class="section1_text">
+        Keep tabs on your eating habits effortlessly in our diet section.<br> Log meals, track calories, and make informed choices to support your fitness goals with ease.
+      </h4>
+    </div>
+    <div class="features">
+      <img
+        src="/images/foodTracking.png"
+        data-src="/images/foodTracking.png"
+        alt="Computer"
+        class="features__img lazy-img"
+      />
+      <div class="features__feature">
+        <h5 class="features__header">Food Tracking</h5>
+        <p>
+          Easily add and track your daily food intake. Keep a record of what you eat to maintain a healthy lifestyle.
+        </p>
+      </div>
+
+      <div class="features__feature">
+        <h5 class="features__header">Calorie Monitoring</h5>
+        <p>
+          Monitor your calorie intake effortlessly. Stay informed about the calories you consume each day to make healthier choices.
+        </p>
+      </div>
+      <img
+        src="/images/calories.jpg"
+        data-src="/images/calories.jpg"
+        alt="Plant"
+        class="features__img"
+      />
+
+      <img
+        src="/images/unhealthy-versus-healthy-foods.jpg"
+        data-src="/images/unhealthy-versus-healthy-foods.jpg"
+        alt="Credit card"
+        class="features__img"
+        style="height: 300px;"
+      />
+      <div class="features__feature">
+        <h5 class="features__header">Goal Comparison</h5>
+        <p>
+          Compare your calorie intake with your daily goals. Stay motivated by seeing how your food choices align with your health objectives.
+        </p>
+      </div>
+    </div>
+    <!-- <div class="slider">
+      <div class="slide slide--1">
+        <div class="testimonial">
+          <h5 class="testimonial__header">Best financial decision ever!</h5>
+          <blockquote class="testimonial__text">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Accusantium quas quisquam non? Quas voluptate nulla minima
+            deleniti optio ullam nesciunt, numquam corporis et asperiores
+            laboriosam sunt, praesentium suscipit blanditiis. Necessitatibus
+            id alias reiciendis, perferendis facere pariatur dolore veniam
+            autem esse non voluptatem saepe provident nihil molestiae.
+          </blockquote>
+          <address class="testimonial__author">
+            <img src="img/user-1.jpg" alt="" class="testimonial__photo" />
+            <h6 class="testimonial__name">Aarav Lynn</h6>
+            <p class="testimonial__location">San Francisco, USA</p>
+          </address>
+        </div>
+      </div>
+
+      <div class="slide slide--2">
+        <div class="testimonial">
+          <h5 class="testimonial__header">
+            The last step to becoming a complete minimalist
+          </h5>
+          <blockquote class="testimonial__text">
+            Quisquam itaque deserunt ullam, quia ea repellendus provident,
+            ducimus neque ipsam modi voluptatibus doloremque, corrupti
+            laborum. Incidunt numquam perferendis veritatis neque repellendus.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illo
+            deserunt exercitationem deleniti.
+          </blockquote>
+          <address class="testimonial__author">
+            <img src="img/user-2.jpg" alt="" class="testimonial__photo" />
+            <h6 class="testimonial__name">Miyah Miles</h6>
+            <p class="testimonial__location">London, UK</p>
+          </address>
+        </div>
+      </div>
+
+      <div class="slide slide--3">
+        <div class="testimonial">
+          <h5 class="testimonial__header">
+            Finally free from old-school banks
+          </h5>
+          <blockquote class="testimonial__text">
+            Debitis, nihil sit minus suscipit magni aperiam vel tenetur
+            incidunt commodi architecto numquam omnis nulla autem,
+            necessitatibus blanditiis modi similique quidem. Odio aliquam
+            culpa dicta beatae quod maiores ipsa minus consequatur error sunt,
+            deleniti saepe aliquid quos inventore sequi. Necessitatibus id
+            alias reiciendis, perferendis facere.
+          </blockquote>
+          <address class="testimonial__author">
+            <img src="img/user-3.jpg" alt="" class="testimonial__photo" />
+            <h6 class="testimonial__name">Francisco Gomes</h6>
+            <p class="testimonial__location">Lisbon, Portugal</p>
+          </address>
+        </div>
+      </div>
+
+      <div class="slide"><img src="img/img-1.jpg" alt="Photo 1" /></div>
+      <div class="slide"><img src="img/img-2.jpg" alt="Photo 2" /></div>
+      <div class="slide"><img src="img/img-3.jpg" alt="Photo 3" /></div>
+      <div class="slide"><img src="img/img-4.jpg" alt="Photo 4" /></div> -->
+    <!-- <button class="slider__btn slider__btn--left">&larr;</button>
+    <button class="slider__btn slider__btn--right">&rarr;</button>
+    <div class="dots"></div>
+  </div> -->
+</div>
+</section>
+</div>
+
+<div class="dark_section">
+  <section class="section" id="section--2">
+    <div class="section__title">
+      <h2 class="section__description__dark">Workout Zone</h2>
+      <h3 class="section2_text">
+        Empower your fitness journey in the Workout Zone! Build personalized exercises and training plans, kickstart workouts with our timer, map outdoor activities for a comprehensive overview — all in one seamless experience.
+      </h3>
+      <div class="creatures-container">
+        <div class="creature">
+          <!-- Creature 1 -->
+          <p class="section2_text">Create training</p>
+        </div>
+        <div class="creature">
+          <!-- Creature 2 -->
+          <p class="section2_text">Begin Workout</p>
+        </div>
+        <div class="creature">
+          <!-- Creature 3 -->
+          <p class="section2_text">Map Activity</p>
+        </div>
+<!--        <div class="creature">-->
+<!--          &lt;!&ndash; Creature 4 &ndash;&gt;-->
+<!--          <p class="section2_text">View History</p>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="section" id="section--3">
+  <div class="section__title section__title--testimonials">
+    <h2 class="section__description">Progress Tracker</h2>
+    <!-- <h3 class="section__header">
+      Millions of Bankists are already making their lifes simpler.
+    </h3> -->
+  </div>
+</section>
+
+<!-- <section class="section section--sign-up">
+  <div class="section__title">
+    <h3 class="section__header">
+      The best day to join Bankist was one year ago. The second best is
+      today!
+    </h3>
+  </div>
+  <button class="btn btn--show-modal">Open your free account today!</button>
+</section> -->
+
+<footer class="footer">
+<!--  <ul class="footer__nav">-->
+<!--    <li class="footer__item">-->
+<!--      <a class="footer__link" href="#">About</a>-->
+<!--    </li>-->
+<!--    <li class="footer__item">-->
+<!--      <a class="footer__link" href="#">Pricing</a>-->
+<!--    </li>-->
+<!--    <li class="footer__item">-->
+<!--      <a class="footer__link" href="#">Terms of Use</a>-->
+<!--    </li>-->
+<!--    <li class="footer__item">-->
+<!--      <a class="footer__link" href="#">Privacy Policy</a>-->
+<!--    </li>-->
+<!--    <li class="footer__item">-->
+<!--      <a class="footer__link" href="#">Careers</a>-->
+<!--    </li>-->
+<!--    <li class="footer__item">-->
+<!--      <a class="footer__link" href="#">Blog</a>-->
+<!--    </li>-->
+<!--    <li class="footer__item">-->
+<!--      <a class="footer__link" href="#">Contact Us</a>-->
+<!--    </li>-->
+<!--  </ul>-->
+  <!-- <img src="img/icon.png" alt="Logo" class="footer__logo" />
+  <p class="footer__copyright">
+    &copy; Copyright by
+    <a
+      class="footer__link twitter-link"
+      target="_blank"
+      href="https://twitter.com/jonasschmedtman"
+      >Jonas Schmedtmann</a
+    >. Use for learning or your portfolio. Don't use to teach. Don't claim
+    as your own product.
+  </p> -->
+</footer>
+<div class="overlay hidden"></div>
+
+<script src='/js/scriptMain.js'></script>
+</body>
+</html>

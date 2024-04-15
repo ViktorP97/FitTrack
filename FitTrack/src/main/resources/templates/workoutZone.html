@@ -1,0 +1,2215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workout Zone</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <!-- <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha256-cIo4cM8F7CsoaCfK3E9Nk0sZlKC96l9TgOShb3jIEqA="
+    crossorigin="anonymous"
+  /> -->
+  <style>
+    html {
+      font-size: 62.5%;
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden; /* Prevent scrolling */
+      background-color: #222831;
+    }
+
+    .top-bar {
+      background-color: #f2f2f2;
+      color: black;
+      display: flex;
+      height: 9rem;
+      justify-content: space-between;
+      align-items: center;
+      position: relative; /* Needed for positioning the pseudo-element */
+    }
+
+    .logo {
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .logo img {
+      width: 500px;
+      height: 300px;
+      margin-top: 10px;
+      margin-left: -160px;
+    }
+
+    .top-image {
+      display: inline-block;
+      /* margin-right: 40px; */
+      margin-right: 10px; /* Adjust the right margin as needed */
+    }
+
+    .top-image img {
+      height: 30px;
+    }
+
+    .sidebar {
+      background-color: #ff8c00;
+      width: 210px;
+      height: 100vh; /* Set height to full height of the screen */
+      position: fixed;
+      top: 0; /* Start at the top of the screen */
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* Center items vertically */
+      padding-top: 60px; /* Adjust top padding to avoid overlap with top bar */
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .workout--btns {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sidebar-btn {
+      text-decoration: none;
+      color: #333;
+      padding: 10px;
+      width: 161%;
+      box-sizing: border-box;
+      text-align: center;
+      border: none;
+      outline: none;
+      /* margin-bottom: 50px; */ /* medzera medzi iconami*/
+      position: relative;
+      overflow: hidden;
+      font-size: 22px;
+    }
+
+    .sidebar-btn h6 {
+      margin: 0; /* Remove default margin */
+    }
+
+    .sidebar-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 96.3%;
+      height: 100%;
+      background: linear-gradient(to right, #ffc774, #ffc774);
+      z-index: -1;
+      transition: all 300ms ease-in-out;
+    }
+
+    .sidebar-btn:hover::before {
+      left: 0;
+    }
+
+    .icon_color {
+      background-color: #ffc774;
+      width: 150%;
+    }
+
+    .main-content {
+      margin-top: 15px; /* Adjust to match the top bar height */
+      margin-left: 120px; /* Adjust to match the width of the sidebar */
+      padding: 20px;
+      height: 100%;
+      overflow: hidden; /* Add this to clear the float */
+    }
+
+    .large-rectangle {
+      background-color: #222831; /* Adjust the background color as needed */
+      height: 550px; /* Adjust the height as needed */
+      width: 60%; /* Adjust the width as needed */
+      margin-left: 20px; /* Adjust the margin as needed */
+      margin-right: 30px;
+      float: right;
+      margin-bottom: 20px; /* Move 20 pixels to the bottom */
+      display: flex;
+      flex-direction: column; /* Change to column to stack sections */
+    }
+
+    .section--1 {
+      background-color: #393e46;
+      width: 100%;
+      height: 20rem;
+      border-radius: 20px; /* Adjust the radius as needed */
+      /* box-shadow: 0 0 20px rgba(221, 221, 221, 0.7);  */
+      /* margin-top: -30px; */
+    }
+
+    .section--2 {
+      background-color: #393e46; /* Adjust the background color as needed */
+      /* border-top: 2px solid #ddd; Add a border to the bottom of section--1 */
+      border-radius: 20px; /* Adjust the radius as needed */
+      height: 34rem;
+      margin-top: 20px; /* Adjust the margin-top as needed */
+      /* box-shadow: 0 0 20px rgba(221, 221, 221, 0.7); Adjust the shadow as needed */
+    }
+
+    .small-rectangle {
+      background-color: #222831; /* Adjust the background color as needed */
+      height: 160px; /* Adjust the height as needed */
+      width: 25%; /* Adjust the width as needed */
+      float: left;
+      display: flex;
+      flex-direction: column; /* Display items in a column */
+
+      margin-left: 110px;
+      margin-top: 30px;
+      /* box-shadow: 0 0 50px rgba(68, 68, 68, 0.5); */
+      border-radius: 20px; /* Adjust the radius as needed */
+    }
+
+    .small-rectangle h2 {
+      font-size: 25px;
+      color: #f2f2f2;
+      margin-top: 5px;
+      text-align: center; /* Center the text */
+    }
+
+    .below-small-rectangle {
+      background-color: #222831; /* Adjust the background color as needed */
+      height: 180px; /* Adjust the height as needed */
+      width: 25%; /* Adjust the width as needed */
+      float: left;
+      /* margin-top: 80px; Adjust the margin-top as needed */
+      margin-left: 110px;
+      margin-top: 100px;
+      display: flex;
+      flex-direction: column;
+      /* justify-content: center; */
+      align-items: center;
+      /* box-shadow: 0 0 50px rgba(68, 68, 68, 0.5); Adjust the shadow as needed */
+      border-radius: 20px; /* Adjust the radius as needed */
+    }
+
+    .btn--timer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 120px; /* Adjust the width as needed */
+      height: 60px; /* Adjust the height as needed */
+      margin-left: 100px;
+      margin-top: 35px;
+      border-radius: 10px; /* Adjust the value for all corners as needed */
+      overflow: hidden; /* Ensures the content doesn't overflow if the button is given a fixed width and height */
+      background-color: #f2f2f2; /* Adjust the background color as needed */
+      font-size: 23px; /* Adjust the font size as needed */
+      cursor: pointer; /* urobime z btnu ako bu to bol link */
+    }
+
+    .text--exercises {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #f2f2f2;
+      font-size: 30px;
+    }
+
+    .text-section--2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .exercise-container {
+      position: relative;
+    }
+
+    /* .exercise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      margin-left: 80px;
+      overflow: hidden;
+    } */
+
+    .exercise-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f2f2f2;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 15px;
+      box-shadow: 0 4px 8px rgba(34, 40, 49, 0.1), 0 0 10px; /* Add the new shadow with #ff8c00 */
+      height: 70px; /* Adjust the height as needed */
+      width: 40%;
+      margin-left: 235px;
+    }
+
+    .exercise-card h3 {
+      margin-bottom: 8px;
+      color: #222831;
+      opacity: 0;
+      transition: opacity 0.5s ease; /* Adjust the duration and timing function as needed */
+    }
+
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #f2f2f2;
+      border: none;
+      border-radius: 50%;
+      padding: 5px 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .prev-btn {
+      left: 150px;
+    }
+
+    .next-btn {
+      right: 150px;
+    }
+
+    .exercise-card p {
+      color: #ddd;
+    }
+
+    .user_info {
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .user_info h1 {
+      margin: 0; /* Remove default margin */
+    }
+
+    .user--menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      margin-top: 110px;
+      margin-right: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f2f2f2;
+      height: 250px;
+      width: 150px;
+      align-items: center;
+      border-radius: 10px; /* Adjust the radius as needed */
+    }
+
+    .user--menu::before {
+      content: '';
+      position: absolute;
+      top: -8px; /* Adjust this value to position the arrow */
+      right: 43%; /* Center the arrow horizontally */
+      border-style: solid;
+      border-width: 0 8px 10px; /* Adjust the values to change arrow size */
+      border-color: transparent transparent #f2f2f2 transparent;
+    }
+
+    .user--menu.active {
+      height: 250px; /* Set the final height when active */
+    }
+
+    .hidden {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .trainings-table-container {
+      max-height: 200px; /* Adjust the maximum height as needed */
+      overflow-y: auto;
+      border: 1px solid #222831;
+      width: 120%; /* Adjust the width as needed */
+      margin-left: 8px;
+    }
+
+    .trainings {
+      width: 45%; /* Adjust the width as needed */
+    }
+
+    .trainings-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .trainings-table th,
+    .trainings-table td {
+      border: 1px solid #222831;
+      padding: 8px;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    .trainings-table th {
+      background-color: #222831;
+      color: #f2f2f2;
+    }
+
+    .trainings-table td {
+      background-color: #393e46;
+      color: #f2f2f2;
+    }
+
+    .trainings-table th:nth-child(1),
+    .trainings-table td:nth-child(1) {
+      width: 10%; /* Adjust the width as needed */
+    }
+
+    .trainings-table th:nth-child(2),
+    .trainings-table td:nth-child(2) {
+      width: 5%; /* Adjust the width as needed */
+    }
+
+    .trainings-table th:nth-child(3),
+    .trainings-table td:nth-child(3) {
+      width: 5%; /* Adjust the width as needed */
+    }
+
+    /* For WebKit browsers (Chrome, Safari) */
+    .trainings-table-container::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    .trainings-table-container::-webkit-scrollbar-thumb {
+      background-color: #222831;
+      border-radius: 6px;
+    }
+
+    .trainings-table-container::-webkit-scrollbar-track {
+      background-color: #ddd; /* Change this to the desired background color */
+    }
+
+    /* For Firefox */
+    .trainings-table-container {
+      scrollbar-width: thin;
+      scrollbar-color: #393e46 #222831;
+    }
+
+    .training--detail {
+      background-color: #393e46;
+      display: flex;
+      flex: 1;
+      width: 35rem;
+      height: 20rem;
+      position: absolute;
+      top: 46rem;
+      right: 6rem;
+      border-radius: 10px;
+      transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
+    }
+
+    .training--detail h1 {
+      justify-content: center;
+      align-items: center;
+      margin: auto;
+      color: #ddd;
+    }
+
+    .section--content {
+      display: flex;
+      width: 100%;
+    }
+
+    table.trainings-table tr.tr-clicked td {
+      background-color: #ff8c00 !important;
+    }
+
+    .transitioned {
+      transition: top 500ms ease; /* Adjust the transition duration and easing function as needed */
+    }
+
+    .start--timer {
+      margin-top: 10px;
+    }
+    .start--timer h1 {
+      font-size: 22px;
+      color: #f2f2f2;
+    }
+
+    .trainig--overview {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      text-align: center; /* Center the text */
+    }
+
+    .trainig--overview h1 {
+      color: #f2f2f2;
+      display: flex;
+      margin: auto;
+    }
+
+    .training--buttons {
+      position: relative;
+      margin: auto;
+      width: 65%;
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Adjust the space between buttons as needed */
+      margin-top: 43px;
+      height: 60px;
+      border-radius: 20px; /* Adjust the radius as needed */
+    }
+
+    .training--buttons a {
+      margin-top: 12px;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+    }
+
+    .training--buttons a::before {
+      content: attr(
+          data-tooltip
+      ); /* Use the data-tooltip attribute value as content */
+      position: absolute;
+      top: -65px; /* Adjust the distance above the button */
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #222831; /* Tooltip background color */
+      color: #fff; /* Tooltip text color */
+      padding: 15px; /* Adjust padding as needed */
+      border-radius: 10px; /* Adjust the radius as needed */
+      opacity: 0; /* Initially make it invisible */
+      transition: opacity 0.3s ease; /* Add a transition for a smooth effect */
+      font-size: 16px; /* Adjust the font size as needed */
+    }
+
+    .training--buttons a:hover::before {
+      opacity: 1; /* Make the tooltip visible on hover */
+    }
+
+    .orange--text {
+      position: relative;
+      display: inline-block;
+      padding: 10px 20px; /* Adjust the padding for spacing around the text */
+      color: white; /* Set the text color to contrast with the background */
+    }
+
+    .start--traning {
+      margin-left: 92px;
+      height: 15rem;
+      width: 180px; /* Adjust the width as needed */
+      border-radius: 10px;
+      background-color: #f2f2f2; /* Adjust the background color as needed */
+      font-size: 23px; /* Adjust the font size as needed */
+      padding: 10px; /* Add more padding as needed */
+      /* border: 2px solid #ccc; Add border and adjust the color */
+      box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    .workout-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Center the content horizontally */
+      text-decoration: none;
+      color: #333; /* Adjust text color as needed */
+      padding: 12px;
+      background-color: #ff8c00;
+      width: 149%;
+      transition: background-color 0.3s ease; /* Add transition for a smooth effect */
+    }
+
+    .workout-btn:hover {
+      background-color: #e08c47; /* Change to your desired hover color */
+    }
+
+    .workout-btn h6 {
+      font-size: 16px; /* Adjust font size as needed */
+      margin: 0; /* Remove default margin */
+    }
+
+    .food-btn {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: #333; /* Adjust text color as needed */
+      padding: 12px;
+      background-color: #ff8c00;
+      width: 189.5%;
+
+      transition: background-color 0.3s ease; /* Add transition for a smooth effect */
+      left: -56px; /* Adjust the left position as needed */
+    }
+
+    .food-btn:hover {
+      background-color: #e08c47; /* Change to your desired hover color */
+    }
+
+    .food-btn h6 {
+      font-size: 16px; /* Adjust font size as needed */
+      margin: 0; /* Remove default margin */
+    }
+
+    .no--training {
+      margin-top: 50px;
+      width: 120%;
+      margin-left: 200px;
+      font-size: 15px;
+      color: #f2f2f2;
+    }
+
+    /*.add-training-section {*/
+    /*  margin-left: 130px;*/
+    /*  margin-top: 50px;*/
+    /*  border: none;*/
+    /*  width: 40%;*/
+    /*  height: 50px;*/
+    /*  !*font-size: 15px;*!*/
+    /*  border-radius: 10px;*/
+    /*  background-color: #f2f2f2; !* Adjust the background color as needed *!*/
+    /*  font-size: 23px; !* Adjust the font size as needed *!*/
+    /*}*/
+
+    .remove-btn {
+      width: 60px;
+      height: 50px;
+      background-color: #f2f2f2;
+      border: none;
+      border-radius: 20px;
+      font-size: 14px;
+      /*color: #393e46;*/
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      position: absolute;
+      margin-left: 30px;
+      margin-top: -40px;
+      color: #222831;
+    }
+
+
+    .remove-btn::before {
+      content: 'Remove';
+      position: absolute;
+      top: -40px; /* Adjust the distance from the button */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px;
+      background-color: #222831;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .remove-btn:hover::before {
+      opacity: 1;
+    }
+
+    .no-exercises {
+      margin-left: 200px;
+      color: #f2f2f2;
+      font-size: 15px;
+    }
+
+    .no--exercises-btn {
+      margin-left: 125px;
+      /* margin-top: px; */
+      border: none;
+      width: 30%;
+      height: 40px;
+      /*font-size: 15px;*/
+      border-radius: 10px;
+      background-color: #f2f2f2; /* Adjust the background color as needed */
+      font-size: 23px; /* Adjust the font size as needed */
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      transition: all 0.5s;
+    }
+
+    .remove-training,
+    .remove-exercise {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 60rem;
+      background-color: #f2f2f2;
+      padding: 5rem 6rem;
+      box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
+      border-radius: 15px;
+    }
+
+    .btn--close-modal {
+      font-family: inherit;
+      color: inherit;
+      position: absolute;
+      top: 0.5rem;
+      right: 2rem;
+      font-size: 4rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .training-remove--btns,
+    .exercise-remove--btns {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      /* margin-left: 5px; */
+    }
+
+    .training-remove--no,
+    .exercise-remove--no {
+      background-color: #333;
+      color: #f2f2f2;
+      font-size: 16px;
+      height: 3.5rem;
+      width: 10rem;
+      border-radius: 6px;
+      border-style: none;
+    }
+
+    .training-remove--yes,
+    .exercise-remove--yes {
+      margin-left: 25px;
+      background-color: #222831;
+      color: #f2f2f2;
+      font-size: 16px;
+      width: 10rem;
+      height: 3.5rem;
+      border-radius: 6px;
+      border-style: none;
+    }
+
+    .schedule-training,
+    .training-added,
+    .select-rounds,
+    .set-time-to-exercises,
+    .add-training-exercises,
+    .add-training-modal,
+    .add-exercise-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 60rem;
+      background-color: #f2f2f2;
+      padding: 5rem 6rem;
+      box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
+      border-radius: 15px;
+    }
+
+    .add-exercise-head {
+      margin-left: 70px;
+      padding-bottom: 10px;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .create-exercise-btn {
+      font-size: 20px;
+      width: 13.5rem;
+      height: 5rem;
+      margin-top: 30px;
+      margin-left: 95px;
+      border-radius: 10px;
+      color: #f2f2f2;
+      background-color: #e08c47;
+      border: none;
+      cursor: pointer;
+    }
+
+    .wrong-training-name,
+    .add-exercise-wrong,
+    .no-exercise-selected {
+      /*margin-left: 150px;*/
+      /*font-size: 18px;*/
+      display: flex;
+      justify-content: center;
+      color: #222831;
+    }
+
+    .add-exercise-values {
+      font-size: 18px;
+      padding-right: 15px;
+      color: #222831;
+    }
+
+    .exercise-name-value {
+      height: 23px;
+      width: 18rem;
+      outline: none;
+      border: none;
+      background: transparent;
+      background-color: white;
+      flex: 1;
+      /*transition: box-shadow 0, 25s;*/
+    }
+
+    .exercise-name-value:focus-within {
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+    }
+
+    .add-exercise-duration {
+      font-size: 18px;
+      padding-right: 70px;
+      color: #222831;
+    }
+
+    .checkboxes {
+      margin-top: 20px;
+    }
+
+    .add-exercise-repetition {
+      font-size: 18px;
+      padding-right: 57px;
+      color: #222831;
+    }
+
+    /* create training step 1 */
+    .step1-head {
+      display: flex;
+      justify-content: center;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .step1-msg {
+      display: flex;
+      justify-content: center;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .step1-name {
+      margin-left: 15px;
+      font-size: 18px;
+      padding-right: 15px;
+      color: #222831;
+    }
+
+    .step1-input {
+      height: 23px;
+      width: 18rem;
+      outline: none;
+      border: none;
+      background: transparent;
+      background-color: white;
+      flex: 1;
+      /*transition: box-shadow 0, 25s;*/
+    }
+
+    .step1-input:focus-within {
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+    }
+
+    .training-step-1-btn {
+      font-size: 20px;
+      width: 12rem;
+      height: 5rem;
+      margin-top: 30px;
+      margin-left: 70px;
+      border-radius: 10px;
+      color: #f2f2f2;
+      background-color: #e08c47;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* exercises to training*/
+    .step2-head {
+      display: flex;
+      justify-content: center;
+      /* margin-left: 90px; */
+      padding-bottom: 10px;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .step2-msg {
+      /* padding-bottom: 10px; */
+      display: flex;
+      justify-content: center;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .step2-btn {
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .custom-control-input {
+      height: 15px;
+      /* width: 18rem; */
+      outline: none;
+      border: none;
+      background: transparent;
+      background-color: white;
+      flex: 1;
+      /*transition: box-shadow 0, 25s;*/
+    }
+
+    .custom-control-label {
+      margin-left: 15px;
+      font-size: 18px;
+      padding-right: 15px;
+      color: #222831;
+    }
+
+    .training-step-2-btn {
+      font-size: 20px;
+      width: 12rem;
+      height: 5rem;
+      /* margin-left: 60px; */
+      border-radius: 10px;
+      color: #f2f2f2;
+      background-color: #e08c47;
+      border: none;
+      cursor: pointer;
+    }
+
+    /*set time to exercises */
+    .step3-head {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 10px;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .step3-msg {
+      /* padding-bottom: 10px; */
+      display: flex;
+      justify-content: center;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .rounds-wrong,
+    .not-all-set {
+      display: flex;
+      justify-content: center;
+      color: #222831;
+    }
+
+    .training-step-3-btn {
+      font-size: 20px;
+      width: 12rem;
+      height: 5rem;
+      margin-left: 65px;
+      margin-top: 30px;
+      border-radius: 10px;
+      color: #f2f2f2;
+      background-color: #e08c47;
+      border: none;
+      cursor: pointer;
+    }
+
+    .exercise-time-name {
+      display: flex;
+      justify-items: center;
+      align-items: center;
+      margin-left: 15px;
+      font-size: 18px;
+      padding-right: 15px;
+      margin-top: 10px;
+      color: #222831;
+    }
+
+    .exercise-time {
+      margin-top: 10px;
+      height: 23px;
+      width: 22rem;
+      margin-left: 15px;
+      outline: none;
+      border: none;
+      background: transparent;
+      background-color: white;
+      flex: 1;
+      transition: box-shadow 0, 25s;
+    }
+
+    .exercise-time:focus-within {
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+    }
+
+    .step4-head {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 10px;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .added-modal,
+    .step4-msg {
+      display: flex;
+      justify-content: center;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .step4-rounds {
+      margin-left: 15px;
+      font-size: 18px;
+      padding-right: 15px;
+      color: #222831;
+    }
+
+    .rounds-input {
+      height: 23px;
+      width: 18rem;
+      outline: none;
+      border: none;
+      background: transparent;
+      background-color: white;
+      flex: 1;
+      transition: box-shadow 0, 25s;
+    }
+
+    .rounds-input:focus-within {
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+    }
+
+    .schedule-training-btn,
+    .save-training-btn {
+      font-size: 20px;
+      width: 14rem;
+      height: 5rem;
+      margin-top: 30px;
+      margin-left: 78px;
+      border-radius: 10px;
+      color: #f2f2f2;
+      background-color: #e08c47;
+      border: none;
+      cursor: pointer;
+    }
+
+    input[type='date'] {
+      width: 30rem;
+      background-color: #ff8c00;
+      font-size: 18px;
+      font-family: 'Roboto Mono', monospace;
+      border: none;
+      outline: none;
+      border-radius: 5px;
+      color: #f2f2f2;
+    }
+
+    ::-webkit-calendar-picker-indicator {
+      background-color: #f2f2f2;
+      padding: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="button-container">
+    <a class="sidebar-btn sidebar--1 test icon_color">
+      <img src="/images/fire.png" />
+      <h6>Workout Zone</h6>
+    </a>
+    <div class="workout--btns">
+<!--      <a th:href="'/add/exercise/' + ${user.id}" class="workout-btn">-->
+<!--        <h6>Add Exercise</h6>-->
+<!--      </a>-->
+      <a href="#" class="workout-btn workout-exercise-add">
+        <h6>Add Exercise</h6>
+      </a>
+      <a href="#" class="workout-btn workout-training-add">
+        <h6>Add Training</h6>
+      </a>
+    </div>
+    <a th:href="@{'/activities/' + ${id}}" class="sidebar-btn sidebar--2">
+      <img src="/images/location2.png" />
+      <h6>Activity Spot</h6>
+    </a>
+    <a th:href="@{'/nutrition/' + ${id}}" class="sidebar-btn sidebar--2">
+      <img src="/images/spoon-knife.png" />
+      <h6>Nutrition Hub</h6>
+    </a>
+    <a href="#" class="sidebar-btn sidebar--3">
+      <img src="/images/clipboard.png" />
+      <h6>Progress Tracker</h6>
+    </a>
+  </div>
+</div>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="logo">
+    <img src="/images/logo2.png" />
+  </div>
+  <div class="user_info">
+    <a href="#" class="top-image">
+      <img src="/images/user.png" />
+    </a>
+    <h1 th:text='${user.name}'></h1>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="user--menu hidden">
+    <a href="#">
+      <img src="/images/history.png" />
+    </a>
+    <h2>History</h2>
+    <a href="#">
+      <img src="/images/cog.png" />
+    </a>
+    <h2>Settings</h2>
+    <a href="#">
+      <img src="/images/exit.png" />
+    </a>
+    <h2>Log out</h2>
+  </div>
+  <!-- Larger Rectangle on the Right -->
+  <div class="large-rectangle">
+    <div class="section--1">
+      <div class="text-section--1">
+        <h1 class="text--exercises">Exercises</h1>
+      </div>
+      <div class="exercises">
+        <th:block th:if="${exercises.isEmpty()}">
+          <div  class="no-exercises">
+            <h1>You dont have any exercises.</h1>
+<!--            <button class="no&#45;&#45;exercises-btn">Add Exercise</button>-->
+          </div>
+        </th:block>
+        <th:block th:if="${not exercises.isEmpty()}">
+        <div class="exercise-container">
+          <div class="exercise-grid">
+            <div class="exercise-card">
+              <h3 class="exercise-name"></h3>
+            </div>
+          </div>
+          <button class="scroll-btn prev-btn">&lt;</button>
+          <button class="scroll-btn next-btn">&gt;</button>
+          <a class="remove-btn">
+            <img src="/images/bin.png" />
+          </a>
+        </div>
+        </th:block>
+      </div>
+    </div>
+    <div class="section--2">
+      <div class="text-section--2">
+        <h1 class="text--exercises">Trainings</h1>
+        <div class="section--content">
+          <div class='trainings'>
+            <th:block th:if="${trainings.isEmpty()}">
+              <div class="no--training">
+                <h1>You dont have any trainings.</h1>
+<!--                <button class='add-training-section'>Add Training</button>-->
+              </div>
+            </th:block>
+            <th:block th:if="${not trainings.isEmpty()}">
+              <div class="trainings-table-container">
+                <table class="trainings-table">
+                  <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Exercises</th>
+                    <th>Rounds</th>
+                  </tr>
+                  </thead>
+                  <tbody class="table--body">
+                  <tr class="tr" th:each="training : ${trainings}">
+                    <td th:id='${training.id}' th:text="${training.name}"></td>
+                    <td>
+                  <span th:each="exercise, iterStat : ${training.exercises}">
+                      <span th:if='${!iterStat.last}' th:text="${exercise.name} + ','"></span>
+                      <span th:if='${iterStat.last}' th:text="${exercise.name}"></span>
+                  </span>
+                    </td>
+                    <td th:text="${training.rounds}"></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </th:block>
+          </div>
+        </div>
+        <div class="training--detail hidden">
+          <div class="trainig--overview">
+            <h1 id="trainingName"></h1>
+            <div class="training--buttons hidden">
+              <a style='cursor: pointer;' class='start-practice-btn' data-tooltip="Start">
+                <img src="/images/play2.png" />
+              </a>
+              <a style='cursor: pointer;' class='detail-training-btn' data-tooltip="Detail">
+                <img src="/images/eye.png" />
+              </a>
+              <a style='cursor: pointer;' data-tooltip="Schedule">
+                <img src="/images/calendar.png" />
+              </a>
+              <a style='cursor: pointer;' class='remove-training-btn' data-tooltip="Remove">
+                <img src="/images/bin.png" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="small-rectangle">
+    <!-- <h2>
+      You dont have scheduled any training. Feel free to schedule it in
+      training section
+    </h2> -->
+    <h2>You have scheduled training for today!</h2>
+    <h2 class="orange--text" id="scheduledTraining">Name of training</h2>
+    <button class="start--traning">Start Training!</button>
+  </div>
+  <div class="below-small-rectangle">
+    <div class="start--timer">
+      <h1>Start a Timer for any activity!</h1>
+      <button class="btn--timer">Start!</button>
+    </div>
+  </div>
+</div>
+<div class="remove-exercise hidden">
+<!--  <button class="btn&#45;&#45;close-modal">&times;</button>-->
+  <h1 class='exercise-remove-name'></h1>
+  <div class="exercise-remove--btns">
+    <button class="exercise-remove--no">No</button>
+    <button class="exercise-remove--yes">Yes</button>
+  </div>
+</div>
+<div class="add-exercise-modal hidden">
+  <button class="btn--close-modal close-exercise-modal">&times;</button>
+  <h1 class="add-exercise-head">Create Exercise</h1>
+  <h2 class="add-exercise-wrong"></h2>
+  <form class="modal__form">
+    <div>
+      <label class="add-exercise-values" for="exerciseName"
+      >Exercise Name</label
+      >
+      <input
+        class="exercise-name-value"
+        type="text"
+        id="exerciseName"
+        name="name"
+        placeholder="Enter exercise name"
+      />
+    </div>
+    <div class="checkboxes">
+      <label class="add-exercise-duration">Duration</label>
+      <input
+        type="checkbox"
+        id="durationCheckbox"
+        name="type"
+        value="duration"
+        onchange="updateCheckboxes(this)"
+      />
+    </div>
+    <div class="checkboxes">
+      <label class="add-exercise-repetition" for="durationCheckbox"
+      >Repetition</label
+      >
+      <input
+        type="checkbox"
+        id="repetitionCheckbox"
+        name="type"
+        value="repetition"
+        onchange="updateCheckboxes(this)"
+      />
+      <label for="repetitionCheckbox"></label>
+    </div>
+    <div>
+      <button class="create-exercise-btn" type="submit">
+        Create Exercise
+      </button>
+    </div>
+  </form>
+</div>
+<div class='add-training-modal hidden'>
+  <button class="btn--close-modal close-training-modal">&times;</button>
+  <h1 class="step1-head">Step 1</h1>
+  <h2 class="step1-msg">Choose Training Name</h2>
+  <h2 class="wrong-training-name"></h2>
+  <label for="nameOfTraining" class="step1-name">Name:</label>
+  <input class="step1-input" type="text" id="nameOfTraining" name="nameOfTraining" placeholder="Enter training name" required>
+  <div>
+  <input type="submit" value="Next" class="training-step-1-btn">
+  </div>
+</div>
+<div class="add-training-exercises hidden">
+  <button class="btn--close-modal close-training-exercises-modal">&times;</button>
+  <h1 class="step2-head">Step 2</h1>
+  <h1 class="step2-msg">Select Exercises</h1>
+  <h2 class="no-exercise-selected"></h2>
+  <div class='all-exercises'>
+<!--      <div class="custom-control custom-checkbox" th:each="exercise, iterStat : ${allExercises}">-->
+<!--        <input type="checkbox" class="custom-control-input" th:id="'exercise-' + ${exercise.id}" th:name="selectedExercises" th:value="${exercise.id}" onclick="updateSelectedExercises(this)" />-->
+<!--        <label class="custom-control-label" th:for="'exercise-' + ${exercise.id}" th:text="${exercise.name}"></label>-->
+<!--      </div>-->
+    </div>
+  <div class="step2-btn">
+    <input type="hidden" id="exerciseOrder" name="exerciseOrder" />
+    <input type="submit" value="Next" class="training-step-2-btn" />
+  </div>
+</div>
+
+<div class="set-time-to-exercises hidden">
+  <button class="btn--close-modal close-set-time-modal">&times;</button>
+  <h1 class="step3-head">Step 3</h1>
+  <h2 class="step3-msg">Set time for exercises</h2>
+  <h2 class="not-all-set"></h2>
+  <div class="select-time">
+<!--    <div class="custom-control custom-checkbox" th:each="exercise : ${allExercises}">-->
+<!--      <label for="duration" th:text='${exercise.name}'></label>-->
+<!--      <input type="number" class="form-control exercise-time" id="duration" name="duration" required>-->
+<!--    </div>-->
+  </div>
+    <input type="hidden" id="values" name="values" />
+    <button class='training-step-3-btn' type="submit">Next</button>
+</div>
+<div class="select-rounds hidden">
+  <button class="btn--close-modal close-rounds-modal">&times;</button>
+  <h1 class="step4-head">Step 4</h1>
+  <h2 class="step4-msg">Choose Training rounds</h2>
+  <h2 class="rounds-wrong"></h2>
+    <label for="rounds" class="step4-rounds">Rounds:</label>
+    <input class="rounds-input" type="number" id="rounds" name="rounds" placeholder='Enter rounds' required>
+  <div>
+    <input class="save-training-btn" type="submit" value="Save training">
+  </div>
+</div>
+<div class="schedule-training hidden">
+  <button class="btn--close-modal close-schedule-modal">&times;</button>
+  <h2 class="step4-msg">Schedule training</h2>
+  <h2 class="schedule-wrong"></h2>
+  <input type="date" id="date" />
+  <div>
+    <input
+      id="schedule-training-btn"
+      class="schedule-training-btn"
+      type="submit"
+      value="Schedule"
+    />
+  </div>
+</div>
+<div class="training-added hidden">
+  <button class="btn--close-modal btn--close-added">&times;</button>
+  <h2 class="added-modal">Training detail</h2>
+  <h1 style="color: #ff8c00">Name:</h1>
+  <h2 style="color: #222831" class='new-training-name'></h2>
+  <h1 style="color: #ff8c00">Exercises:</h1>
+  <div class="new-exercises-container">
+<!--  <h2 style="color: #222831">vypady na nohe, 10s</h2>-->
+<!--  <h2 style="color: #222831">jednorucky na lavicke, 10s</h2>-->
+<!--  <h2 style="color: #222831">kliky, 10r</h2>-->
+  </div>
+  <h1 style="color: #ff8c00">Rounds:</h1>
+  <h2 style="color: #222831" class='new-training-rounds'>10</h2>
+  </div>
+</div>
+<div class="remove-training hidden">
+<!--  <button class="btn&#45;&#45;close-modal">&times;</button>-->
+  <h1 class='training-remove-name'></h1>
+  <div class="training-remove--btns">
+    <button class="training-remove--no">No</button>
+    <button class="training-remove--yes">Yes</button>
+  </div>
+</div>
+<div class="overlay hidden"></div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  const navContainer = document.querySelector('.button-container');
+  const icons = document.querySelectorAll('.sidebar-btn');
+  const userMenu = document.querySelector('.user--menu');
+  const account = document.querySelector('.top-image');
+  const table = document.querySelector('.table--body');
+  const trainingDetail = document.querySelector('.training--detail');
+  const traingButtonsContainer =
+    document.querySelector('.training--buttons');
+
+
+  const showMenu = function (e) {
+    e.preventDefault();
+    userMenu.classList.remove('hidden');
+  };
+
+  const closeMenu = function () {
+    userMenu.classList.add('hidden');
+  };
+
+
+  const exerciseCard = document.querySelector('.exercise-card h3');
+  const nextBtn = document.querySelector('.next-btn');
+  const prevBtn = document.querySelector('.prev-btn');
+  let exercises = /*[[${exercises}]]*/ [];
+  let currentExerciseIndex = 0;
+
+  // const setExerciseCard = function () {
+  //   exerciseCard.style.opacity = 0;
+  //   // Wait for the opacity transition to complete
+  //   setTimeout(() => {
+  //     exerciseCard.textContent = exercises[0].name;
+  //     exerciseCard.style.opacity = 1;
+  //   }, 350);
+  // };
+
+  const updateCartContentToNewExercise = function() {
+    exerciseCard.style.opacity = 0;
+    setTimeout(() => {
+      currentExerciseIndex = exercises.length - 1;
+      exerciseCard.textContent = exercises[currentExerciseIndex].name;
+      exerciseCard.style.opacity = 1;
+    }, 350);
+  }
+
+  const updateCardContent = function (direction) {
+    exerciseCard.style.opacity = 0;
+
+    // Wait for the opacity transition to complete
+    setTimeout(() => {
+      if (direction === 'next') {
+        currentExerciseIndex =
+          (currentExerciseIndex + 1) % exercises.length;
+      } else if (direction === 'prev') {
+        currentExerciseIndex =
+          (currentExerciseIndex - 1 + exercises.length) %
+          exercises.length;
+      }
+
+      exerciseCard.textContent = exercises[currentExerciseIndex].name;
+      exerciseCard.style.opacity = 1;
+    }, 350);
+  };
+
+  if (exercises.length > 0) {
+    nextBtn.addEventListener('click', () => updateCardContent('next'));
+    prevBtn.addEventListener('click', () => updateCardContent('prev'));
+  }
+
+  const removeExerciseModal = document.querySelector(".remove-exercise");
+  const overlay = document.querySelector(".overlay");
+  const removeExerciseBtn = document.querySelector(".remove-btn");
+  const exerciseToRemoveName = document.querySelector(".exercise-remove-name");
+  const removeExerciseNoBtn = document.querySelector(".exercise-remove--no");
+  const removeExerciseYesBtn = document.querySelector(".exercise-remove--yes");
+  const userid = /*[[${id}]]*/ 0;
+
+  const exercisesSection = document.querySelector(".section--1");
+  const exercisesContainer = document.querySelector(".exercises");
+
+  const openRemoveExerciseModal = function(e) {
+    e.preventDefault();
+    exerciseToRemoveName.textContent = `Do you want to remove exercise: ${exercises[currentExerciseIndex].name}?`;
+    removeExerciseModal.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+  }
+
+  const closeRemoveExerciseModal = function() {
+    removeExerciseModal.classList.add('hidden');
+    overlay.classList.add('hidden');
+  }
+
+  if (exercises.length > 0) {
+    removeExerciseBtn.addEventListener("click", openRemoveExerciseModal);
+    removeExerciseNoBtn.addEventListener("click", closeRemoveExerciseModal);
+  }
+
+  removeExerciseYesBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    const apiEndpoint = '/' + userid + '/delete/exercise/' + exercises[currentExerciseIndex].id;
+
+    fetch(apiEndpoint, {
+      method: 'POST',
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json(); // Parse the response body as JSON
+    })
+    .then(data => {
+      // Handle the returned exercises data
+      exercises = data;
+      if (exercises != null && exercises.length > 0) {
+        closeRemoveExerciseModal();
+        updateCardContent("next");
+        console.log('Exercises:', data);
+      } else {
+        closeRemoveExerciseModal();
+        exercisesContainer.innerHTML = "";
+        const noExercisesHTML = `
+            <div class="no-exercises">
+              <h1>You don't have any exercises.</h1>
+<!--              <button class="no&#45;&#45;exercises-btn">Add Exercise</button>-->
+            </div>
+         `;
+        exercisesSection.insertAdjacentHTML("beforeend", noExercisesHTML);
+        // window.location.reload();
+      }
+
+      // Now you can do something with the exercises data
+      // For example, update the UI or perform other actions
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  });
+
+  //=====ADD EXERCISE===============
+  const addExerciseMenuBtn = document.querySelector(".workout-exercise-add");
+  const addExerciseModal = document.querySelector(".add-exercise-modal");
+  const addExerciseWrong = document.querySelector(".add-exercise-wrong");
+  const xBtnExerciseAddModal = document.querySelector(".close-exercise-modal");
+
+  const createExerciseBtn = document.querySelector(".create-exercise-btn");
+  const noExerciseSection = document.querySelector(".no-exercises");
+  const exerciseName = document.getElementById('exerciseName');
+  const durationCheckbox = document.getElementById('durationCheckbox');
+  const repetitionCheckbox = document.getElementById('repetitionCheckbox');
+
+
+  const setDefaultValue = function() {
+    exerciseName.value = "";
+    addExerciseWrong.textContent = "";
+    durationCheckbox.checked = false;
+    repetitionCheckbox.checked = false;
+  }
+
+  const openAddExerciseModal = function(e) {
+    e.preventDefault();
+    addExerciseModal.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+  }
+
+  const closeExerciseModal = function() {
+    addExerciseModal.classList.add('hidden');
+    overlay.classList.add('hidden');
+
+    setTimeout(() => {
+      setDefaultValue();
+    }, 1000);
+  }
+
+  addExerciseMenuBtn.addEventListener("click", openAddExerciseModal);
+  xBtnExerciseAddModal.addEventListener("click", closeExerciseModal);
+
+  function updateCheckboxes(clickedCheckbox) {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    checkboxes.forEach(checkbox => {
+      if (checkbox !== clickedCheckbox) {
+        checkbox.checked = false;
+      }
+    });
+  }
+
+  function validateForm() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let atLeastOneChecked = false;
+
+    console.log(atLeastOneChecked);
+    checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+        atLeastOneChecked = true;
+      }
+    });
+
+    if (!atLeastOneChecked) {
+      addExerciseWrong.textContent = 'Please select at least one checkbox.';
+      // alert('Please select at least one checkbox.');
+      return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
+  }
+
+
+  createExerciseBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+    const apiEndpoint = '/save/exercise/' + userid;
+
+    const exerciseNameValue = exerciseName.value;
+    if (exerciseNameValue.trim() === "") {
+      addExerciseWrong.textContent = 'Please choose exercise name.';
+      return;
+    }
+    const durationCheckboxValue = durationCheckbox.checked;
+    const repetitionCheckboxValue = repetitionCheckbox.checked;
+
+    const formData = new FormData();
+    formData.append('name', exerciseNameValue);
+    formData.append('type', durationCheckboxValue ? 'duration' : 'repetition');
+
+
+    fetch(apiEndpoint, {
+      method: 'POST',
+      body: formData,
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(data => {
+          throw new Error(data.message || 'Network response was not ok');
+        });
+      }
+      return response.json(); // Parse the response body as JSON
+    })
+    .then(data => {
+      // Handle the returned exercises data
+      if (exercises.length > 0) {
+        exercises.push(data);
+        closeExerciseModal();
+        updateCartContentToNewExercise();
+        setTimeout(function () {
+          setDefaultValue();
+        }, 1000);
+      } else {
+        // console.log(noExerciseSection);
+        // console.log(exercisesSection);
+        // if (exercisesSection.lastElementChild) {
+        //   // Remove the last child
+        //   exercisesSection.lastElementChild.remove();
+        // }
+        // const noExercisesHTML = `
+        //     <div class="exercise-container">
+        //       <div class="exercise-grid">
+        //         <div class="exercise-card">
+        //           <h3 class="exercise-name"></h3>
+        //         </div>
+        //       </div>
+        //       <button class="scroll-btn prev-btn">&lt;</button>
+        //       <button class="scroll-btn next-btn">&gt;</button>
+        //       <a class="remove-btn">
+        //         <img src="/images/bin.png" />
+        //       </a>
+        //   </div>
+        //  `;
+        // exercisesSection.insertAdjacentHTML("beforeend", noExercisesHTML);
+        exercises.push(data);
+        closeExerciseModal();
+        // updateCardContent("next");
+        setTimeout(function () {
+          setDefaultValue();
+        }, 1000);
+        window.location.reload();
+      }
+      // Now you can do something with the exercises data
+      // For example, update the UI or perform other actions
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+      addExerciseWrong.textContent = error.message;
+    });
+  });
+  // Initial content setup
+  if (exercises.length > 0) {
+    updateCardContent();
+  }
+
+  //trinings table
+  const trainingSection = document.querySelector(".section--content");
+  let trainings = /*[[${trainings}]]*/ [];
+
+
+  //add training
+  const addTrainingBtn = document.querySelector(".workout-training-add");
+  const addTrainingModal = document.querySelector(".add-training-modal");
+  const xBtnTrainingModal = document.querySelector(".close-training-modal");
+  const wrongTrainingName = document.querySelector('.wrong-training-name');
+
+
+  const openAddTrainingModal = function(e) {
+    e.preventDefault();
+    addTrainingModal.classList.remove('hidden');
+    overlay.classList.remove('hidden');
+  }
+
+  const step1NameValue = document.querySelector(".step1-input");
+  const removeValuesFromStep1 = function() {
+    wrongTrainingName.textContent = "";
+    step1NameValue.value = "";
+  }
+
+  const closeTrainingModal = function() {
+    addTrainingModal.classList.add('hidden');
+    overlay.classList.add('hidden');
+    setTimeout(function () {
+      removeValuesFromStep1();
+    }, 1000);
+  }
+
+  addTrainingBtn.addEventListener("click", openAddTrainingModal);
+  xBtnTrainingModal.addEventListener("click", closeTrainingModal);
+
+  function Training(name = "", exerciseOrder = "", exerciseValues = "", rounds = 0) {
+    this.name = name;
+    this.exerciseOrder = exerciseOrder;
+    this.exerciseValues = exerciseValues;
+    this.rounds = rounds;
+  }
+
+  const newTraining = new Training();
+  // trainig1.name = "Viktor";
+  // trainig1.exerciseOrder = "3,1,4";
+
+  console.log(newTraining);
+
+  const moveToStep2Btn = document.querySelector(".training-step-1-btn");
+  const nameOfTrainingInput = document.getElementById('nameOfTraining');
+  const addExercisesToTrainingModal = document.querySelector(".add-training-exercises");
+  const allExercisesContainer = document.querySelector('.all-exercises');
+  const closeStep2ModalBtn = document.querySelector(".close-training-exercises-modal");
+
+  function createExerciseCheckbox(exercise) {
+    const div = document.createElement('div');
+    div.classList.add('custom-control', 'custom-checkbox');
+
+    const input = document.createElement('input');
+    input.type = 'checkbox';
+    input.classList.add('custom-control-input');
+    input.id = 'exercise-' + exercise.id;
+    input.name = 'selectedExercises';
+    input.value = exercise.id;
+    input.addEventListener('click', function () {
+      updateSelectedExercises(this);
+    });
+
+    const label = document.createElement('label');
+    label.classList.add('custom-control-label');
+    label.htmlFor = 'exercise-' + exercise.id;
+    label.textContent = exercise.name;
+
+    div.appendChild(input);
+    div.appendChild(label);
+    return div;
+  }
+
+  const allExercisesForTraining = document.querySelectorAll(".custom-control-input");
+  const noExercisesSelected = document.querySelector(".no-exercise-selected");
+  const moveToStep3Btn = document.querySelector(".training-step-2-btn");
+
+
+  let selectedExercises = [];
+
+  function updateSelectedExercises(checkbox) {
+    const exerciseId = checkbox.value;
+
+    if (checkbox.checked) {
+      selectedExercises.push(exerciseId);
+    } else {
+      selectedExercises = selectedExercises.filter(
+        (item) => item !== exerciseId
+      );
+    }
+
+    console.log(selectedExercises);
+    // document.getElementById("exerciseOrder").value =
+    //   selectedExercises.join(",");
+  }
+
+  const trainingNameAlreadyExist = function(newTrainingName) {
+    return trainings.some(training => training.name.toLowerCase() === newTrainingName.toLowerCase());
+  }
+
+
+  moveToStep2Btn.addEventListener("click", function(e) {
+    e.preventDefault();
+    const nameOfTrainingValue = nameOfTrainingInput.value.trim();
+
+    if (nameOfTrainingValue === '') {
+      // Display an error message if the value is empty
+      wrongTrainingName.textContent = 'Choose training name';
+      return false;
+    } else if (trainingNameAlreadyExist(nameOfTrainingValue)) {
+      console.log(trainings);
+      wrongTrainingName.textContent = 'Training name already exist';
+      return false;
+    } else {
+      newTraining.name = nameOfTrainingInput.value;
+      wrongTrainingName.textContent = "";
+      // closeTrainingModal();
+      addTrainingModal.classList.add('hidden');
+      console.log(exercises);
+      if (exercises.length > 0) {
+        exercises.forEach(function (exercise) {
+          const exerciseCheckbox = createExerciseCheckbox(exercise);
+          allExercisesContainer.appendChild(exerciseCheckbox);
+        });
+        moveToStep3Btn.classList.remove("hidden");
+      } else {
+        allExercisesContainer.innerHTML=`
+        <h2 class='wrong-training-name'>First you need to add exercises</h2>
+        `
+        moveToStep3Btn.classList.add("hidden");
+        setTimeout(function () {
+          addExercisesToTrainingModal.classList.add("hidden");
+          addExerciseModal.classList.remove("hidden");
+        }, 2000);
+      }
+      addExercisesToTrainingModal.classList.remove("hidden");
+    }
+  });
+
+  const removeValuesFromStep2 = function() {
+    const allCheckboxes = allExercisesContainer.querySelectorAll('input[type="checkbox"]');
+
+    console.log(allCheckboxes);
+    removeValuesFromStep1();
+    noExercisesSelected.textContent = "";
+    allExercisesContainer.innerHTML = '';
+    selectedExercises = [];
+    allCheckboxes.forEach(checkbox => {
+      checkbox.checked = false;
+    })
+  }
+
+  closeStep2ModalBtn.addEventListener("click", function() {
+    addExercisesToTrainingModal.classList.add("hidden");
+    overlay.classList.add('hidden');
+    setTimeout(function () {
+      removeValuesFromStep2();
+    }, 1000);
+  })
+
+  const setTimeToExercisesModal = document.querySelector(".set-time-to-exercises");
+  const selectTimeContainer = document.querySelector('.select-time');
+
+  function findExercisesAndMoveToNextStep() {
+    const selectedExercisesByOrder = selectedExercises.map(id => {
+      // Convert each ID to a number before finding in the exercises array
+      const numericId = Number(id);
+      return exercises.find(exercise => exercise.id === numericId);
+    });
+    selectTimeContainer.innerHTML = '';
+    selectedExercisesByOrder.forEach(exercise => {
+      const exerciseDiv = document.createElement('div');
+      exerciseDiv.classList.add('custom-control', 'custom-checkbox');
+
+      const label = document.createElement('label');
+      label.setAttribute('for', 'duration');
+      label.classList.add('exercise-time-name');
+      label.textContent = exercise.name;
+
+      const input = document.createElement('input');
+      input.setAttribute('type', 'number');
+      input.classList.add('exercise-time');
+      input.setAttribute('id', 'duration');
+      input.setAttribute('name', 'duration');
+      input.setAttribute('required', 'required')
+      input.setAttribute("placeholder",`${exercise.type === 'duration' ? "Enter duration" : "Enter repetitions"}`);
+
+      exerciseDiv.appendChild(label);
+      exerciseDiv.appendChild(input);
+
+      selectTimeContainer.appendChild(exerciseDiv);
+    });
+  }
+
+  const closeSetTimesModalBtn = document.querySelector(".close-set-time-modal");
+  const missingInput = document.querySelector(".not-all-set")
+
+  const removeValuesFromStep3 = function() {
+    missingInput.textContent = "";
+    removeValuesFromStep1();
+    removeValuesFromStep2();
+    const allInputs = selectTimeContainer.querySelectorAll('input');
+    allInputs.forEach(input => {
+      input.value = "";
+    });
+  }
+
+  closeSetTimesModalBtn.addEventListener("click", function() {
+    overlay.classList.add("hidden");
+    setTimeToExercisesModal.classList.add("hidden");
+    setTimeout(function () {
+      removeValuesFromStep3();
+    }, 1000);
+  })
+  moveToStep3Btn.addEventListener("click", function(e) {
+    e.preventDefault();
+    console.log("tu som");
+    if (selectedExercises.length > 0) {
+      newTraining.exerciseOrder = selectedExercises.join(",");
+      findExercisesAndMoveToNextStep();
+      addExercisesToTrainingModal.classList.add("hidden");
+      setTimeToExercisesModal.classList.remove("hidden");
+    } else {
+      noExercisesSelected.textContent = `Select at least one exercise`;
+    }
+  })
+
+  const moveToStep4Btn = document.querySelector(".training-step-3-btn");
+  const addRoundsModal = document.querySelector(".select-rounds");
+  const closeRoundsModalBtn = document.querySelector(".close-rounds-modal");
+  const missingRounds = document.querySelector(".rounds-wrong");
+  const roundsInput = document.querySelector(".rounds-input");
+
+  const removeValuesFromStep4 = function() {
+    removeValuesFromStep1();
+    removeValuesFromStep2();
+    removeValuesFromStep3();
+    roundsInput.value = "";
+    missingRounds.textContent = "";
+  }
+
+  closeRoundsModalBtn.addEventListener("click", function() {
+    addRoundsModal.classList.add("hidden");
+    overlay.classList.add("hidden");
+    setTimeout(function () {
+      removeValuesFromStep4();
+    }, 1000);
+  })
+
+  let times = [];
+  const setTimesToExercises =  function() {
+    const values = document.querySelectorAll(".exercise-time");
+    values.forEach(v => {
+      times.push(v.value);
+    })
+    // document.getElementById("values").value =
+    //   times.join(",");
+  };
+
+
+  moveToStep4Btn.addEventListener("click", function(e) {
+    e.preventDefault();
+    setTimesToExercises();
+
+    let missing = false;
+    console.log("Missing na zaciatku : " + missing);
+    console.log(times);
+    for (let i = 0; i < times.length; i++) {
+      let time = times[i];
+      if (time <= 0 || time.includes(".") || time.includes(",")) {
+        missing = true;
+        break; // Exit the loop if a time less than or equal to 0 is found
+      }
+    }
+    console.log("Missing po zmene : " + missing);
+    if (missing) {
+        missingInput.textContent = `Set positive whole numbers`;
+        times = [];
+        return false;
+      } else {
+      missingInput.textContent = "";
+        newTraining.exerciseValues = times.join(",");
+        console.log(newTraining);
+      setTimeToExercisesModal.classList.add("hidden");
+      addRoundsModal.classList.remove("hidden");
+    }
+  })
+
+  const saveTrainingBtn = document.querySelector(".save-training-btn");
+  const trainingAddedModal = document.querySelector(".training-added");
+
+
+  const trainingAddedMsg = function(training, exercises, message, types) {
+    document.querySelector(".added-modal").textContent = message;
+
+    const exercisesContainer = document.querySelector(".new-exercises-container");
+
+    const exercisesArray = exercises.split(",");
+    const values = training.exerciseValues.split(",");
+
+    const typesOfExercises = types.split(",");
+
+    exercisesArray.forEach((exercise, index) => {
+      const html = `<h2 style="color: #222831">${exercise}, ${values[index]}${typesOfExercises[index] === 'repetition' ? 'r' : 's'}</h2>`
+      exercisesContainer.insertAdjacentHTML("beforeend", html);
+    })
+
+    document.querySelector(".new-training-name").textContent = `${training.name}`;
+    document.querySelector(".new-training-rounds").textContent = `${training.rounds}`;
+    trainingAddedModal.classList.remove('hidden');
+    addRoundsModal.classList.add("hidden");
+    overlay.classList.remove("hidden");
+  }
+
+  const removeTrainingAddedMsg = function() {
+    const exercisesContainer = document.querySelector(".new-exercises-container");
+    exercisesContainer.textContent = "";
+    document.querySelector(".added-modal").textContent = "";
+    document.querySelector(".new-training-name").textContent = "";
+    document.querySelector(".new-training-rounds").textContent = "";
+  }
+
+  saveTrainingBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (roundsInput.value <= 0 || roundsInput.value.includes(".") || roundsInput.value.includes(",")) {
+      missingRounds.textContent = "You need to enter positive whole number";
+    } else {
+      newTraining.rounds = roundsInput.value;
+      console.log(newTraining);
+      const apiEndpoint = '/save/training/' + userid;
+
+      const formData = new FormData();
+      formData.append('name', newTraining.name);
+      formData.append('exerciseOrder', newTraining.exerciseOrder);
+      formData.append("exerciseValues", newTraining.exerciseValues);
+      formData.append("rounds", newTraining.rounds.toString());
+
+      fetch(apiEndpoint, {
+        method: 'POST',
+        body: formData,
+      })
+      .then(response => {
+        console.log('Response headers:', response.headers);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const { training, exercises, exercisesTypes } = data;
+
+        console.log('Training object:', training);
+        console.log('Exercises string:', exercises);
+
+        if (trainings.length > 0) {
+          trainings.push(training);
+          const rowAdd = `
+          <tr class='tr'>
+            <td id='${training.id}'>${training.name}</td>
+            <td>${exercises}</td>
+            <td>${training.rounds}</td>
+          </tr>
+        `;
+          const tbody = document.querySelector('.table--body');
+          tbody.insertAdjacentHTML('afterbegin', rowAdd);
+
+          trainingAddedMsg(training, exercises, "Training added", exercisesTypes);
+          setTimeout(function () {
+            trainingAddedModal.classList.add('hidden');
+            overlay.classList.add('hidden');
+            console.log('First set of actions completed');
+            setTimeout(function () {
+              removeTrainingAddedMsg();
+              removeValuesFromStep4();
+              console.log('Second set of actions completed');
+            }, 1000);
+          }, 2000);
+        } else {
+          trainings.push(training);
+          trainingAddedMsg(training, exercises, "Training added", exercisesTypes);
+          setTimeout(function () {
+            removeTrainingAddedMsg();
+            removeValuesFromStep4();
+            window.location.reload();
+          }, 3000);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
+    }
+  })
+
+  document.querySelector(".btn--close-added").addEventListener("click", function(e) {
+    e.preventDefault();
+    trainingAddedModal.classList.add('hidden');
+    overlay.classList.add('hidden');
+    setTimeout(function () {
+      removeTrainingAddedMsg();
+    }, 1000);
+  })
+
+
+  let clicked = 0;
+  account.addEventListener('click', function (e) {
+    e.preventDefault();
+    clicked++;
+    if (clicked % 2 !== 0) {
+      showMenu(e);
+    }
+    if (clicked % 2 === 0) {
+      closeMenu();
+    }
+  });
+
+  let clickedElement;
+  let removed = false;
+  let trainingId;
+  let trainingName;
+  let exercisesFromTable;
+
+  if (trainings.length > 0) {
+    table.addEventListener('click', function (e) {
+      const tr = document.querySelectorAll('.tr');
+      e.preventDefault();
+      const clicked = e.target.closest('.tr');
+      const trainingNameElement = document.getElementById('trainingName');
+      trainingNameElement.textContent = '';
+      traingButtonsContainer.classList.add('hidden');
+      trainingDetail.classList.add('hidden');
+      tr.forEach(tr => tr.classList.remove('tr-clicked'));
+      if (clickedElement === clicked && removed === false) {
+        removed = true;
+        return;
+      }
+      clickedElement = clicked;
+      console.log(clickedElement);
+      trainingId = clicked.querySelector('td:first-child').id;
+      trainingName = clicked.querySelector('td:first-child').textContent;
+      exercisesFromTable = clicked.querySelector('td:nth-child(2)').textContent;
+      clicked.classList.add('tr-clicked');
+      traingButtonsContainer.classList.remove('hidden');
+      trainingDetail.classList.remove('hidden');
+      const textContent = clickedElement.textContent.split('\n');
+      trainingNameElement.textContent = `${textContent[1].trim()}`;
+      removed = false;
+      // const foundTraining = trainings.find(training => training.id === trainingId);
+      // console.log(trainings);
+      // console.log("founded training: " + foundTraining);
+    });
+  }
+  //remove trainings
+  const removeTrainingBtn = document.querySelector(".remove-training-btn");
+  const removeTrainingModal = document.querySelector(".remove-training");
+  const removeTrainingNoBtn = document.querySelector(".training-remove--no");
+  const removeTrainingYesBtn = document.querySelector(".training-remove--yes");
+  const removeTraininigMsg = document.querySelector(".training-remove-name");
+  const trainingPart = document.querySelector(".section--2");
+  const trainingContainer = document.querySelector(".trainings");
+  const detailTrainingBtn = document.querySelector(".detail-training-btn");
+  const startPracticeBtn = document.querySelector(".start-practice-btn");
+
+
+  startPracticeBtn.addEventListener("click", function(e) {
+    // /{userId}/training/{trainingId}
+    window.location.href = 'http://localhost:8080/' + userid + '/training/' + trainingId;
+  })
+
+
+  detailTrainingBtn.addEventListener("click", function() {
+    console.log(trainings);
+    console.log(trainingId);
+    const foundTraining = trainings.find(training => training.id === parseInt(trainingId, 10));
+    console.log(foundTraining);
+    console.log(trainingId);
+    const helpArray = exercisesFromTable.split(",");
+    let myExercisesArray = [];
+    helpArray.forEach(e => myExercisesArray.push(e.trim()));
+    const myExercises = myExercisesArray.join(",");
+    const apiEndpoint = '/' + userid + '/find/types/' + trainingId;
+
+    fetch(apiEndpoint, {
+      method: 'POST',
+    })
+    .then(response => {
+      console.log(response);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log("data : " + data.types);
+      trainingAddedMsg(foundTraining, myExercises, "Training detail", data.types);
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  })
+
+
+  const closeRemoveTrainingModal = function() {
+    removeTrainingModal.classList.add("hidden");
+    overlay.classList.add('hidden');
+  }
+  removeTrainingBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    removeTraininigMsg.textContent = `Do you want to remove training: ${trainingName}?`;
+    removeTrainingModal.classList.remove("hidden");
+    overlay.classList.remove('hidden');
+  })
+
+  removeTrainingNoBtn.addEventListener("click", closeRemoveTrainingModal);
+
+  removeTrainingYesBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    const apiEndpoint = '/' + userid + '/delete/training/' + trainingId;
+
+    fetch(apiEndpoint, {
+      method: 'POST',
+    })
+    .then(response => {
+      console.log(response);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json(); // Parse the response body as JSON
+    })
+    .then(data => {
+      // Handle the returned exercises data
+      trainings = data;
+      console.log(trainings);
+      if (trainings != null && trainings.length > 0) {
+        closeRemoveTrainingModal();
+        trainingDetail.classList.add('hidden');
+        clickedElement.remove();
+        console.log('Exercises:', data);
+      }
+      else {
+        closeRemoveTrainingModal();
+        trainingContainer.innerHTML = "";
+        const noTrainingHTML = `
+            <div class="no--training">
+                <h1>You dont have any trainings.</h1>
+<!--                <button class='add-training-section'>Add Training</button>-->
+            </div>
+         `;
+        trainingDetail.classList.add('hidden');
+        setTimeout(function () {
+          trainingPart.insertAdjacentHTML("beforeend", noTrainingHTML);
+        }, 1000);
+        // window.location.reload();
+      }
+
+      // Now you can do something with the exercises data
+      // For example, update the UI or perform other actions
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
+  });
+
+  const startTimerBtn = document.querySelector(".btn--timer");
+  startTimerBtn.addEventListener("click", function(e) {
+    window.location.href = `http://localhost:8080/interval/practice/${userid}`;
+  })
+
+  /*]]>*/
+</script>
+</body>
+</html>

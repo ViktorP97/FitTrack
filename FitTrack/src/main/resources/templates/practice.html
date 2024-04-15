@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Website Title</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    html {
+      font-size: 62.5%;
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+      background-color: #222831;
+    }
+
+    .top-bar {
+      background-color: #f2f2f2;
+      color: black;
+      display: flex;
+      height: 9rem;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo {
+      display: inline-block;
+      margin-left: 20px;
+    }
+
+    .logo img {
+      width: 500px;
+      height: 300px;
+      margin-top: 10px;
+      margin-left: -160px;
+    }
+
+    .top-image {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .top-image img {
+      height: 30px;
+    }
+
+    .sidebar {
+      background-color: #ff8c00;
+      width: 210px;
+      height: 100vh; /* Set height to full height of the screen */
+      position: fixed;
+      top: 0; /* Start at the top of the screen */
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; /* Center items vertically */
+      padding-top: 60px; /* Adjust top padding to avoid overlap with top bar */
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sidebar-btn {
+      text-decoration: none;
+      color: #333;
+      padding: 10px;
+      width: 348.3%;
+      box-sizing: border-box;
+      text-align: center;
+      border: none;
+      outline: none;
+      /* margin-bottom: 50px; */ /* medzera medzi iconami*/
+      position: relative;
+      overflow: hidden;
+      font-size: 22px;
+    }
+
+    .sidebar-btn h6 {
+      margin: 0; /* Remove default margin */
+    }
+
+    .sidebar-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 99.5%;
+      height: 100%;
+      background: linear-gradient(to right, #ffc774, #ffc774);
+      z-index: -1;
+      transition: all 300ms ease-in-out;
+    }
+
+    .sidebar-btn:hover::before {
+      left: 0;
+    }
+
+    .icon_color {
+      background-color: #ffc774;
+      width: 159%;
+    }
+
+    .main-content {
+      margin-top: 15px; /* Adjust to match the top bar height */
+      margin-left: 120px; /* Adjust to match the width of the sidebar */
+      padding: 20px;
+      height: 100%;
+      overflow: hidden; /* Add this to clear the float */
+    }
+
+    .large-rectangle {
+      background-color: #222831; /* Adjust the background color as needed */
+      height: 300px; /* Adjust the height as needed */
+      width: 35%; /* Adjust the width as needed */
+      float: right;
+      display: flex;
+      flex-direction: column; /* Change to column to stack sections */
+      margin: 40px 30px 20px 65px;
+    }
+
+    .section--1 {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 40rem;
+      border-radius: 20px;
+      font-size: 14px;
+      background-color: #222831;
+    }
+
+    .section--1 h1 {
+      color: #f2f2f2;
+    }
+
+    .section--2 {
+      position: relative;
+      background-color: #393e46;
+      border-radius: 20px;
+      height: 34rem;
+      margin-top: 30px;
+      margin-left: 160px;
+      width: 35%;
+    }
+
+    .start--btn,
+    .pause--btn,
+    .done--btn {
+      position: absolute;
+      top: 30px; /* Adjust top position as needed */
+      left: 20px; /* Adjust left position as needed */
+      background-color: #f2f2f2;
+      padding: 15px 20px;
+      border-radius: 10px;
+      font-size: 30px;
+      border: none;
+      box-sizing: border-box; /* Include padding and border in the total width and height */
+      transition: opacity 0.3s ease; /* Add transition for smoother hide/show */
+    }
+
+    .start--btn {
+      margin-left: 10px;
+    }
+
+    .done--btn {
+      margin-left: 7px;
+    }
+
+    .small-rectangle {
+      background-color: #393e46;
+      height: 500px;
+      width: 50%;
+      float: right;
+      display: flex;
+      flex-direction: column;
+      border-radius: 20px;
+      position: relative; /* Add this to make sure the absolute positioning is relative to this container */
+    }
+
+    .circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 450px;
+      height: 450px;
+      background-color: #222831;
+      border-radius: 50%;
+    }
+
+    .inner-circle {
+      margin-top: 26px;
+      margin-left: 24px;
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background-color: #393e46;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .small-circle {
+      width: 350px;
+      height: 350px;
+      background-color: #f2f2f2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .small-circle h1 {
+      font-size: 10rem;
+      margin: 0; /* Remove default margin for h1 */
+    }
+
+    .user_info {
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .user_info h1 {
+      margin: 0; /* Remove default margin */
+    }
+
+    .user--menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      margin-top: 110px;
+      margin-right: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #f2f2f2;
+      height: 250px;
+      width: 150px;
+      align-items: center;
+      border-radius: 10px; /* Adjust the radius as needed */
+    }
+
+    .user--menu::before {
+      content: '';
+      position: absolute;
+      top: -8px; /* Adjust this value to position the arrow */
+      right: 43%; /* Center the arrow horizontally */
+      border-style: solid;
+      border-width: 0 8px 10px; /* Adjust the values to change arrow size */
+      border-color: transparent transparent #f2f2f2 transparent;
+    }
+
+    .user--menu.active {
+      height: 250px; /* Set the final height when active */
+    }
+
+    .hidden {
+      visibility: hidden;
+      opacity: 0;
+    }
+    /* rest time*/
+
+    .add-rest-modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 40rem;
+      background-color: #f2f2f2;
+      padding: 5rem 6rem;
+      box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+      transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
+      border-radius: 15px;
+    }
+
+    .space-rest {
+      margin-top: 10px;
+    }
+
+    .wrong-rest {
+      display: flex;
+      justify-content: center;
+      color: #222831;
+    }
+
+    .rest-head {
+      display: flex;
+      justify-content: center;
+      font-size: 25px;
+      color: #ff8c00;
+    }
+
+    .rest-msg {
+      display: flex;
+      /*justify-content: center;*/
+      align-items: center;
+      font-size: 18px;
+      color: #ff8c00;
+    }
+
+    .rest-exercise-name {
+      margin-left: 40px;
+      font-size: 18px;
+      padding-right: 15px;
+      color: #222831;
+    }
+
+    .rest-exercise-input {
+      height: 23px;
+      width: 10rem;
+      outline: none;
+      border: none;
+      background: transparent;
+      background-color: white;
+      flex: 1;
+      /*transition: box-shadow 0, 25s;*/
+    }
+
+    .rest-exercise-input:focus-within {
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+    }
+
+    .rest-rounds-name {
+      margin-left: 40px;
+      font-size: 18px;
+      padding-right: 15px;
+      color: #222831;
+    }
+
+    .rest-rounds-input {
+      height: 23px;
+      width: 10rem;
+      outline: none;
+      border: none;
+      background: transparent;
+      background-color: white;
+      flex: 1;
+      margin-left: 21px;
+      /*transition: box-shadow 0, 25s;*/
+    }
+
+    .rest-rounds-input:focus-within {
+      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+    }
+
+    .rest-config-btn {
+      font-size: 20px;
+      width: 12rem;
+      height: 5rem;
+      margin-top: 30px;
+      margin-left: 140px;
+      border-radius: 10px;
+      color: #f2f2f2;
+      background-color: #e08c47;
+      border: none;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      transition: all 0.5s;
+    }
+
+    .btn--close-modal {
+      font-family: inherit;
+      color: inherit;
+      position: absolute;
+      top: 1rem;
+      right: 2rem;
+      font-size: 4rem;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .btn--close-modal::before {
+      content: 'Return home';
+      position: absolute;
+      top: -48px; /* Adjust the distance from the button */
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 8px;
+      background-color: #222831;
+      color: #fff;
+      border-radius: 5px;
+      font-size: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .btn--close-modal:hover::before {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+<!-- Sidebar -->
+<div class="sidebar">
+  <div class="button-container">
+    <a href="#" class="sidebar-btn sidebar--2">
+      <img src="/images/home.png" />
+      <h6>Home</h6>
+    </a>
+  </div>
+</div>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="logo">
+    <img src="/images/logo2.png" />
+  </div>
+  <div class="user_info">
+    <a href="#" class="top-image">
+      <img src="/images/user.png" />
+    </a>
+    <h1>Viktor</h1>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <div class="user--menu hidden">
+    <a href="#">
+      <img src="/images/history.png" />
+    </a>
+    <h2>History</h2>
+    <a href="#">
+      <img src="/images/cog.png" />
+    </a>
+    <h2>Settings</h2>
+    <a href="#">
+      <img src="/images/exit.png" />
+    </a>
+    <h2>Log out</h2>
+  </div>
+  <!-- Larger Rectangle on the Right -->
+  <div class="large-rectangle">
+    <div class="section--1">
+      <h1 class="text-section--1 hidden">Round 1</h1>
+      <h1 class="exercise-name" id='countdownMessage'></h1>
+    </div>
+    <div class="section--2">
+      <button
+        type="button"
+        class="start--btn"
+        id="startButton"
+        onclick="playExercise()"
+      >
+        Start!
+      </button>
+      <button
+        class="pause--btn hidden"
+        type="button"
+        id="pauseButton"
+        onclick="pauseResume()"
+      >
+        Pause
+      </button>
+      <button
+        class="done--btn hidden"
+        type="button"
+        id="doneButton"
+        onclick="markExerciseDone()"
+      >
+        Done
+      </button>
+    </div>
+  </div>
+  <div class="small-rectangle">
+    <div class="circle">
+      <div class="inner-circle">
+        <div class="small-circle">
+          <h1 id="timer">--:--</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <audio id="exerciseAudio" style="display: none">
+    <source th:src="@{'/audio/start.wav'}" type="audio/wav" />
+    Your browser does not support the audio element.
+  </audio>
+</div>
+<div class='add-rest-modal'>
+  <button class="btn--close-modal">
+    <img src="/images/home.png" />
+  </button>
+  <h1 class="rest-head">Rest Configuration</h1>
+  <h3 class="rest-msg">Configure your rest times for optimal training. Set intervals between exercises and rounds. Rest between exercises is optional, with a default of 5 seconds.</h3>
+  <h2 class="wrong-rest"></h2>
+  <!--  Select rest time between rounds-->
+  <label for="restExercises" class="rest-exercise-name">Rest between exercises</label>
+  <input class="rest-exercise-input" type="number" id="restExercises" name="restExercises" placeholder="Optional" required>
+  <div class='space-rest'>
+    <label for="restRounds" class="rest-rounds-name">Rest between rounds</label>
+    <input class="rest-rounds-input" type="number" id="restRounds" name="restRounds" placeholder="Required" required>
+  </div>
+  <div>
+    <input type="submit" value="Start!" class="rest-config-btn">
+  </div>
+</div>
+<div class="overlay"></div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  const audio = document.getElementById("exerciseAudio");
+  const timerElement = document.getElementById("timer");
+  const countdownMessageElement = document.getElementById("countdownMessage");
+  const round = document.querySelector(".text-section--1");
+  let countdown;
+  const userId = /*[[${userId}]]*/ 0;
+  const exercises = /*[[${exercises}]]*/ [];
+  let exerciseIndex = 0;
+  let allExercises = [];
+  const rounds = /*[[${rounds}]]*/ [];
+  let currentRound = 1;
+  console.log(exercises);
+
+  for (let i = 0; i < rounds; i++) {
+    for (let j = 0; j < exercises.length; j++) {
+      allExercises.push(exercises[j]);
+    }
+  }
+  console.log(allExercises);
+
+  let timeLeft = allExercises[0].duration;
+  let restDuration = 5;
+  let restBetweenRounds = 10;
+  let isPaused = false;
+  let isResting = false;
+  let continueButtonClicked = false;
+
+  let isRestingBetweenRounds = false;
+
+  const userMenu = document.querySelector('.user--menu');
+  const account = document.querySelector('.top-image');
+
+  const overlay = document.querySelector(".overlay");
+  const restTimeModal = document.querySelector(".add-rest-modal");
+
+  const restModalMsg = document.querySelector(".wrong-rest");
+  const restExercises = document.querySelector(".rest-exercise-input");
+  const restRounds = document.querySelector(".rest-rounds-input");
+  const restConfigBtn = document.querySelector(".rest-config-btn");
+
+  const homeBtn = document.querySelector(".sidebar-btn");
+  const homeBtn2 = document.querySelector(".btn--close-modal");
+
+  homeBtn.addEventListener("click", function() {
+    restExercises.value = "";
+    restRounds.value = "";
+    window.location.href = `http://localhost:8080/workout/zone/` + userId;
+  })
+
+  homeBtn2.addEventListener("click", function() {
+    restExercises.value = "";
+    restRounds.value = "";
+    window.location.href = `http://localhost:8080/workout/zone/` + userId;
+  })
+
+  restConfigBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    if (restRounds.value <= 0 ||
+      restRounds.value.includes(".") ||
+      restRounds.value.includes(",") ||
+      restExercises.value < 0
+    ) {
+      restModalMsg.textContent = "Enter a positive whole number";
+    } else if(restExercises.value > 0 && (restExercises.value.includes(".") || restExercises.value.includes(","))) {
+      restModalMsg.textContent = "Enter a positive whole number";
+    } else {
+      if (restExercises.value > 0) {
+        restDuration = Math.floor(restExercises.value);
+        console.log("Rest intervals",restDuration);
+      } else {
+        restDuration = 5;
+        console.log("Rest intervals",restDuration);
+      }
+      restBetweenRounds = Math.floor(restRounds.value);
+      console.log("Rest rounds",restBetweenRounds);
+      restModalMsg.textContent = "";
+      restTimeModal.classList.add("hidden");
+      overlay.classList.add("hidden");
+    }
+  })
+
+  const showMenu = function (e) {
+    e.preventDefault();
+    userMenu.classList.remove('hidden');
+  };
+
+  const closeMenu = function () {
+    userMenu.classList.add('hidden');
+  };
+  let clicked = 0;
+  account.addEventListener('click', function (e) {
+    e.preventDefault();
+    clicked++;
+    if (clicked % 2 !== 0) {
+      showMenu(e);
+    }
+    if (clicked % 2 === 0) {
+      closeMenu();
+    }
+  });
+
+  function playExercise() {
+    document.querySelector(".text-section--1").classList.add("hidden");
+
+    if (exerciseIndex < allExercises.length) {
+      timeLeft = allExercises[exerciseIndex].duration;
+      playStartSound();
+
+      if (allExercises[exerciseIndex].type === 'duration') {
+        if (!isPaused) {
+          startCountdown();
+        }
+      } else if (allExercises[exerciseIndex].type === 'repetition') {
+        startCountRTypes();
+      }
+    }
+  }
+
+  function startCountdown() {
+    countdown = setInterval(function () {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      const timerText = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+      timerElement.textContent = timerText;
+      document.querySelector('.start--btn').classList.add("hidden");
+      if (!isRestingBetweenRounds) {
+        document.querySelector(".text-section--1").classList.remove("hidden");
+      }
+      document.querySelector(".pause--btn").classList.remove("hidden");
+
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        playEndSound();
+
+        if (!isResting && exerciseIndex < allExercises.length - 1) {
+          isResting = true;
+          if (((exerciseIndex + 1) % exercises.length === 0)) {
+            countdownMessageElement.textContent = `Take a rest. Next up: ${allExercises[exerciseIndex + 1].name}`;
+            isRestingBetweenRounds = true;
+            round.classList.add("hidden");
+            const nextRound = currentRound + 1;
+            round.textContent = "Round " + nextRound;
+            currentRound++;
+            timeLeft = restBetweenRounds;
+            playStartSound();
+            startCountdown();
+          } else {
+            countdownMessageElement.textContent = `Get ready for next exercise: ${allExercises[exerciseIndex + 1].name}`;
+            isRestingBetweenRounds = false;
+            timeLeft = restDuration;
+            playStartSound();
+            startCountdown();
+          }
+        } else if (isResting && exerciseIndex < allExercises.length - 1) {
+          isResting = false;
+          nextExercise();
+        } else {
+          finishRoutine();
+        }
+      } else {
+        if (isResting) {
+        } else if (exerciseIndex < allExercises.length) {
+          countdownMessageElement.textContent = allExercises[exerciseIndex].name;
+        }
+        timeLeft--;
+      }
+    }, 1000);
+
+  }
+
+  function startCountRTypes() {
+    round.classList.remove("hidden");
+    const repetitionsLeft = allExercises[exerciseIndex].duration;
+    timerElement.textContent = repetitionsLeft;
+    document.querySelector('.start--btn').classList.add("hidden");
+    document.querySelector(".text-section--1").classList.remove("hidden");
+    document.querySelector(".pause--btn").classList.add("hidden");
+    document.querySelector(".done--btn").classList.remove("hidden");
+    countdownMessageElement.textContent = allExercises[exerciseIndex].name;
+
+    function startRestCountdown() {
+      document.querySelector(".pause--btn").classList.remove("hidden");
+      isResting = true;
+      if (((exerciseIndex + 1) % exercises.length === 0)) {
+        countdownMessageElement.textContent = `Take a rest. Next up: ${allExercises[exerciseIndex + 1].name}`;
+        round.classList.add("hidden");
+        const nextRound = currentRound + 1;
+        round.textContent = "Round " + nextRound;
+        currentRound++;
+        timeLeft = restBetweenRounds;
+      } else {
+        countdownMessageElement.textContent = `Get ready for next exercise: ${allExercises[exerciseIndex + 1].name}`;
+        timeLeft = restDuration;
+      }
+
+      countdown = setInterval(function () {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerElement.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          playStartSound();
+          isResting = false;
+
+          if (exerciseIndex === allExercises.length - 1) {
+            finishRoutine();
+          } else {
+            nextExercise();
+          }
+        } else {
+          timeLeft--;
+        }
+      }, 1000);
+    }
+
+    window.startRestCountdown = startRestCountdown;
+  }
+
+  function markExerciseDone() {
+    continueButtonClicked = true;
+    document.querySelector(".done--btn").classList.add("hidden");
+
+    playStartSound();
+    countdownMessageElement.textContent = "";
+
+    if (exerciseIndex === allExercises.length - 1) {
+      finishRoutine();
+    } else {
+      startRestCountdown();
+    }
+  }
+
+  function nextExercise() {
+    exerciseIndex++;
+    isRestingBetweenRounds = false;
+
+    if (exerciseIndex < allExercises.length) {
+      timeLeft = allExercises[exerciseIndex].duration;
+      playStartSound();
+
+      if (allExercises[exerciseIndex].type === 'duration') {
+        startCountdown();
+      } else if (allExercises[exerciseIndex].type === 'repetition') {
+        startCountRTypes();
+      }
+    } else {
+      finishRoutine();
+    }
+  }
+
+  function finishRoutine() {
+    document.querySelector(".section--2").classList.add("hidden");
+    countdownMessageElement.classList.add("hidden");
+    audio.play();
+    timerElement.textContent = "Done!";
+    timerElement.style.opacity = "0";
+
+    round.textContent = "You will be redirected to home page";
+    round.style.opacity = "0";
+    let currentColor = 0;
+    const targetColor = 220;
+
+    console.log(document.body);
+    const colorChangeInterval = setInterval(function () {
+      if (currentColor < targetColor) {
+        currentColor += 1;
+        document.querySelector(".small-circle").style.backgroundColor = `rgb(0, ${currentColor}, 0)`;
+      } else {
+        clearInterval(colorChangeInterval);
+
+        let opacity = 0;
+        const displayInterval = setInterval(function () {
+          if (opacity < 1) {
+            opacity += 0.01;
+            timerElement.style.opacity = opacity;
+            round.style.opacity = opacity;
+          } else {
+            clearInterval(displayInterval);
+
+            setTimeout(function () {
+              window.location.href = `http://localhost:8080/workout/zone/` + userId;
+            }, 3000);
+          }
+        }, 10);
+      }
+    }, 10);
+  }
+
+  function playStartSound() {
+    const sound = new Audio("/audio/start.wav");
+    sound.play();
+  }
+
+  function playEndSound() {
+    const sound = new Audio("/audio/end.wav");
+    sound.play();
+  }
+
+  function pauseResume() {
+    const pauseButton = document.querySelector(".pause--btn");
+    if (isPaused) {
+      isPaused = false;
+      pauseButton.textContent = "Pause";
+      startCountdown();
+      playStartSound();
+    } else {
+      isPaused = true;
+      pauseButton.innerHTML = "&nbsp;Start!&nbsp;";
+      clearInterval(countdown);
+      playStartSound();
+    }
+  }
+  /*]]>*/
+</script>
+</body>
+</html>

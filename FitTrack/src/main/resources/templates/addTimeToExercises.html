@@ -1,0 +1,40 @@
+<!DOCTYPE html>-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Set time for Exericses</title>
+  <style></style>
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center">Set time for exercises</h1>
+  <form th:action="@{'/training/' + ${id} + '/exercises/time'}" method="post">
+    <label>Set Time:</label>
+
+    <div class="custom-control custom-checkbox" th:each="exercise : ${allExercises}">
+      <label for="duration" th:text='${exercise.name}'></label>
+      <input type="number" class="form-control" id="duration" name="duration" required>
+    </div>
+    <input type="hidden" id="values" name="values" />
+    <button class='btn' type="submit">Next</button>
+  </form>
+</div>
+<script>
+  const values = document.querySelectorAll(".form-control");
+  const button = document.querySelector(".btn");
+  const times = [];
+
+  button.addEventListener("click", function() {
+    values.forEach(v => {
+      times.push(v.value);
+      console.log(times);
+    })
+    document.getElementById("values").value =
+      times.join(",");
+  })
+  console.log(values);
+  console.log(button);
+</script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  background-color: #222831;
+  display: flex;
+}
+
+.top-bar {
+  background-color: #f2f2f2;
+  color: black;
+  display: flex;
+  height: 9rem;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100vw;
+}
+
+.logo {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.logo img {
+  height: 30px;
+}
+
+.top-image {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.top-image img {
+  height: 30px;
+}
+
+.sidebar {
+  background-color: #ff8c00;
+  width: 210px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar-btn {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  width: 161%;
+  box-sizing: border-box;
+  text-align: center;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  font-size: 22px;
+}
+
+.sidebar-btn h6 {
+  margin: 0;
+}
+
+.sidebar-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 99.5%;
+  height: 100%;
+  background: linear-gradient(to right, #ffc774, #ffc774);
+  z-index: -1;
+  transition: all 300ms ease-in-out;
+}
+
+.sidebar-btn:hover::before {
+  left: 0;
+}
+
+.icon_color {
+  background-color: #ffc774;
+  width: 159%;
+}
+
+.main-content {
+  margin-top: 15px;
+  margin-left: 120px;
+  padding: 20px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.large-rectangle {
+  background-color: #393e46;
+  height: 540px;
+  width: 90%;
+  margin-left: 8px;
+  margin-right: 30px;
+  float: right;
+  /* margin-top: 5px; */
+  margin-bottom: 20px;
+  display: flex;
+  /* flex-direction: column;
+  align-items: center;
+  justify-content: center; */
+  /* border-radius: 20px; */
+}
+
+#map {
+  /* padding-right: -55000px; */
+  /* flex: 1; */
+  flex: 1;
+  width: 70%;
+  height: 100%;
+  /* background-color: pink; */
+}
+
+.right-section {
+  display: flex;
+  /* padding-left: 100px; */
+  /* margin-left: 875px; */
+  height: 525px;
+  /* float: right; */
+  /* flex-basis: 20rem; */
+  background-color: #393e46;
+  /* padding: 3rem 5rem 4rem 5rem; */
+  flex-direction: column;
+}
+
+.activities {
+  height: 100%;
+  width: 40rem;
+  background-color: #393e46;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+
+.activities-head {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  font-size: 30px;
+  color: #f2f2f2;
+}
+
+.activity-msg {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  /* font-size: 30px; */
+  color: #f2f2f2;
+}
+
+.add-activity-wrong {
+  display: flex;
+  justify-content: center;
+  color: #222831;
+}
+.sort-container {
+  background-color: #393e46;
+  height: 10%;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+.sort-all {
+  margin-left: 60px;
+  text-decoration: none;
+  color: #f2f2f2;
+  border: none;
+  outline: none;
+  /* padding-right: 50px; */
+}
+
+.activities-container {
+  list-style: none;
+  /* width: 100%; */
+  height: 69%;
+  background-color: #393e46;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.activities-container::-webkit-scrollbar {
+  width: 0;
+}
+
+.workout {
+  background-color: #ff8c00;
+  border-radius: 5px;
+  margin-left: 15px;
+  padding: 1.5rem 2.25rem;
+  margin-bottom: 1.75rem;
+  width: 80%;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 0.75rem 1.5rem;
+}
+
+.workout__title {
+  color: #222831;
+  font-size: 1.7rem;
+  /* font-weight: 600; */
+  grid-column: 1 / -1;
+}
+
+.workout__details {
+  color: #333;
+  display: flex;
+  align-items: baseline;
+}
+
+.workout__icon {
+  font-size: 1.8rem;
+  margin-right: 1rem;
+  height: 0.28rem;
+}
+
+.workout__value {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+.workout__unit {
+  /* font-size: 1.1rem; */
+  /* color: var(--color-light--1); */
+  text-transform: uppercase;
+  /* font-weight: 800; */
+}
+
+.activity-text {
+  margin-left: 15px;
+  font-size: 18px;
+  padding-right: 15px;
+  color: #222831;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.user_info h1 {
+  margin: 0;
+}
+
+.user--menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 110px;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+  height: 250px;
+  width: 150px;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.user--menu::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 43%;
+  border-style: solid;
+  border-width: 0 8px 10px;
+  border-color: transparent transparent #f2f2f2 transparent;
+}
+
+.user--menu.active {
+  height: 250px;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.date {
+  font-size: 25px;
+  margin-left: 10px;
+  color: #222831;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+
+.create-activity {
+  position: fixed;
+  top: 48%;
+  left: 83%;
+  transform: translate(-50%, -50%);
+  max-width: 60rem;
+  background-color: #f2f2f2;
+  padding: 5rem 6rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
+  border-radius: 15px;
+}
+
+.btn--close-modal {
+  font-family: inherit;
+  color: inherit;
+  position: absolute;
+  top: 0.5rem;
+  right: 2rem;
+  font-size: 4rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.activity--input {
+  font-size: 18px;
+  padding-right: 55px;
+  color: #222831;
+}
+
+.input-value {
+  height: 23px;
+  /* border-radius: 3px; */
+  /* border: none; */
+  width: 18rem;
+  outline: none;
+  border: none;
+  background: transparent;
+  background-color: white;
+  flex: 1;
+  transition: box-shadow 0, 25s;
+}
+
+.input-value:focus-within {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+}
+
+.activity-head {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  color: #ff8c00;
+}
+
+.create-activity-btn {
+  font-size: 20px;
+  width: 13.5rem;
+  height: 5rem;
+  margin-top: 25px;
+  margin-left: 28px;
+  border-radius: 10px;
+  color: #f2f2f2;
+  background-color: #e08c47;
+  border: none;
+  cursor: pointer;
+}
+
+.remove-activity-btn {
+  position: relative;
+  border: none;
+  font-size: 18px;
+  margin-left: 55px;
+  color: #222831;
+  background-color: #ff8c00;
+}
+
+.remove-activity-btn::before {
+  content: 'Remove';
+  position: absolute;
+  top: -40px; /* Adjust the distance from the button */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.remove-activity-btn:hover::before {
+  opacity: 1;
+}
+
+.leaflet-popup .leaflet-popup-content-wrapper {
+  background-color: #222831;
+  color: #f2f2f2;
+  border-radius: 5px;
+  padding-right: 0.6rem;
+}
+
+.leaflet-popup .leaflet-popup-content {
+  font-size: 1.5rem;
+}
+
+.leaflet-popup .leaflet-popup-tip {
+  background-color: #222831;
+}
+
+.remove-activity {
+  position: fixed;
+  top: 50%;
+  left: 85%;
+  transform: translate(-50%, -50%);
+  max-width: 60rem;
+  background-color: #f2f2f2;
+  padding: 5rem 6rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
+  border-radius: 15px;
+}
+
+.activity-remove--btns {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  /* margin-left: 5px; */
+}
+
+.activity-remove--no {
+  background-color: #333;
+  color: #f2f2f2;
+  font-size: 16px;
+  height: 3.5rem;
+  width: 10rem;
+  border-radius: 6px;
+  border-style: none;
+}
+
+.activity-remove--yes {
+  margin-left: 25px;
+  background-color: #222831;
+  color: #f2f2f2;
+  font-size: 16px;
+  width: 10rem;
+  height: 3.5rem;
+  border-radius: 6px;
+  border-style: none;
+}

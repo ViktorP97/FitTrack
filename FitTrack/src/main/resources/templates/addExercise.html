@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Exercise</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      width: 300px;
+      padding: 20px;
+      background-color: #f2f2f2;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    checkbox {
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+<form th:action="'/save/exercise/' + ${id}" method="post" onsubmit="return validateForm()">
+  <label for="exerciseName">Exercise Name:</label>
+  <input type="text" id="exerciseName" name="name" placeholder="Enter exercise name" required>
+
+  <label>Type:</label>
+  <input type="checkbox" id="durationCheckbox" name="type" value="duration" onchange="updateCheckboxes(this)">
+  <label for="durationCheckbox">Duration</label>
+
+  <input type="checkbox" id="repetitionCheckbox" name="type" value="repetition" onchange="updateCheckboxes(this)">
+  <label for="repetitionCheckbox">Repetition</label>
+
+  <button type="submit">Create Exercise</button>
+</form>
+
+<script>
+  function updateCheckboxes(clickedCheckbox) {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    checkboxes.forEach(checkbox => {
+      if (checkbox !== clickedCheckbox) {
+        checkbox.checked = false;
+      }
+    });
+  }
+
+  function validateForm() {
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    let atLeastOneChecked = false;
+
+    checkboxes.forEach(checkbox => {
+      if (checkbox.checked) {
+        atLeastOneChecked = true;
+      }
+    });
+
+    if (!atLeastOneChecked) {
+      alert('Please select at least one checkbox.');
+      return false; // Prevent form submission
+    }
+
+    return true; // Allow form submission
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register to FitTrack</title>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .larger-height {
+      position: relative;
+      width: 300px;
+      height: 370px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .container {
+      position: relative;
+      width: 300px;
+      height: 330px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 5px;
+      font-family: 'Brush Script MT', cursive;
+    }
+
+    .signup-text {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .wrong-input {
+      text-align: center;
+      margin-bottom: 15px;
+      color: red;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc; /* Subtle border color */
+      border-radius: 3px; /* Rounded corners */
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(
+          -110deg,
+          #be2afa 0%,
+          #5c51ce 100%
+      );
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .login-link {
+      text-decoration: none;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+<div th:if="${wrongInput}" class="larger-height">
+  <div class="logo">FitTrack🏋️</div>
+  <div class="signup-text">Sign Up to FitTrack</div>
+  <form th:action="@{/register}" method="post">
+    <p th:if="${nameExist}" class="wrong-input" th:text="'User with this name already exist'"></p>
+    <p th:if="${mailExist}" class="wrong-input" th:text="'Email is aleady used by the user'"></p>
+    <p th:if="${missingInput}" class="wrong-input" th:text="'You need to fill all three inputs'"></p>
+    <label for="name"></label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" />
+    <label for="password"></label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" />
+    <label for="email"></label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" />
+    <button type="submit" onclick="sendMail();">Register</button>
+  </form>
+  <div class="signup-text">Already have an account? <a th:href="@{/login}" class="login-link">Log in</a></div>
+</div>
+<div th:unless="${wrongInput}" class="container">
+  <div class="logo">FitTrack🏋️</div>
+  <div class="signup-text">Sign Up to FitTrack</div>
+  <form th:action="@{/register}" method="post">
+    <label for="name"></label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" />
+    <label for="password"></label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" />
+    <label for="email"></label>
+    <input type="email" id="email" name="email" placeholder="Enter your email" />
+    <button type="submit">Register</button>
+  </form>
+  <div class="signup-text">Already have an account? <a th:href="@{/login}" class="login-link">Log in</a></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:,">
+  <title>Login to FitTrack</title>
+  <style>
+    body {
+      background-color: #f2f2f2; /* Slightly darker white background for the entire screen */
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      position: relative;
+      width: 300px;
+      height: 270px; /* Adjusted height */
+      padding: 20px;
+      background-color: #ffffff; /* White background */
+      border-radius: 10px; /* Added border-radius for rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Added box shadow for faint backlight */
+    }
+
+    .larger-height {
+      position: relative;
+      width: 300px;
+      height: 310px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 5px; /* Adjusted margin */
+      font-family: 'Brush Script MT', cursive;
+    }
+
+    .signup-text {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      border-radius: 5px; /* Rounded corners for labels */
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc; /* Subtle border color */
+      border-radius: 3px; /* Rounded corners */
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(
+          -110deg,
+          #be2afa 0%,
+          #5c51ce 100%
+      ); /* Gradient background for the button */
+      color: #ffffff; /* White text color */
+      border: none;
+      border-radius: 5px; /* Rounded corners for the button */
+      cursor: pointer;
+      margin-bottom: 10px; /* Adjust the margin-bottom value as needed */
+    }
+
+    .login-link {
+      text-decoration: none;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .wrong-input {
+      text-align: center;
+      margin-bottom: 15px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div th:if="${wrongInput}" class="larger-height">
+  <div class="logo">FitTrack🏋️</div>
+  <div class="signup-text">Login to FitTrack</div>
+  <form th:action="@{/login}" method="post">
+    <p th:if="${wrongName}" class="wrong-input" th:text="'User ' + ${wrongName} + ' not registered'"></p>
+    <p th:if="${wrongPassword}" class="wrong-input" th:text="'Wrong password. Try again'"></p>
+    <p th:if="${notVerified}" class="wrong-input" th:text="'You are not verified. Check your email'"></p>
+    <label for="name"></label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" />
+    <label for="password"></label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" />
+    <button type="submit">Login</button>
+  </form>
+  <div class="signup-text">Don't have an account? <a th:href="@{/register}" class="login-link">Sign up</a></div>
+</div>
+<div th:unless="${wrongInput}" class="container">
+  <div class="logo">FitTrack🏋️</div>
+  <div class="signup-text">Login to FitTrack</div>
+  <form th:action="@{/login}" method="post">
+    <label for="name"></label>
+    <input type="text" id="name" name="name" placeholder="Enter your name" />
+    <label for="password"></label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" />
+    <button type="submit">Login</button>
+  </form>
+  <div class="signup-text">Don't have an account? <a th:href="@{/register}" class="login-link">Sign up</a></div>
+</div>
+</body>
+</html>

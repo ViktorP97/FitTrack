@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+  />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    defer
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+  <script defer src="/js/scriptActivities.js"></script>
+  <link rel="stylesheet" href='/css/styleActivities.css' />
+  <title>Activities Spot</title>
+</head>
+<body>
+<!-- Sidebar -->
+<div class="hlavne">
+  <div class="sidebar">
+    <div class="button-container">
+      <a th:href="@{'/workout/zone/' + ${id}}" class="sidebar-btn sidebar--1">
+        <img src="/images/fire.png" />
+        <h6>Workout Zone</h6>
+      </a>
+      <a class="sidebar-btn sidebar--2 icon_color">
+        <img src="/images/location2.png" />
+        <h6>Activity Spot</h6>
+      </a>
+      <a th:href="@{'/nutrition/' + ${id}}" class="sidebar-btn sidebar--3">
+        <img src="/images/spoon-knife.png" />
+        <h6>Nutrition Hub</h6>
+      </a>
+      <a href="#" class="sidebar-btn sidebar--4">
+        <img src="/images/clipboard.png" />
+        <h6>Progres Tracker</h6>
+      </a>
+    </div>
+  </div>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="logo">
+      <img
+        style="
+              width: 500px;
+              height: 300px;
+              margin-top: 10px;
+              margin-left: -160px;
+            "
+        src="/images/logo2.png"
+        alt="Your Logo"
+      />
+    </div>
+    <div class="user_info">
+      <a href="#" class="top-image">
+        <img src="/images/user.png" />
+      </a>
+      <h1 th:text='${user.name}' th:id="${user.id}" class='user-id'></h1>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="user--menu hidden">
+      <a href="#">
+        <img src="/images/history.png" />
+      </a>
+      <h2>History</h2>
+      <a href="#">
+        <img src="/images/cog.png" />
+      </a>
+      <h2>Settings</h2>
+      <a href="#">
+        <img src="/images/exit.png" />
+      </a>
+      <h2>Log out</h2>
+    </div>
+    <!-- Larger Rectangle on the Right -->
+    <div class="large-rectangle">
+      <div id="map"></div>
+      <div class="right-section">
+        <!-- <div class="add-to-map">
+          <span class="activity-text">Activity</span>
+          <input type="text" placeholder="Choose activity" />
+          <div>
+            <span>Distance</span>
+            <input type="text" placeholder="Enter distance" />
+          </div>
+          <span>Time</span>
+          <input type="text" placeholder="Enter time" />
+        </div> -->
+        <div class="activities">
+          <h1 class="activities-head">Acitvites</h1>
+          <h2 class="activity-msg">Click on map to add activity</h2>
+          <div class="sort-container">
+            <a href="#" class="sort-all">
+              <h6>All</h6>
+            </a>
+            <a href="#" class="sort-all">
+              <h6>This month</h6>
+            </a>
+            <a href="#" class="sort-all">
+              <h6>This week</h6>
+            </a>
+          </div>
+          <div class="activities-container">
+<!--            <li class="workout workout&#45;&#45;running" data-id="1234567890">-->
+<!--              <h2 class="workout__title">Running on April 14</h2>-->
+<!--              <div class="workout__details">-->
+<!--                <span class="workout__icon">Distance</span>-->
+<!--                <span class="workout__value">5.2</span>-->
+<!--                <span class="workout__unit">km</span>-->
+<!--              </div>-->
+<!--              <div class="workout__details">-->
+<!--                <span class="workout__icon">Time</span>-->
+<!--                <span class="workout__value">24</span>-->
+<!--                <span class="workout__unit">min</span>-->
+<!--              </div>-->
+<!--              <div class="workout__details">-->
+<!--                <a class="remove-activity-btn">-->
+<!--                  <img src="/images/bin.png" />-->
+<!--                </a>-->
+<!--              </div>-->
+<!--            </li>-->
+<!--            <li class="workout workout&#45;&#45;running" data-id="1234567890">-->
+<!--              <h2 class="workout__title">Running on April 14</h2>-->
+<!--              <div class="workout__details">-->
+<!--                <span class="workout__icon">Distance</span>-->
+<!--                <span class="workout__value">5.2</span>-->
+<!--                <span class="workout__unit">km</span>-->
+<!--              </div>-->
+<!--              <div class="workout__details">-->
+<!--                <span class="workout__icon">Time</span>-->
+<!--                <span class="workout__value">24</span>-->
+<!--                <span class="workout__unit">min</span>-->
+<!--              </div>-->
+<!--              <div class="workout__details">-->
+<!--                <a class="remove-activity-btn">-->
+<!--                  <img src="/images/bin.png" />-->
+<!--                </a>-->
+<!--              </div>-->
+<!--            </li>-->
+<!--            <li class="workout workout&#45;&#45;running" data-id="1234567890">-->
+<!--              <h2 class="workout__title">Running on April 14</h2>-->
+<!--              <div class="workout__details">-->
+<!--                <span class="workout__icon">Distance</span>-->
+<!--                <span class="workout__value">5.2</span>-->
+<!--                <span class="workout__unit">km</span>-->
+<!--              </div>-->
+<!--              <div class="workout__details">-->
+<!--                <span class="workout__icon">Time</span>-->
+<!--                <span class="workout__value">24</span>-->
+<!--                <span class="workout__unit">min</span>-->
+<!--              </div>-->
+<!--              <div class="workout__details">-->
+<!--                <a class="remove-activity-btn">-->
+<!--                  <img src="/images/bin.png" />-->
+<!--                </a>-->
+<!--              </div>-->
+<!--            </li>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="remove-activity hidden">
+  <!--  <button class="btn&#45;&#45;close-modal">&times;</button>-->
+  <h1 style='display: flex; align-items: center; justify-content: center'>Remove activity</h1>
+  <h1 style='display: flex; align-items: center; justify-content: center' class='activity-remove-name'></h1>
+  <div class="activity-remove--btns">
+    <button class="activity-remove--no">No</button>
+    <button class="activity-remove--yes">Yes</button>
+  </div>
+</div>
+<div class="create-activity hidden">
+  <button class="btn--close-modal">&times;</button>
+  <h1 class="activity-head">Create Activity</h1>
+  <h2 class="add-activity-wrong"></h2>
+  <form>
+    <div class="own-activity-container">
+      <div style="margin-bottom: 10px; margin-top: 30px">
+        <span class="activity--input">Activity</span>
+        <input
+          class="input-value activity-name-input-value"
+          type="text"
+          placeholder="Enter activity"
+        />
+      </div>
+      <div style="margin-bottom: 10px">
+        <span class="activity--input">Distance</span>
+        <input
+          class="input-value distance-input-value"
+          type="number"
+          placeholder="Enter distance (km)"
+        />
+      </div>
+      <div style="margin-bottom: 10px">
+        <span class="activity--input">Time</span>
+        <input
+          class="input-value time-input-value"
+          type="number"
+          placeholder="Enter time (min)"
+        />
+      </div>
+      <div style="margin-bottom: 10px">
+        <span class="activity--input">Date</span>
+        <input
+          class="input-value date-input-value"
+          type="date"
+          placeholder="Enter date"
+        />
+      </div>
+      <div>
+        <button class="create-activity-btn">Create Activity</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="overlay hidden"></div>
+</body>
+</html>

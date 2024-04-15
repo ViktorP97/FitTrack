@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify your account</title>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <style>
+    body {
+      background-color: #f2f2f2;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      position: relative;
+      width: 300px;
+      height: 140px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      font-family: 'Brush Script MT', cursive;
+    }
+
+    .signup-text {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">FitTrack🏋️</div>
+  <div class="signup-text">
+    You are one step closer! Check your email and verify your account.
+  </div>
+</div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  const mail = /*[[${mail}]]*/"";
+
+  console.log("Mail : " + mail);
+  (function () {
+    if (mail === null) return;
+    emailjs.init('4nbGdtPmJDMkTGMvm');
+  })();
+
+  const params = {
+    to: mail,
+  };
+
+  const serviceId = 'service_vbau359';
+  const templateID = 'template_mk1v1yl';
+
+  emailjs
+  .send(serviceId, templateID, params)
+  .then(res => {
+    alert('Email sent successful');
+  })
+  .catch();
+  /*]]>*/
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login to FitTrack</title>
+  <style>
+    a {
+      text-decoration: none;
+    }
+
+    body {
+      background-color: #f2f2f2; /* Slightly darker white background for the entire screen */
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      position: relative;
+      width: 300px;
+      height: 120px; /* Adjusted height */
+      padding: 20px;
+      background-color: #ffffff; /* White background */
+      border-radius: 10px; /* Added border-radius for rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Added box shadow for faint backlight */
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 1.5rem;
+      margin-bottom: 5px; /* Adjusted margin */
+      font-family: 'Brush Script MT', cursive;
+    }
+
+    .signup-text {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    button {
+      display: block;
+      width: 70%;
+      margin-left: 42px;
+      padding: 10px;
+      background: linear-gradient(
+          -110deg,
+          #be2afa 0%,
+          #5c51ce 100%
+      ); /* Gradient background for the button */
+      color: #ffffff; /* White text color */
+      border: none;
+      border-radius: 5px; /* Rounded corners for the button */
+      cursor: pointer;
+      margin-bottom: 10px; /* Adjust the margin-bottom value as needed */
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="logo">FitTrack🏋️</div>
+  <div class="signup-text">You are verified! you can now log in.</div>
+  <a th:href="@{/login}">
+    <button type="submit">Log in</button>
+  </a>
+</div>
+</body>
+</html>

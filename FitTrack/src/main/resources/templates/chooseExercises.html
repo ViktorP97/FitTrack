@@ -1,0 +1,44 @@
+<!DOCTYPE html>-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choose Exercises for Training</title>
+  <style></style>
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center">Choose Exercises for Training</h1>
+  <form th:action="@{'/save/training/' + ${trainingName}}" method="post">
+    <h3 th:text="'Training Name: ' + ${trainingName}"></h3>
+    <label>Select Exercises:</label>
+    <div class="custom-control custom-checkbox" th:each="exercise, iterStat : ${allExercises}">
+      <input type="checkbox" class="custom-control-input" th:id="'exercise-' + ${exercise.id}" th:name="selectedExercises" th:value="${exercise.id}" onclick="updateSelectedExercises(this)" />
+      <label class="custom-control-label" th:for="'exercise-' + ${exercise.id}" th:text="${exercise.name}"></label>
+    </div>
+    <input type="hidden" id="exerciseOrder" name="exerciseOrder" />
+    <input type="submit" value="Next" class="btn btn-primary" />
+  </form>
+</div>
+
+<script>
+  let selectedExercises = [];
+
+  function updateSelectedExercises(checkbox) {
+    const exerciseId = checkbox.value;
+
+    if (checkbox.checked) {
+      selectedExercises.push(exerciseId);
+    } else {
+      selectedExercises = selectedExercises.filter(
+        (item) => item !== exerciseId
+      );
+    }
+
+    document.getElementById("exerciseOrder").value =
+      selectedExercises.join(",");
+  }
+</script>
+</body>
+</html>
