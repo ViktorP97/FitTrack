@@ -1,0 +1,399 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  background-color: #222831;
+}
+
+.top-bar {
+  background-color: #f2f2f2;
+  color: black;
+  display: flex;
+  height: 9rem;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.logo {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.logo img {
+  width: 500px;
+  height: 300px;
+  margin-top: 10px;
+  margin-left: -160px;
+}
+
+.top-image {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.top-image img {
+  height: 30px;
+}
+
+.sidebar {
+  background-color: #ff8c00;
+  width: 210px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 60px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar-btn {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  width: 348.3%;
+  box-sizing: border-box;
+  text-align: center;
+  border: none;
+  outline: none;
+  position: relative;
+  overflow: hidden;
+  font-size: 22px;
+}
+
+.sidebar-btn h6 {
+  margin: 0;
+}
+
+.sidebar-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 99.5%;
+  height: 100%;
+  background: linear-gradient(to right, #ffc774, #ffc774);
+  z-index: -1;
+  transition: all 300ms ease-in-out;
+}
+
+.sidebar-btn:hover::before {
+  left: 0;
+}
+
+.icon_color {
+  background-color: #ffc774;
+  width: 159%;
+}
+
+.main-content {
+  margin-top: 15px;
+  margin-left: 120px;
+  padding: 20px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.large-rectangle {
+  background-color: #222831;
+  height: 300px;
+  width: 35%;
+  float: right;
+  display: flex;
+  flex-direction: column;
+  margin: 40px 30px 20px 65px;
+}
+
+.section--1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 40rem;
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: #222831;
+}
+
+.section--1 h1 {
+  color: #f2f2f2;
+}
+
+.section--2 {
+  position: relative;
+  background-color: #393e46;
+  border-radius: 20px;
+  height: 34rem;
+  margin-top: 30px;
+  margin-left: 160px;
+  width: 35%;
+}
+
+.start--btn,
+.pause--btn,
+.done--btn {
+  position: absolute;
+  top: 30px;
+  left: 20px;
+  background-color: #f2f2f2;
+  padding: 15px 20px;
+  border-radius: 10px;
+  font-size: 30px;
+  border: none;
+  box-sizing: border-box;
+  transition: opacity 0.3s ease;
+}
+
+.start--btn {
+  margin-left: 10px;
+}
+
+.done--btn {
+  margin-left: 7px;
+}
+
+.small-rectangle {
+  background-color: #393e46;
+  height: 500px;
+  width: 50%;
+  float: right;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  position: relative;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  height: 450px;
+  background-color: #222831;
+  border-radius: 50%;
+}
+
+.inner-circle {
+  margin-top: 26px;
+  margin-left: 24px;
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background-color: #393e46;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.small-circle {
+  width: 350px;
+  height: 350px;
+  background-color: #f2f2f2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.small-circle h1 {
+  font-size: 10rem;
+  margin: 0;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+.user_info h1 {
+  margin: 0;
+}
+
+.user--menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 110px;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f2f2f2;
+  height: 250px;
+  width: 150px;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.user--menu::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 43%;
+  border-style: solid;
+  border-width: 0 8px 10px;
+  border-color: transparent transparent #f2f2f2 transparent;
+}
+
+.user--menu.active {
+  height: 250px;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+/* rest time*/
+
+.add-rest-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 40rem;
+  background-color: #f2f2f2;
+  padding: 5rem 6rem;
+  box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.5s;
+  border-radius: 15px;
+}
+
+.space-rest {
+  margin-top: 10px;
+}
+
+.wrong-rest {
+  display: flex;
+  justify-content: center;
+  color: #222831;
+}
+
+.rest-head {
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  color: #ff8c00;
+}
+
+.rest-msg {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: #ff8c00;
+}
+
+.rest-exercise-name {
+  margin-left: 40px;
+  font-size: 18px;
+  padding-right: 15px;
+  color: #222831;
+}
+
+.rest-exercise-input {
+  height: 23px;
+  width: 10rem;
+  outline: none;
+  border: none;
+  background: transparent;
+  background-color: white;
+  flex: 1;
+}
+
+.rest-exercise-input:focus-within {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+}
+
+.rest-rounds-name {
+  margin-left: 40px;
+  font-size: 18px;
+  padding-right: 15px;
+  color: #222831;
+}
+
+.rest-rounds-input {
+  height: 23px;
+  width: 10rem;
+  outline: none;
+  border: none;
+  background: transparent;
+  background-color: white;
+  flex: 1;
+  margin-left: 21px;
+}
+
+.rest-rounds-input:focus-within {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
+}
+
+.rest-config-btn {
+  font-size: 20px;
+  width: 12rem;
+  height: 5rem;
+  margin-top: 30px;
+  margin-left: 140px;
+  border-radius: 10px;
+  color: #f2f2f2;
+  background-color: #e08c47;
+  border: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.5s;
+}
+
+.btn--close-modal {
+  font-family: inherit;
+  color: inherit;
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  font-size: 4rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.btn--close-modal::before {
+  content: 'Return home';
+  position: absolute;
+  top: -48px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px;
+  background-color: #222831;
+  color: #fff;
+  border-radius: 5px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn--close-modal:hover::before {
+  opacity: 1;
+}
