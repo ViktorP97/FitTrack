@@ -102,8 +102,6 @@ public class UserDataController {
 
   @GetMapping("/logout")
   public String logout(HttpSession session) {
-    // Invalidate session and remove login attribute
-//    session.invalidate();
-    return "redirect:/login"; // Redirect to login page after logout
+    return "redirect:/login";
   }
 }
