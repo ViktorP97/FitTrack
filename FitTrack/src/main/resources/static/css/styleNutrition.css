@@ -438,10 +438,10 @@ table.trainings-table tr.tr-clicked td {
   padding: 5rem 6rem;
   box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
   z-index: 1000;
-  transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
+  transition: all 0.5s;
   border-radius: 15px;
-  max-height: 400px; /* Set a maximum height for the modal */
-  overflow-y: auto; /* Enable vertical scrollbar when content exceeds the height */
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .remove--btns {
@@ -565,8 +565,6 @@ table.trainings-table tr.tr-clicked td {
 
 .input-value {
   height: 23px;
-  /* border-radius: 3px; */
-  /* border: none; */
   width: 18rem;
   outline: none;
   border: none;
@@ -580,31 +578,6 @@ table.trainings-table tr.tr-clicked td {
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
 }
 
-/* .food-item {
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  border: 1px solid #222831;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.row h2 {
-  margin: 5px;
-}
-
-.rows {
-  justify-content: center;
-
-}
-
-.food-items {
-} */
 
 .food-items {
   display: flex;
@@ -620,7 +593,7 @@ table.trainings-table tr.tr-clicked td {
   background-color: white;
   border-radius: 5px;
   padding: 10px;
-  margin-bottom: 10px; /* Add margin to the bottom of each food item */
+  margin-bottom: 10px;
 }
 
 .rows {
