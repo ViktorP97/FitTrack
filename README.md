@@ -32,24 +32,24 @@ Activity Spot Map
 # Getting Started
 To get started with FitTrack, follow these steps:
 
-Clone the repository to your local machine.
-Import the project into your favorite Java IDE.
-Set up the H2 database:
+- Clone the repository to your local machine.
+- Import the project into your favorite Java IDE.
+- Set up the H2 database:
 FitTrack is currently configured to use H2 database.
 On the first run, the application will create external files for you.
-Build and run the application.
-Register a new account or log in with existing credentials.
-Explore the Workout Zone, Nutrition Hub, and Activities Spot to start tracking your fitness journey!
+- Build and run the application.
+- Register a new account or log in with existing credentials.
+- Explore the Workout Zone, Nutrition Hub, and Activities Spot to start tracking your fitness journey!
 # Technologies Used
-Java
-JavaScript
-Spring Boot
-Thymeleaf
-HTML/CSS
-H2 Database
+- Java
+- JavaScript
+- Spring Boot
+- Thymeleaf
+- HTML/CSS
+- H2 Database
 # Future Plans
-FitTrack is currently using H2 database for development purposes.
-Future plans include migrating to another type of database, especially when deploying the application on AWS.
-Implementation of Spring Security for enhanced authentication and authorization features.
-Addition of a Progress Tracker section for users to track their fitness progress over time.
+- FitTrack is currently using H2 database for development purposes.
+- Future plans include migrating to another type of database, especially when deploying the application on AWS.
+- Implementation of Spring Security for enhanced authentication and authorization features.
+- Addition of a Progress Tracker section for users to track their fitness progress over time.
 
