@@ -3,1037 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/styleWorkout.css" />
   <title>Workout Zone</title>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <!-- <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-    integrity="sha256-cIo4cM8F7CsoaCfK3E9Nk0sZlKC96l9TgOShb3jIEqA="
-    crossorigin="anonymous"
-  /> -->
-  <style>
-    html {
-      font-size: 62.5%;
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      overflow: hidden; /* Prevent scrolling */
-      background-color: #222831;
-    }
-
-    .top-bar {
-      background-color: #f2f2f2;
-      color: black;
-      display: flex;
-      height: 9rem;
-      justify-content: space-between;
-      align-items: center;
-      position: relative; /* Needed for positioning the pseudo-element */
-    }
-
-    .logo {
-      display: inline-block;
-      margin-left: 20px;
-    }
-
-    .logo img {
-      width: 500px;
-      height: 300px;
-      margin-top: 10px;
-      margin-left: -160px;
-    }
-
-    .top-image {
-      display: inline-block;
-      /* margin-right: 40px; */
-      margin-right: 10px; /* Adjust the right margin as needed */
-    }
-
-    .top-image img {
-      height: 30px;
-    }
-
-    .sidebar {
-      background-color: #ff8c00;
-      width: 210px;
-      height: 100vh; /* Set height to full height of the screen */
-      position: fixed;
-      top: 0; /* Start at the top of the screen */
-      left: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center; /* Center items vertically */
-      padding-top: 60px; /* Adjust top padding to avoid overlap with top bar */
-    }
-
-    .button-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .workout--btns {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .sidebar-btn {
-      text-decoration: none;
-      color: #333;
-      padding: 10px;
-      width: 161%;
-      box-sizing: border-box;
-      text-align: center;
-      border: none;
-      outline: none;
-      /* margin-bottom: 50px; */ /* medzera medzi iconami*/
-      position: relative;
-      overflow: hidden;
-      font-size: 22px;
-    }
-
-    .sidebar-btn h6 {
-      margin: 0; /* Remove default margin */
-    }
-
-    .sidebar-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 96.3%;
-      height: 100%;
-      background: linear-gradient(to right, #ffc774, #ffc774);
-      z-index: -1;
-      transition: all 300ms ease-in-out;
-    }
-
-    .sidebar-btn:hover::before {
-      left: 0;
-    }
-
-    .icon_color {
-      background-color: #ffc774;
-      width: 150%;
-    }
-
-    .main-content {
-      margin-top: 15px; /* Adjust to match the top bar height */
-      margin-left: 120px; /* Adjust to match the width of the sidebar */
-      padding: 20px;
-      height: 100%;
-      overflow: hidden; /* Add this to clear the float */
-    }
-
-    .large-rectangle {
-      background-color: #222831; /* Adjust the background color as needed */
-      height: 550px; /* Adjust the height as needed */
-      width: 60%; /* Adjust the width as needed */
-      margin-left: 20px; /* Adjust the margin as needed */
-      margin-right: 30px;
-      float: right;
-      margin-bottom: 20px; /* Move 20 pixels to the bottom */
-      display: flex;
-      flex-direction: column; /* Change to column to stack sections */
-    }
-
-    .section--1 {
-      background-color: #393e46;
-      width: 100%;
-      height: 20rem;
-      border-radius: 20px; /* Adjust the radius as needed */
-      /* box-shadow: 0 0 20px rgba(221, 221, 221, 0.7);  */
-      /* margin-top: -30px; */
-    }
-
-    .section--2 {
-      background-color: #393e46; /* Adjust the background color as needed */
-      /* border-top: 2px solid #ddd; Add a border to the bottom of section--1 */
-      border-radius: 20px; /* Adjust the radius as needed */
-      height: 34rem;
-      margin-top: 20px; /* Adjust the margin-top as needed */
-      /* box-shadow: 0 0 20px rgba(221, 221, 221, 0.7); Adjust the shadow as needed */
-    }
-
-    .small-rectangle {
-      background-color: #222831; /* Adjust the background color as needed */
-      height: 160px; /* Adjust the height as needed */
-      width: 25%; /* Adjust the width as needed */
-      float: left;
-      display: flex;
-      flex-direction: column; /* Display items in a column */
-
-      margin-left: 110px;
-      margin-top: 30px;
-      /* box-shadow: 0 0 50px rgba(68, 68, 68, 0.5); */
-      border-radius: 20px; /* Adjust the radius as needed */
-    }
-
-    .small-rectangle h2 {
-      font-size: 25px;
-      color: #f2f2f2;
-      margin-top: 5px;
-      text-align: center; /* Center the text */
-    }
-
-    .below-small-rectangle {
-      background-color: #222831; /* Adjust the background color as needed */
-      height: 180px; /* Adjust the height as needed */
-      width: 25%; /* Adjust the width as needed */
-      float: left;
-      /* margin-top: 80px; Adjust the margin-top as needed */
-      margin-left: 110px;
-      margin-top: 100px;
-      display: flex;
-      flex-direction: column;
-      /* justify-content: center; */
-      align-items: center;
-      /* box-shadow: 0 0 50px rgba(68, 68, 68, 0.5); Adjust the shadow as needed */
-      border-radius: 20px; /* Adjust the radius as needed */
-    }
-
-    .btn--timer {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 120px; /* Adjust the width as needed */
-      height: 60px; /* Adjust the height as needed */
-      margin-left: 100px;
-      margin-top: 35px;
-      border-radius: 10px; /* Adjust the value for all corners as needed */
-      overflow: hidden; /* Ensures the content doesn't overflow if the button is given a fixed width and height */
-      background-color: #f2f2f2; /* Adjust the background color as needed */
-      font-size: 23px; /* Adjust the font size as needed */
-      cursor: pointer; /* urobime z btnu ako bu to bol link */
-    }
-
-    .text--exercises {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #f2f2f2;
-      font-size: 30px;
-    }
-
-    .text-section--2 {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .exercise-container {
-      position: relative;
-    }
-
-    /* .exercise-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      margin-left: 80px;
-      overflow: hidden;
-    } */
-
-    .exercise-card {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #f2f2f2;
-      padding: 10px;
-      border-radius: 8px;
-      font-size: 15px;
-      box-shadow: 0 4px 8px rgba(34, 40, 49, 0.1), 0 0 10px; /* Add the new shadow with #ff8c00 */
-      height: 70px; /* Adjust the height as needed */
-      width: 40%;
-      margin-left: 235px;
-    }
-
-    .exercise-card h3 {
-      margin-bottom: 8px;
-      color: #222831;
-      opacity: 0;
-      transition: opacity 0.5s ease; /* Adjust the duration and timing function as needed */
-    }
-
-    .scroll-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: #f2f2f2;
-      border: none;
-      border-radius: 50%;
-      padding: 5px 10px;
-      font-size: 20px;
-      cursor: pointer;
-    }
-
-    .prev-btn {
-      left: 150px;
-    }
-
-    .next-btn {
-      right: 150px;
-    }
-
-    .exercise-card p {
-      color: #ddd;
-    }
-
-    .user_info {
-      display: flex;
-      align-items: center;
-      padding: 0 2rem;
-    }
-
-    .user_info h1 {
-      margin: 0; /* Remove default margin */
-    }
-
-    .user--menu {
-      position: fixed;
-      top: 0;
-      right: 0;
-      margin-top: 110px;
-      margin-right: 30px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: #f2f2f2;
-      height: 250px;
-      width: 150px;
-      align-items: center;
-      border-radius: 10px; /* Adjust the radius as needed */
-    }
-
-    .user--menu::before {
-      content: '';
-      position: absolute;
-      top: -8px; /* Adjust this value to position the arrow */
-      right: 43%; /* Center the arrow horizontally */
-      border-style: solid;
-      border-width: 0 8px 10px; /* Adjust the values to change arrow size */
-      border-color: transparent transparent #f2f2f2 transparent;
-    }
-
-    .user--menu.active {
-      height: 250px; /* Set the final height when active */
-    }
-
-    .hidden {
-      visibility: hidden;
-      opacity: 0;
-    }
-
-    .trainings-table-container {
-      max-height: 200px; /* Adjust the maximum height as needed */
-      overflow-y: auto;
-      border: 1px solid #222831;
-      width: 120%; /* Adjust the width as needed */
-      margin-left: 8px;
-    }
-
-    .trainings {
-      width: 45%; /* Adjust the width as needed */
-    }
-
-    .trainings-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .trainings-table th,
-    .trainings-table td {
-      border: 1px solid #222831;
-      padding: 8px;
-      text-align: left;
-      font-size: 15px;
-    }
-
-    .trainings-table th {
-      background-color: #222831;
-      color: #f2f2f2;
-    }
-
-    .trainings-table td {
-      background-color: #393e46;
-      color: #f2f2f2;
-    }
-
-    .trainings-table th:nth-child(1),
-    .trainings-table td:nth-child(1) {
-      width: 10%; /* Adjust the width as needed */
-    }
-
-    .trainings-table th:nth-child(2),
-    .trainings-table td:nth-child(2) {
-      width: 5%; /* Adjust the width as needed */
-    }
-
-    .trainings-table th:nth-child(3),
-    .trainings-table td:nth-child(3) {
-      width: 5%; /* Adjust the width as needed */
-    }
-
-    /* For WebKit browsers (Chrome, Safari) */
-    .trainings-table-container::-webkit-scrollbar {
-      width: 12px;
-    }
-
-    .trainings-table-container::-webkit-scrollbar-thumb {
-      background-color: #222831;
-      border-radius: 6px;
-    }
-
-    .trainings-table-container::-webkit-scrollbar-track {
-      background-color: #ddd; /* Change this to the desired background color */
-    }
-
-    /* For Firefox */
-    .trainings-table-container {
-      scrollbar-width: thin;
-      scrollbar-color: #393e46 #222831;
-    }
-
-    .training--detail {
-      background-color: #393e46;
-      display: flex;
-      flex: 1;
-      width: 35rem;
-      height: 20rem;
-      position: absolute;
-      top: 46rem;
-      right: 6rem;
-      border-radius: 10px;
-      transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
-    }
-
-    .training--detail h1 {
-      justify-content: center;
-      align-items: center;
-      margin: auto;
-      color: #ddd;
-    }
-
-    .section--content {
-      display: flex;
-      width: 100%;
-    }
-
-    table.trainings-table tr.tr-clicked td {
-      background-color: #ff8c00 !important;
-    }
-
-    .transitioned {
-      transition: top 500ms ease; /* Adjust the transition duration and easing function as needed */
-    }
-
-    .start--timer {
-      margin-top: 10px;
-    }
-    .start--timer h1 {
-      font-size: 22px;
-      color: #f2f2f2;
-    }
-
-    .trainig--overview {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      width: 100%;
-      text-align: center; /* Center the text */
-    }
-
-    .trainig--overview h1 {
-      color: #f2f2f2;
-      display: flex;
-      margin: auto;
-    }
-
-    .training--buttons {
-      position: relative;
-      margin: auto;
-      width: 65%;
-      background-color: #f2f2f2;
-      display: flex;
-      justify-content: center;
-      gap: 20px; /* Adjust the space between buttons as needed */
-      margin-top: 43px;
-      height: 60px;
-      border-radius: 20px; /* Adjust the radius as needed */
-    }
-
-    .training--buttons a {
-      margin-top: 12px;
-      text-decoration: none;
-      display: inline-block;
-      position: relative;
-    }
-
-    .training--buttons a::before {
-      content: attr(
-          data-tooltip
-      ); /* Use the data-tooltip attribute value as content */
-      position: absolute;
-      top: -65px; /* Adjust the distance above the button */
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #222831; /* Tooltip background color */
-      color: #fff; /* Tooltip text color */
-      padding: 15px; /* Adjust padding as needed */
-      border-radius: 10px; /* Adjust the radius as needed */
-      opacity: 0; /* Initially make it invisible */
-      transition: opacity 0.3s ease; /* Add a transition for a smooth effect */
-      font-size: 16px; /* Adjust the font size as needed */
-    }
-
-    .training--buttons a:hover::before {
-      opacity: 1; /* Make the tooltip visible on hover */
-    }
-
-    .orange--text {
-      position: relative;
-      display: inline-block;
-      padding: 10px 20px; /* Adjust the padding for spacing around the text */
-      color: white; /* Set the text color to contrast with the background */
-    }
-
-    .start--traning {
-      margin-left: 92px;
-      height: 15rem;
-      width: 180px; /* Adjust the width as needed */
-      border-radius: 10px;
-      background-color: #f2f2f2; /* Adjust the background color as needed */
-      font-size: 23px; /* Adjust the font size as needed */
-      padding: 10px; /* Add more padding as needed */
-      /* border: 2px solid #ccc; Add border and adjust the color */
-      box-sizing: border-box; /* Include padding and border in the element's total width and height */
-    }
-
-    .workout-btn {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center; /* Center the content horizontally */
-      text-decoration: none;
-      color: #333; /* Adjust text color as needed */
-      padding: 12px;
-      background-color: #ff8c00;
-      width: 149%;
-      transition: background-color 0.3s ease; /* Add transition for a smooth effect */
-    }
-
-    .workout-btn:hover {
-      background-color: #e08c47; /* Change to your desired hover color */
-    }
-
-    .workout-btn h6 {
-      font-size: 16px; /* Adjust font size as needed */
-      margin: 0; /* Remove default margin */
-    }
-
-    .food-btn {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      color: #333; /* Adjust text color as needed */
-      padding: 12px;
-      background-color: #ff8c00;
-      width: 189.5%;
-
-      transition: background-color 0.3s ease; /* Add transition for a smooth effect */
-      left: -56px; /* Adjust the left position as needed */
-    }
-
-    .food-btn:hover {
-      background-color: #e08c47; /* Change to your desired hover color */
-    }
-
-    .food-btn h6 {
-      font-size: 16px; /* Adjust font size as needed */
-      margin: 0; /* Remove default margin */
-    }
-
-    .no--training {
-      margin-top: 50px;
-      width: 120%;
-      margin-left: 200px;
-      font-size: 15px;
-      color: #f2f2f2;
-    }
-
-    /*.add-training-section {*/
-    /*  margin-left: 130px;*/
-    /*  margin-top: 50px;*/
-    /*  border: none;*/
-    /*  width: 40%;*/
-    /*  height: 50px;*/
-    /*  !*font-size: 15px;*!*/
-    /*  border-radius: 10px;*/
-    /*  background-color: #f2f2f2; !* Adjust the background color as needed *!*/
-    /*  font-size: 23px; !* Adjust the font size as needed *!*/
-    /*}*/
-
-    .remove-btn {
-      width: 60px;
-      height: 50px;
-      background-color: #f2f2f2;
-      border: none;
-      border-radius: 20px;
-      font-size: 14px;
-      /*color: #393e46;*/
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-size: cover;
-      position: absolute;
-      margin-left: 30px;
-      margin-top: -40px;
-      color: #222831;
-    }
-
-
-    .remove-btn::before {
-      content: 'Remove';
-      position: absolute;
-      top: -40px; /* Adjust the distance from the button */
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 10px;
-      background-color: #222831;
-      color: #fff;
-      border-radius: 5px;
-      font-size: 14px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .remove-btn:hover::before {
-      opacity: 1;
-    }
-
-    .no-exercises {
-      margin-left: 200px;
-      color: #f2f2f2;
-      font-size: 15px;
-    }
-
-    .no--exercises-btn {
-      margin-left: 125px;
-      /* margin-top: px; */
-      border: none;
-      width: 30%;
-      height: 40px;
-      /*font-size: 15px;*/
-      border-radius: 10px;
-      background-color: #f2f2f2; /* Adjust the background color as needed */
-      font-size: 23px; /* Adjust the font size as needed */
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
-      z-index: 100;
-      transition: all 0.5s;
-    }
-
-    .remove-training,
-    .remove-exercise {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 60rem;
-      background-color: #f2f2f2;
-      padding: 5rem 6rem;
-      box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
-      border-radius: 15px;
-    }
-
-    .btn--close-modal {
-      font-family: inherit;
-      color: inherit;
-      position: absolute;
-      top: 0.5rem;
-      right: 2rem;
-      font-size: 4rem;
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-
-    .training-remove--btns,
-    .exercise-remove--btns {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
-      /* margin-left: 5px; */
-    }
-
-    .training-remove--no,
-    .exercise-remove--no {
-      background-color: #333;
-      color: #f2f2f2;
-      font-size: 16px;
-      height: 3.5rem;
-      width: 10rem;
-      border-radius: 6px;
-      border-style: none;
-    }
-
-    .training-remove--yes,
-    .exercise-remove--yes {
-      margin-left: 25px;
-      background-color: #222831;
-      color: #f2f2f2;
-      font-size: 16px;
-      width: 10rem;
-      height: 3.5rem;
-      border-radius: 6px;
-      border-style: none;
-    }
-
-    .schedule-training,
-    .training-added,
-    .select-rounds,
-    .set-time-to-exercises,
-    .add-training-exercises,
-    .add-training-modal,
-    .add-exercise-modal {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 60rem;
-      background-color: #f2f2f2;
-      padding: 5rem 6rem;
-      box-shadow: 0 4rem 6rem rgba(0, 0, 0, 0.3);
-      z-index: 1000;
-      transition: all 0.5s; /* pridame rychlost akou sa ma zobrazit */
-      border-radius: 15px;
-    }
-
-    .add-exercise-head {
-      margin-left: 70px;
-      padding-bottom: 10px;
-      font-size: 25px;
-      color: #ff8c00;
-    }
-
-    .create-exercise-btn {
-      font-size: 20px;
-      width: 13.5rem;
-      height: 5rem;
-      margin-top: 30px;
-      margin-left: 95px;
-      border-radius: 10px;
-      color: #f2f2f2;
-      background-color: #e08c47;
-      border: none;
-      cursor: pointer;
-    }
-
-    .wrong-training-name,
-    .add-exercise-wrong,
-    .no-exercise-selected {
-      /*margin-left: 150px;*/
-      /*font-size: 18px;*/
-      display: flex;
-      justify-content: center;
-      color: #222831;
-    }
-
-    .add-exercise-values {
-      font-size: 18px;
-      padding-right: 15px;
-      color: #222831;
-    }
-
-    .exercise-name-value {
-      height: 23px;
-      width: 18rem;
-      outline: none;
-      border: none;
-      background: transparent;
-      background-color: white;
-      flex: 1;
-      /*transition: box-shadow 0, 25s;*/
-    }
-
-    .exercise-name-value:focus-within {
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
-    }
-
-    .add-exercise-duration {
-      font-size: 18px;
-      padding-right: 70px;
-      color: #222831;
-    }
-
-    .checkboxes {
-      margin-top: 20px;
-    }
-
-    .add-exercise-repetition {
-      font-size: 18px;
-      padding-right: 57px;
-      color: #222831;
-    }
-
-    /* create training step 1 */
-    .step1-head {
-      display: flex;
-      justify-content: center;
-      font-size: 25px;
-      color: #ff8c00;
-    }
-
-    .step1-msg {
-      display: flex;
-      justify-content: center;
-      font-size: 25px;
-      color: #ff8c00;
-    }
-
-    .step1-name {
-      margin-left: 15px;
-      font-size: 18px;
-      padding-right: 15px;
-      color: #222831;
-    }
-
-    .step1-input {
-      height: 23px;
-      width: 18rem;
-      outline: none;
-      border: none;
-      background: transparent;
-      background-color: white;
-      flex: 1;
-      /*transition: box-shadow 0, 25s;*/
-    }
-
-    .step1-input:focus-within {
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
-    }
-
-    .training-step-1-btn {
-      font-size: 20px;
-      width: 12rem;
-      height: 5rem;
-      margin-top: 30px;
-      margin-left: 70px;
-      border-radius: 10px;
-      color: #f2f2f2;
-      background-color: #e08c47;
-      border: none;
-      cursor: pointer;
-    }
-
-    /* exercises to training*/
-    .step2-head {
-      display: flex;
-      justify-content: center;
-      /* margin-left: 90px; */
-      padding-bottom: 10px;
-      font-size: 25px;
-      color: #ff8c00;
-    }
-
-    .step2-msg {
-      /* padding-bottom: 10px; */
-      display: flex;
-      justify-content: center;
-      font-size: 25px;
-      color: #ff8c00;
-    }
-
-    .step2-btn {
-      margin-top: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .custom-control-input {
-      height: 15px;
-      /* width: 18rem; */
-      outline: none;
-      border: none;
-      background: transparent;
-      background-color: white;
-      flex: 1;
-      /*transition: box-shadow 0, 25s;*/
-    }
-
-    .custom-control-label {
-      margin-left: 15px;
-      font-size: 18px;
-      padding-right: 15px;
-      color: #222831;
-    }
-
-    .training-step-2-btn {
-      font-size: 20px;
-      width: 12rem;
-      height: 5rem;
-      /* margin-left: 60px; */
-      border-radius: 10px;
-      color: #f2f2f2;
-      background-color: #e08c47;
-      border: none;
-      cursor: pointer;
-    }
-
-    /*set time to exercises */
-    .step3-head {
-      display: flex;
-      justify-content: center;
-      padding-bottom: 10px;
-      font-size: 25px;
-      color: #ff8c00;
-    }
-
-    .step3-msg {
-      /* padding-bottom: 10px; */
-      display: flex;
-      justify-content: center;
-      font-size: 25px;
-      color: #ff8c00;
-    }
-
-    .rounds-wrong,
-    .not-all-set {
-      display: flex;
-      justify-content: center;
-      color: #222831;
-    }
-
-    .training-step-3-btn {
-      font-size: 20px;
-      width: 12rem;
-      height: 5rem;
-      margin-left: 65px;
-      margin-top: 30px;
-      border-radius: 10px;
-      color: #f2f2f2;
-      background-color: #e08c47;
-      border: none;
-      cursor: pointer;
-    }
-
-    .exercise-time-name {
-      display: flex;
-      justify-items: center;
-      align-items: center;
-      margin-left: 15px;
-      font-size: 18px;
-      padding-right: 15px;
-      margin-top: 10px;
-      color: #222831;
-    }
-
-    .exercise-time {
-      margin-top: 10px;
-      height: 23px;
-      width: 22rem;
-      margin-left: 15px;
-      outline: none;
-      border: none;
-      background: transparent;
-      background-color: white;
-      flex: 1;
-      transition: box-shadow 0, 25s;
-    }
-
-    .exercise-time:focus-within {
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
-    }
-
-    .step4-head {
-      display: flex;
-      justify-content: center;
-      padding-bottom: 10px;
-      font-size: 25px;
-      color: #ff8c00;
-    }
-
-    .added-modal,
-    .step4-msg {
-      display: flex;
-      justify-content: center;
-      font-size: 25px;
-      color: #ff8c00;
-    }
-
-    .step4-rounds {
-      margin-left: 15px;
-      font-size: 18px;
-      padding-right: 15px;
-      color: #222831;
-    }
-
-    .rounds-input {
-      height: 23px;
-      width: 18rem;
-      outline: none;
-      border: none;
-      background: transparent;
-      background-color: white;
-      flex: 1;
-      transition: box-shadow 0, 25s;
-    }
-
-    .rounds-input:focus-within {
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.75);
-    }
-
-    .schedule-training-btn,
-    .save-training-btn {
-      font-size: 20px;
-      width: 14rem;
-      height: 5rem;
-      margin-top: 30px;
-      margin-left: 78px;
-      border-radius: 10px;
-      color: #f2f2f2;
-      background-color: #e08c47;
-      border: none;
-      cursor: pointer;
-    }
-
-    input[type='date'] {
-      width: 30rem;
-      background-color: #ff8c00;
-      font-size: 18px;
-      font-family: 'Roboto Mono', monospace;
-      border: none;
-      outline: none;
-      border-radius: 5px;
-      color: #f2f2f2;
-    }
-
-    ::-webkit-calendar-picker-indicator {
-      background-color: #f2f2f2;
-      padding: 5px;
-      cursor: pointer;
-    }
-  </style>
 </head>
 <body>
-<!-- Sidebar -->
 <div class="sidebar">
   <div class="button-container">
     <a class="sidebar-btn sidebar--1 test icon_color">
@@ -1041,9 +15,6 @@
       <h6>Workout Zone</h6>
     </a>
     <div class="workout--btns">
-<!--      <a th:href="'/add/exercise/' + ${user.id}" class="workout-btn">-->
-<!--        <h6>Add Exercise</h6>-->
-<!--      </a>-->
       <a href="#" class="workout-btn workout-exercise-add">
         <h6>Add Exercise</h6>
       </a>
@@ -1104,7 +75,7 @@
       <div class="exercises">
         <th:block th:if="${exercises.isEmpty()}">
           <div  class="no-exercises">
-            <h1>You dont have any exercises.</h1>
+            <h1>You don't have any exercises.</h1>
 <!--            <button class="no&#45;&#45;exercises-btn">Add Exercise</button>-->
           </div>
         </th:block>
@@ -1272,10 +243,6 @@
   <h1 class="step2-msg">Select Exercises</h1>
   <h2 class="no-exercise-selected"></h2>
   <div class='all-exercises'>
-<!--      <div class="custom-control custom-checkbox" th:each="exercise, iterStat : ${allExercises}">-->
-<!--        <input type="checkbox" class="custom-control-input" th:id="'exercise-' + ${exercise.id}" th:name="selectedExercises" th:value="${exercise.id}" onclick="updateSelectedExercises(this)" />-->
-<!--        <label class="custom-control-label" th:for="'exercise-' + ${exercise.id}" th:text="${exercise.name}"></label>-->
-<!--      </div>-->
     </div>
   <div class="step2-btn">
     <input type="hidden" id="exerciseOrder" name="exerciseOrder" />
@@ -1289,10 +256,6 @@
   <h2 class="step3-msg">Set time for exercises</h2>
   <h2 class="not-all-set"></h2>
   <div class="select-time">
-<!--    <div class="custom-control custom-checkbox" th:each="exercise : ${allExercises}">-->
-<!--      <label for="duration" th:text='${exercise.name}'></label>-->
-<!--      <input type="number" class="form-control exercise-time" id="duration" name="duration" required>-->
-<!--    </div>-->
   </div>
     <input type="hidden" id="values" name="values" />
     <button class='training-step-3-btn' type="submit">Next</button>
@@ -1329,16 +292,12 @@
   <h2 style="color: #222831" class='new-training-name'></h2>
   <h1 style="color: #ff8c00">Exercises:</h1>
   <div class="new-exercises-container">
-<!--  <h2 style="color: #222831">vypady na nohe, 10s</h2>-->
-<!--  <h2 style="color: #222831">jednorucky na lavicke, 10s</h2>-->
-<!--  <h2 style="color: #222831">kliky, 10r</h2>-->
   </div>
   <h1 style="color: #ff8c00">Rounds:</h1>
   <h2 style="color: #222831" class='new-training-rounds'>10</h2>
   </div>
 </div>
 <div class="remove-training hidden">
-<!--  <button class="btn&#45;&#45;close-modal">&times;</button>-->
   <h1 class='training-remove-name'></h1>
   <div class="training-remove--btns">
     <button class="training-remove--no">No</button>
@@ -1374,15 +333,6 @@
   let exercises = /*[[${exercises}]]*/ [];
   let currentExerciseIndex = 0;
 
-  // const setExerciseCard = function () {
-  //   exerciseCard.style.opacity = 0;
-  //   // Wait for the opacity transition to complete
-  //   setTimeout(() => {
-  //     exerciseCard.textContent = exercises[0].name;
-  //     exerciseCard.style.opacity = 1;
-  //   }, 350);
-  // };
-
   const updateCartContentToNewExercise = function() {
     exerciseCard.style.opacity = 0;
     setTimeout(() => {
@@ -1395,7 +345,6 @@
   const updateCardContent = function (direction) {
     exerciseCard.style.opacity = 0;
 
-    // Wait for the opacity transition to complete
     setTimeout(() => {
       if (direction === 'next') {
         currentExerciseIndex =
@@ -1455,10 +404,9 @@
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      return response.json(); // Parse the response body as JSON
+      return response.json();
     })
     .then(data => {
-      // Handle the returned exercises data
       exercises = data;
       if (exercises != null && exercises.length > 0) {
         closeRemoveExerciseModal();
@@ -1470,15 +418,10 @@
         const noExercisesHTML = `
             <div class="no-exercises">
               <h1>You don't have any exercises.</h1>
-<!--              <button class="no&#45;&#45;exercises-btn">Add Exercise</button>-->
             </div>
          `;
         exercisesSection.insertAdjacentHTML("beforeend", noExercisesHTML);
-        // window.location.reload();
       }
-
-      // Now you can do something with the exercises data
-      // For example, update the UI or perform other actions
     })
     .catch(error => {
       console.error('Error fetching data:', error);
@@ -1546,11 +489,9 @@
 
     if (!atLeastOneChecked) {
       addExerciseWrong.textContent = 'Please select at least one checkbox.';
-      // alert('Please select at least one checkbox.');
-      return false; // Prevent form submission
+      return false;
     }
-
-    return true; // Allow form submission
+    return true;
   }
 
 
@@ -1583,10 +524,9 @@
           throw new Error(data.message || 'Network response was not ok');
         });
       }
-      return response.json(); // Parse the response body as JSON
+      return response.json();
     })
     .then(data => {
-      // Handle the returned exercises data
       if (exercises.length > 0) {
         exercises.push(data);
         closeExerciseModal();
@@ -1624,15 +564,12 @@
         }, 1000);
         window.location.reload();
       }
-      // Now you can do something with the exercises data
-      // For example, update the UI or perform other actions
     })
     .catch(error => {
       console.error('Error fetching data:', error);
       addExerciseWrong.textContent = error.message;
     });
   });
-  // Initial content setup
   if (exercises.length > 0) {
     updateCardContent();
   }
@@ -1640,7 +577,6 @@
   //trinings table
   const trainingSection = document.querySelector(".section--content");
   let trainings = /*[[${trainings}]]*/ [];
-
 
   //add training
   const addTrainingBtn = document.querySelector(".workout-training-add");
@@ -1680,10 +616,6 @@
   }
 
   const newTraining = new Training();
-  // trainig1.name = "Viktor";
-  // trainig1.exerciseOrder = "3,1,4";
-
-  console.log(newTraining);
 
   const moveToStep2Btn = document.querySelector(".training-step-1-btn");
   const nameOfTrainingInput = document.getElementById('nameOfTraining');
@@ -1734,8 +666,6 @@
     }
 
     console.log(selectedExercises);
-    // document.getElementById("exerciseOrder").value =
-    //   selectedExercises.join(",");
   }
 
   const trainingNameAlreadyExist = function(newTrainingName) {
@@ -1748,7 +678,6 @@
     const nameOfTrainingValue = nameOfTrainingInput.value.trim();
 
     if (nameOfTrainingValue === '') {
-      // Display an error message if the value is empty
       wrongTrainingName.textContent = 'Choose training name';
       return false;
     } else if (trainingNameAlreadyExist(nameOfTrainingValue)) {
@@ -1758,7 +687,6 @@
     } else {
       newTraining.name = nameOfTrainingInput.value;
       wrongTrainingName.textContent = "";
-      // closeTrainingModal();
       addTrainingModal.classList.add('hidden');
       console.log(exercises);
       if (exercises.length > 0) {
@@ -1807,7 +735,6 @@
 
   function findExercisesAndMoveToNextStep() {
     const selectedExercisesByOrder = selectedExercises.map(id => {
-      // Convert each ID to a number before finding in the exercises array
       const numericId = Number(id);
       return exercises.find(exercise => exercise.id === numericId);
     });
@@ -1897,8 +824,6 @@
     values.forEach(v => {
       times.push(v.value);
     })
-    // document.getElementById("values").value =
-    //   times.join(",");
   };
 
 
@@ -1913,7 +838,7 @@
       let time = times[i];
       if (time <= 0 || time.includes(".") || time.includes(",")) {
         missing = true;
-        break; // Exit the loop if a time less than or equal to 0 is found
+        break;
       }
     }
     console.log("Missing po zmene : " + missing);
@@ -2088,9 +1013,6 @@
       const textContent = clickedElement.textContent.split('\n');
       trainingNameElement.textContent = `${textContent[1].trim()}`;
       removed = false;
-      // const foundTraining = trainings.find(training => training.id === trainingId);
-      // console.log(trainings);
-      // console.log("founded training: " + foundTraining);
     });
   }
   //remove trainings
@@ -2106,7 +1028,6 @@
 
 
   startPracticeBtn.addEventListener("click", function(e) {
-    // /{userId}/training/{trainingId}
     window.location.href = 'http://localhost:8080/' + userid + '/training/' + trainingId;
   })
 
@@ -2168,10 +1089,9 @@
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      return response.json(); // Parse the response body as JSON
+      return response.json();
     })
     .then(data => {
-      // Handle the returned exercises data
       trainings = data;
       console.log(trainings);
       if (trainings != null && trainings.length > 0) {
@@ -2186,18 +1106,13 @@
         const noTrainingHTML = `
             <div class="no--training">
                 <h1>You dont have any trainings.</h1>
-<!--                <button class='add-training-section'>Add Training</button>-->
             </div>
          `;
         trainingDetail.classList.add('hidden');
         setTimeout(function () {
           trainingPart.insertAdjacentHTML("beforeend", noTrainingHTML);
         }, 1000);
-        // window.location.reload();
       }
-
-      // Now you can do something with the exercises data
-      // For example, update the UI or perform other actions
     })
     .catch(error => {
       console.error('Error fetching data:', error);
@@ -2208,7 +1123,6 @@
   startTimerBtn.addEventListener("click", function(e) {
     window.location.href = `http://localhost:8080/interval/practice/${userid}`;
   })
-
   /*]]>*/
 </script>
 </body>
