@@ -16,7 +16,6 @@ public class ActivitiesController {
     this.userDataService = userDataService;
   }
 
-
   @GetMapping("/activities/{id}")
   public String workoutZone(@PathVariable Long id, Model model) {
     UserData user = userDataService.findUserById(id);
