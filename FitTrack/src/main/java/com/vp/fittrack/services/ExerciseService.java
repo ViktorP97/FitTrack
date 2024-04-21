@@ -85,7 +85,6 @@ public class ExerciseService {
       training.setExerciseValues(times);
       trainingRepository.save(training);
     } else {
-      // Handle the case when the value is absent
       System.out.println("error");
     }
   }
