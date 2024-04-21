@@ -2,8 +2,6 @@ package com.vp.fittrack.controllers;
 
 import com.vp.fittrack.services.ExerciseService;
 import com.vp.fittrack.services.TrainingService;
-import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -36,7 +34,7 @@ public class WorkoutZoneController {
   }
 
   @GetMapping("/workout/zone/{id}")
-  public String workoutZone(@PathVariable Long id, Model model, HttpSession session) {
+  public String workoutZone(@PathVariable Long id, Model model) {
     UserData user = userDataService.findUserById(id);
     List<Exercise> exercises = user.getExercises().stream()
         .filter(exercise -> !exercise.isDeleted())
@@ -48,7 +46,6 @@ public class WorkoutZoneController {
     model.addAttribute("id", id);
     model.addAttribute("exercises", exercises);
     model.addAttribute("trainings", trainings);
-    System.out.println(LocalDateTime.now());
      return "workoutZone";
     }
 
@@ -73,9 +70,6 @@ public class WorkoutZoneController {
     model.addAttribute("exercises", exercises);
     model.addAttribute("rounds", training.getRounds());
     model.addAttribute("userId", user.getId());
-//    model.addAttribute("restBetweenExercises", 5);
-//    model.addAttribute("trainingName", training.getName());
-//    model.addAttribute("seriesName", "test");
     return "practice";
   }
 }
