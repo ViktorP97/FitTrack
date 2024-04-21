@@ -47,6 +47,11 @@ On the first run, the application will create external files for you.
 - Thymeleaf
 - HTML/CSS
 - H2 Database
+- Gradle
+- IntelliJ IDEA
+- Visual Studio Code
+- Postman
+- RESTful API
 # Future Plans
 - FitTrack is currently using H2 database for development purposes.
 - Future plans include migrating to another type of database, especially when deploying the application on AWS.
