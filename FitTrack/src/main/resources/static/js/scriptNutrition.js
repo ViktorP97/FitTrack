@@ -1,31 +1,10 @@
 'use strict';
-// // schedule treining
-// const dateValue = document.getElementById('date');
-// const saveTrainingBtn = document.getElementById('schedule-training-btn');
-// console.log(saveTrainingBtn);
-
-// saveTrainingBtn.addEventListener('click', function () {
-//   if (dateValue.value === '') {
-//     console.log('wrong');
-//   } else {
-//     const today = new Date();
-//     console.log(today.getTime());
-//     console.log(dateValue.valueAsDate.getTime());
-//   }
-// });
-
 const userId = document.querySelector('.user-id');
-
 console.log("User ID", userId.id);
 const remove = document.querySelector('.remove');
 const addFoodModal = document.querySelector('.add-food-modal');
 const overlay = document.querySelector('.overlay');
-const hlavne = document.querySelector('.hlavne');
-// const remove5 = document.getElementById('remove-5');
-
-// const closeModalBtn = document.querySelector('.btn--close-modal');
 const noBtn = document.querySelector('.remove--no');
-
 const yesBtn = document.querySelector('.remove--yes');
 
 const addFoodBtn = document.querySelector('.food-btn');
@@ -105,10 +84,12 @@ class App {
   #desireCalories;
   #clickedFood;
   #foodIdToRemove;
+  #apiKey;
   foodValues = [];
   foods = [];
   foundFoods = [];
   constructor() {
+    this._getApiKey();
     this._initTable(date.textContent);
     this._findUserDesireCalories();
     addDesireCaloriesBtn.addEventListener("click", this._addDesireCalories.bind(this));
@@ -117,7 +98,6 @@ class App {
     addFoodBtn.addEventListener('click', this._openAddFoodModal.bind(this));
     closeAddFoodModal.addEventListener('click', this._closeAddFoodModal.bind(this));
     createOwnFoodBtn.addEventListener('click', this._createFood.bind(this));
-    // createAndAddToPlanBtn.addEventListener("click", this._createAndAdd.bind(this));
 
     searchForm.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -131,6 +111,22 @@ class App {
     rightArrow.addEventListener("click", this._increaseDate.bind(this));
     noBtn.addEventListener('click', this._closeRemoveModal.bind(this));
     yesBtn.addEventListener("click", this._removeFood.bind(this));
+  }
+
+  _getApiKey() {
+    fetch('/api-key')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(apiKey => {
+      this.#apiKey = apiKey;
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
   }
 
   _findUserDesireCalories() {
@@ -292,8 +288,8 @@ class App {
     if (date.textContent === 'Today') {
       let currentDate = new Date();
       currentDate.setDate(currentDate.getDate() - 1);
-      let day = String(currentDate.getDate()).padStart(2, '0'); // Ensure two digits for day
-      let month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Ensure two digits for month
+      let day = String(currentDate.getDate()).padStart(2, '0');
+      let month = String(currentDate.getMonth() + 1).padStart(2, '0');
       let decreasedFormattedDate = `${day}.${month}.${currentDate.getFullYear()}`;
       date.textContent = decreasedFormattedDate;
       this._initTable(date.textContent);
@@ -301,12 +297,12 @@ class App {
       let dateString = date.textContent;
       let dateParts = dateString.split(".");
       let year = parseInt(dateParts[2]);
-      let month = parseInt(dateParts[1]) - 1; // Month is zero-based in JavaScript Date object
+      let month = parseInt(dateParts[1]) - 1;
       let day = parseInt(dateParts[0]);
       let currentDate = new Date(year, month, day);
       currentDate.setDate(currentDate.getDate() - 1);
-      let dayDecreased = String(currentDate.getDate()).padStart(2, '0'); // Ensure two digits for day
-      let monthDecreased = String(currentDate.getMonth() + 1).padStart(2, '0'); // Ensure two digits for month
+      let dayDecreased = String(currentDate.getDate()).padStart(2, '0');
+      let monthDecreased = String(currentDate.getMonth() + 1).padStart(2, '0');
       let decreasedFormattedDate = `${dayDecreased}.${monthDecreased}.${currentDate.getFullYear()}`;
       date.textContent = decreasedFormattedDate;
       this._initTable(date.textContent);
@@ -319,7 +315,7 @@ class App {
     let dateString = date.textContent;
     let dateParts = dateString.split(".");
     let year = parseInt(dateParts[2]);
-    let month = parseInt(dateParts[1]) - 1; // Month is zero-based in JavaScript Date object
+    let month = parseInt(dateParts[1]) - 1;
     let day = parseInt(dateParts[0]);
     let currentDate = new Date(year, month, day);
 
@@ -333,8 +329,8 @@ class App {
       this._initTable(date.textContent);
       rightArrow.classList.add('hidden');
     } else {
-      let dayDecreased = String(currentDate.getDate()).padStart(2, '0'); // Ensure two digits for day
-      let monthDecreased = String(currentDate.getMonth() + 1).padStart(2, '0'); // Ensure two digits for month
+      let dayDecreased = String(currentDate.getDate()).padStart(2, '0');
+      let monthDecreased = String(currentDate.getMonth() + 1).padStart(2, '0');
       let increasedFormattedDate = `${dayDecreased}.${monthDecreased}.${currentDate.getFullYear()}`;
       date.textContent = increasedFormattedDate;
       this._initTable(date.textContent);
@@ -469,7 +465,7 @@ class App {
     await fetch('https://api.calorieninjas.com/v1/nutrition?query=' + food, {
           method: 'GET',
           headers: {
-            'X-Api-Key': 'rG0KeiVMrF3qdIxnU1Gpcg==op0M2BavAepU0rRq',
+            'X-Api-Key': this.#apiKey,
             'Content-Type': 'application/json',
           },
         })
@@ -509,7 +505,6 @@ class App {
         throw new Error('Network response was not ok');
       }
       if (response.status === 204) {
-        // Handle empty response (null) here
         console.log('Response is empty (null)');
         return null;
       }
@@ -580,8 +575,6 @@ class App {
       addFoodToPlanBtn.classList.remove('hidden');
       gramsContainer.classList.remove("hidden");
       this.#clickedFood = clickedFood;
-      // const h2Elements = clickedFood.querySelectorAll('h2');
-      // console.log("H2 elements: ", h2Elements);
       console.log("Clicked Food From head: ", this.#clickedFood);
     }
   }
@@ -599,13 +592,6 @@ class App {
     }, 1000);
   }
 
-  // _createAndAdd(e) {
-  //   e.preventDefault();
-  //   this.foundFoods = [];
-  //   const food = new FoodItem(nameValue.value, proteinValue.value, carbsValue.value, fatsValue.value, caloriesValue.value);
-  //   this.foundFoods.push(food);
-  // }
-
   _addFoodToPlan(e) {
     e.preventDefault();
     if (gramsInput.value <= 0) {
@@ -616,9 +602,7 @@ class App {
       const h2Elements = this.#clickedFood.querySelectorAll('h2');
       Array.from(h2Elements).slice(1).forEach(h => {
         const number = parseFloat(h.outerText.match(/\d+(\.\d+)?/)[0]);
-        // console.log(number);
         this.foodValues.push(number);
-        // console.log(h.outerText);
       });
       const food = new FoodItemToSave(
         h2Elements[0].outerText,
@@ -630,9 +614,6 @@ class App {
         date.textContent
         );
       console.log(food);
-      // /save-food/{id}
-      // console.log("Hodnoty :", this.foodValues);
-      // console.log(h2Elements);
       const apiEndpoint = '/save-food/' + userId.id;
       const formData = new FormData();
       formData.append("name", food.name);
@@ -719,14 +700,10 @@ class App {
   _openRemoveModal(e) {
     e.preventDefault();
     const clickedButton = e.target;
-    // console.log(clickedButtonId);
     const clickedRow = clickedButton.closest('tr');
     this.#foodIdToRemove = clickedButton.id;
     const nameOfFood =
-      clickedRow.querySelector('td:nth-child(2)').textContent; // Adjust the nth-child index based on your structure
-    // console.log(
-    //   `Button with ID ${clickedButton.id} clicked, and the first td value is ${nameOfFood}`
-    // );
+      clickedRow.querySelector('td:nth-child(2)').textContent;
     console.log(typeof this.#foodIdToRemove);
     removeMsg.textContent = `Do you want to remove ${nameOfFood}?`;
     remove.classList.remove('hidden');
@@ -750,11 +727,10 @@ class App {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
-      return response.json(); // Parse the response body as JSON
+      return response.json();
     })
     .then(data => {
       this.foods = data;
-      // Handle the returned exercises data
       this._closeRemoveModal();
       this._initTable(date.textContent);
 
@@ -768,97 +744,6 @@ class App {
 
 const app = new App();
 
-
-// const removeButtons = document.querySelectorAll('.tr button');
-
-// console.log("remove btns", removeButtons);
-
-
-// createAndAddToPlanBtn.addEventListener('click', function (e) {
-//   e.preventDefault();
-//   if (
-//     nameValue.value === '' ||
-//     proteinValue.value === '' ||
-//     carbsValue.value === '' ||
-//     fatsValue.value === '' ||
-//     caloriesValue.value === ''
-//   ) {
-//     wrongInputsCreate.textContent = 'Please set values for all fields.';
-//   } else if (
-//     proteinValue.value < 0 ||
-//     carbsValue.value < 0 ||
-//     fatsValue.value < 0 ||
-//     caloriesValue.value < 0
-//   ) {
-//     wrongInputsCreate.textContent = 'For numbers, enter positive values.';
-//   } else {
-//     wrongInputsCreate.textContent = '';
-//   }
-// });
-
-//
-// const today = new Date();
-// const yyyy = today.getFullYear();
-// let mm = today.getMonth() + 1; // Months start at 0!
-// let dd = today.getDate();
-//
-// if (dd < 10) dd = '0' + dd;
-// if (mm < 10) mm = '0' + mm;
-//
-// const formattedToday = dd + '.' + mm + '.' + yyyy;
-//
-// console.log(formattedToday);
-
-// const openModal = function (e) {
-//   e.preventDefault();
-//   remove.classList.remove('hidden');
-//   overlay.classList.remove('hidden');
-// };
-
-// const closeModal = function () {
-//   remove.classList.add('hidden');
-//   overlay.classList.add('hidden');
-// };
-
-// const openRemove2 = function (e) {
-//   e.preventDefault();
-//   remove.classList.add('hidden');
-//   remove2.classList.remove('hidden');
-// };
-
-// remove5.addEventListener('click', openModal);
-// overlay.addEventListener('click', closeModal);
-
-// closeModalBtn.addEventListener('click', closeModal);
-
-// removeButtons.forEach(button => {
-//   button.addEventListener('click', function (e) {
-//     e.preventDefault();
-//     const clickedButton = e.target;
-//     // console.log(clickedButtonId);
-//     const clickedRow = clickedButton.closest('tr');
-//     const nameOfFood =
-//       clickedRow.querySelector('td:nth-child(2)').textContent; // Adjust the nth-child index based on your structure
-//     console.log(
-//       `Button with ID ${clickedButton.id} clicked, and the first td value is ${nameOfFood}`
-//     );
-//     removeMsg.textContent = `Do you want to remove ${nameOfFood}?`;
-//     remove.classList.remove('hidden');
-//     overlay.classList.remove('hidden');
-//   });
-// });
-
-
-// yesBtn.addEventListener('click', openRemove2);
-
-// const food = [];
-
-////hodnotu pola food zoberieme od usera pre dnesny den
-// if (food.length > 0) {
-//   document.querySelector('.total-cal').classList.remove('hidden');
-// } else {
-//   document.querySelector('.total-cal').classList.add('hidden');
-// }
 const navContainer = document.querySelector('.button-container');
 const icons = document.querySelectorAll('.sidebar-btn');
 const userMenu = document.querySelector('.user--menu');
@@ -866,12 +751,6 @@ const account = document.querySelector('.top-image');
 const table = document.querySelector('.table--body');
 const tr = document.querySelectorAll('.tr');
 
-// navContainer.addEventListener('click', function (e) {
-//   const clicked = e.target.closest('.sidebar-btn');
-//   if (!clicked) return;
-//   icons.forEach(icon => icon.classList.remove('icon_color'));
-//   clicked.classList.add('icon_color');
-// });
 
 const showMenu = function (e) {
   e.preventDefault();
@@ -892,47 +771,3 @@ account.addEventListener('click', function (e) {
     closeMenu();
   }
 });
-
-// function updateTotals() {
-//   const totalsRow = document.querySelector('.totals-row');
-//   const totalProteinsCell = document.getElementById('total-proteins');
-//   const totalCarbsCell = document.getElementById('total-carbs');
-//   const totalFatsCell = document.getElementById('total-fats');
-//   const totalCaloriesCell = document.getElementById('total-calories');
-//
-//   const caloriesMain = document.querySelector('.total-cal');
-//
-//   let totalProteins = 0;
-//   let totalCarbs = 0;
-//   let totalFats = 0;
-//   let totalCalories = 0;
-//
-//   const rows = document.querySelectorAll('.table--body tr');
-//
-//   rows.forEach(row => {
-//     const proteins = parseFloat(row.cells[2].textContent) || 0;
-//     const carbs = parseFloat(row.cells[3].textContent) || 0;
-//     const fats = parseFloat(row.cells[4].textContent) || 0;
-//     const calories = parseFloat(row.cells[5].textContent) || 0;
-//
-//     totalProteins += proteins;
-//     totalCarbs += carbs;
-//     totalFats += fats;
-//     totalCalories += calories;
-//   });
-//
-//   totalProteinsCell.textContent = totalProteins.toFixed(2);
-//   totalCarbsCell.textContent = totalCarbs.toFixed(2);
-//   totalFatsCell.textContent = totalFats.toFixed(2);
-//   totalCaloriesCell.textContent = totalCalories.toFixed(2);
-//
-//   caloriesMain.textContent = totalCalories.toFixed(2);
-//
-//   //zobrazenie totalnych kalorii v zavyslosti od ciela == ciel zobereme od usera
-//   if (totalCalories.toFixed(2) <= 637.95) {
-//     caloriesMain.style.color = '#079f09';
-//   } else {
-//     caloriesMain.style.color = '#FF0000';
-//   }
-// }
-// updateTotals();
