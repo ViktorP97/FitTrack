@@ -1,5 +1,6 @@
 package com.vp.fittrack.controllers;
 
+import com.vp.fittrack.Exceptions.UserNotFoundException;
 import com.vp.fittrack.dtos.LoginDto;
 import com.vp.fittrack.dtos.RegisterDto;
 import com.vp.fittrack.models.UserData;
@@ -79,25 +80,42 @@ public class UserDataController {
 
   @PostMapping("/login")
   public String mainPage(@ModelAttribute LoginDto loginDto, Model model) {
-    if (!userService.userRegistered(loginDto.getName())) {
+    try {
+      if (!userService.userRegistered(loginDto.getName())) {
+        model.addAttribute("wrongInput", true);
+        model.addAttribute("wrongName", loginDto.getName());
+        return "loginUser";
+      }
+      if (userService.wrongPassword(loginDto.getPassword(), loginDto.getName())) {
+        model.addAttribute("wrongInput", true);
+        model.addAttribute("wrongPassword", true);
+        return "loginUser";
+      }
+
+      try {
+        if (userService.notVerified(loginDto.getName())) {
+          model.addAttribute("wrongInput", true);
+          model.addAttribute("notVerified", true);
+          return "loginUser";
+        }
+      } catch (UserNotFoundException e) {
+        model.addAttribute("wrongInput", true);
+        model.addAttribute("wrongName", loginDto.getName());
+        return "loginUser";
+      }
+
+      UserData user = userService.logInUser(loginDto.getName());
+      if (user == null) {
+        model.addAttribute("wrongInput", true);
+        model.addAttribute("wrongName", loginDto.getName());
+        return "loginUser";
+      }
+      return "redirect:/workout/zone/" + user.getId();
+    } catch (UserNotFoundException e) {
       model.addAttribute("wrongInput", true);
       model.addAttribute("wrongName", loginDto.getName());
       return "loginUser";
     }
-    if (userService.wrongPassword(loginDto.getPassword(), loginDto.getName())) {
-      model.addAttribute("wrongInput", true);
-      model.addAttribute("wrongPassword", true);
-      return "loginUser";
-    }
-
-    if (userService.notVerified(loginDto.getName())) {
-      model.addAttribute("wrongInput", true);
-      model.addAttribute("notVerified", true);
-      return "loginUser";
-    }
-
-    UserData user = userService.logInUser(loginDto.getName());
-    return "redirect:/workout/zone/" + user.getId();
   }
 
   @GetMapping("/logout")
