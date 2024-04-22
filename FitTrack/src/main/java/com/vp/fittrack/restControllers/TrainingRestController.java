@@ -1,4 +1,4 @@
-package com.vp.fittrack.restController;
+package com.vp.fittrack.restControllers;
 
 import com.vp.fittrack.dtos.TrainingDto;
 import com.vp.fittrack.dtos.TrainingResponse;
@@ -9,13 +9,11 @@ import com.vp.fittrack.repositories.TrainingRepository;
 import com.vp.fittrack.services.ExerciseService;
 import com.vp.fittrack.services.TrainingService;
 import com.vp.fittrack.services.UserDataService;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;

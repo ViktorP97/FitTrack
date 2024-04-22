@@ -1,6 +1,6 @@
-package com.vp.fittrack.restController;
+package com.vp.fittrack.restControllers;
 
-import com.vp.fittrack.Exceptions.FoodNameExistException;
+import com.vp.fittrack.exceptions.FoodNameExistException;
 import com.vp.fittrack.dtos.FoodDatabaseDto;
 import com.vp.fittrack.models.FoodDatabase;
 import com.vp.fittrack.services.FoodDatabaseService;
@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

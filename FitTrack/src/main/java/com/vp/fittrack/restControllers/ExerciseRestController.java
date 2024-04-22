@@ -1,6 +1,6 @@
-package com.vp.fittrack.restController;
+package com.vp.fittrack.restControllers;
 
-import com.vp.fittrack.Exceptions.ExerciseNameExistException;
+import com.vp.fittrack.exceptions.ExerciseNameExistException;
 import com.vp.fittrack.dtos.ExerciseDto;
 import com.vp.fittrack.models.Exercise;
 import com.vp.fittrack.models.Training;
