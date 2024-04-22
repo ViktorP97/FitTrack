@@ -1,6 +1,6 @@
 package com.vp.fittrack.services;
 
-import com.vp.fittrack.Exceptions.FoodNameExistException;
+import com.vp.fittrack.exceptions.FoodNameExistException;
 import com.vp.fittrack.dtos.FoodDatabaseDto;
 import com.vp.fittrack.models.FoodDatabase;
 import com.vp.fittrack.repositories.FoodDatabaseRepository;
