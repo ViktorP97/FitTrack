@@ -1,4 +1,4 @@
-package com.vp.fittrack.Exceptions;
+package com.vp.fittrack.exceptions;
 
 public class TrainingNameExistException extends RuntimeException {
 
