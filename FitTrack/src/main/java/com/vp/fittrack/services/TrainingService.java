@@ -1,7 +1,5 @@
 package com.vp.fittrack.services;
 
-import com.vp.fittrack.Exceptions.TrainingNameExistException;
-import com.vp.fittrack.dtos.RegisterDto;
 import com.vp.fittrack.dtos.TrainingDto;
 import com.vp.fittrack.models.Exercise;
 import com.vp.fittrack.models.Training;
