@@ -1,6 +1,6 @@
 package com.vp.fittrack.controllers;
 
-import com.vp.fittrack.Exceptions.UserNotFoundException;
+import com.vp.fittrack.exceptions.UserNotFoundException;
 import com.vp.fittrack.dtos.LoginDto;
 import com.vp.fittrack.dtos.RegisterDto;
 import com.vp.fittrack.models.UserData;
