@@ -1,4 +1,4 @@
-package com.vp.fittrack.restController;
+package com.vp.fittrack.restControllers;
 
 import com.vp.fittrack.dtos.ActivityDto;
 import com.vp.fittrack.dtos.RemoveActivityDto;

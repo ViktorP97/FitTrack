@@ -1,5 +1,6 @@
 package com.vp.fittrack.services;
 
+import com.vp.fittrack.exceptions.UserNotFoundException;
 import com.vp.fittrack.dtos.DesireCaloriesDto;
 import com.vp.fittrack.dtos.RegisterDto;
 import com.vp.fittrack.models.UserData;
@@ -83,12 +84,9 @@ public class UserDataService {
     Optional<UserData> userOptional = userRepository.findByName(name);
     if (userOptional.isPresent()) {
       UserData user = userOptional.get();
-      if (!user.isVerified()) {
-        return true;
-      }
-      return false;
+      return !user.isVerified();
     } else {
-      return false;
+      throw new UserNotFoundException("User with name " + name + " not found");
     }
   }
 
@@ -100,7 +98,7 @@ public class UserDataService {
       userRepository.save(user);
       return user;
     }
-    return null;
+    throw new UserNotFoundException("User with name " + name + " not found");
   }
 
   public UserData findUserById(Long id) {
@@ -108,7 +106,7 @@ public class UserDataService {
     if (userDataOption.isPresent()) {
       return userDataOption.get();
     } else {
-      return null;
+      throw new UserNotFoundException("User with id " + id + " not found");
     }
   }
 
@@ -120,7 +118,7 @@ public class UserDataService {
       userRepository.save(userData);
       return desireCaloriesDto.getDesireCalories();
     } else {
-      return 0;
+      throw new UserNotFoundException("User with id " + id + " not found");
     }
   }
 }

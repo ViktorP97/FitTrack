@@ -1,4 +1,4 @@
-package com.vp.fittrack.restController;
+package com.vp.fittrack.restControllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

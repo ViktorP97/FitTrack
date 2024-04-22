@@ -1,5 +1,6 @@
-package com.vp.fittrack.restController;
+package com.vp.fittrack.restControllers;
 
+import com.vp.fittrack.exceptions.UserNotFoundException;
 import com.vp.fittrack.dtos.DesireCaloriesDto;
 import com.vp.fittrack.dtos.FoodItemDto;
 import com.vp.fittrack.models.FoodItem;
@@ -35,8 +36,12 @@ public class NutritionHubRestController {
 
   @PostMapping("/add/calories/{id}")
   public ResponseEntity<Double> addDesireCalories(@PathVariable Long id, DesireCaloriesDto desireCaloriesDto) {
-    double calories = userDataService.saveCaloriesToUser(id, desireCaloriesDto);
-    return ResponseEntity.ok(calories);
+    try {
+      double calories = userDataService.saveCaloriesToUser(id, desireCaloriesDto);
+      return ResponseEntity.ok(calories);
+    } catch (UserNotFoundException e) {
+      return ResponseEntity.notFound().build();
+    }
   }
 
   @PostMapping("/save-food/{id}")
