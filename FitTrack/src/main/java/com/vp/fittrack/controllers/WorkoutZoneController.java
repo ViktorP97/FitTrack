@@ -1,5 +1,6 @@
 package com.vp.fittrack.controllers;
 
+import com.vp.fittrack.exceptions.TrainingNotFoundException;
 import com.vp.fittrack.services.ExerciseService;
 import com.vp.fittrack.services.TrainingService;
 import java.util.Collections;
@@ -58,18 +59,27 @@ public class WorkoutZoneController {
 
   @GetMapping("/{userId}/training/{trainingId}")
   public String startTraining(@PathVariable Long userId, @PathVariable Long trainingId, Model model) {
-    UserData user = userDataService.findUserById(userId);
-    Training training = trainingService.findTrainingById(trainingId);
-    for (Exercise exercise : training.getExercises()) {
-      System.out.println(exercise.getName());
+    try {
+      UserData user = userDataService.findUserById(userId);
+      Training training = trainingService.findTrainingById(trainingId);
+
+      for (Exercise exercise : training.getExercises()) {
+        System.out.println(exercise.getName());
+      }
+
+      List<Exercise> exercises = exerciseService.getExercisesForPractice(trainingId);
+
+      for (Exercise exercise : exercises) {
+        System.out.println(exercise);
+      }
+
+      model.addAttribute("exercises", exercises);
+      model.addAttribute("rounds", training.getRounds());
+      model.addAttribute("userId", user.getId());
+
+      return "practice";
+    } catch (TrainingNotFoundException e) {
+      return "error";
     }
-    List<Exercise> exercises = exerciseService.getExercisesForPractice(trainingId);
-    for (Exercise exercise : exercises) {
-      System.out.println(exercise);
-    }
-    model.addAttribute("exercises", exercises);
-    model.addAttribute("rounds", training.getRounds());
-    model.addAttribute("userId", user.getId());
-    return "practice";
   }
 }
