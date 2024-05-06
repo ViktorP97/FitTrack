@@ -1,7 +1,8 @@
 package com.vp.fittrack.restControllers;
 
-import com.vp.fittrack.exceptions.ExerciseNameExistException;
 import com.vp.fittrack.dtos.ExerciseDto;
+import com.vp.fittrack.exceptions.ExerciseNameExistException;
+import com.vp.fittrack.exceptions.TrainingNotFoundException;
 import com.vp.fittrack.models.Exercise;
 import com.vp.fittrack.models.Training;
 import com.vp.fittrack.models.UserData;
@@ -39,13 +40,17 @@ public class ExerciseRestController {
   public ResponseEntity<Map<String, Object>> getExerciseData(@PathVariable Long id) {
     Map<String, Object> responseData = new HashMap<>();
 
-    Training training = trainingService.findTrainingById(id);
-    List<Exercise> exercises = exerciseService.getExercisesForPractice(id);
+    try {
+      Training training = trainingService.findTrainingById(id);
+      List<Exercise> exercises = exerciseService.getExercisesForPractice(id);
 
-    responseData.put("exercises", exercises);
-    responseData.put("restDuration", 5);
+      responseData.put("exercises", exercises);
+      responseData.put("restDuration", 5);
 
-    return ResponseEntity.ok(responseData);
+      return ResponseEntity.ok(responseData);
+    } catch (TrainingNotFoundException e) {
+      return ResponseEntity.notFound().build();
+    }
   }
 
   @PostMapping("/{userId}/delete/exercise/{exerciseId}")

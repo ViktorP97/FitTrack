@@ -2,6 +2,7 @@ package com.vp.fittrack.restControllers;
 
 import com.vp.fittrack.dtos.TrainingDto;
 import com.vp.fittrack.dtos.TrainingResponse;
+import com.vp.fittrack.exceptions.TrainingNotFoundException;
 import com.vp.fittrack.models.Exercise;
 import com.vp.fittrack.models.Training;
 import com.vp.fittrack.models.UserData;
@@ -42,7 +43,7 @@ public class TrainingRestController {
 
   @PostMapping("/save/training/{id}")
   public ResponseEntity<TrainingResponse> saveTraining(@PathVariable Long id, TrainingDto trainingDto) {
-    Training training = trainingService.saveTraining2(id, trainingDto);
+    Training training = trainingService.saveTraining(id, trainingDto);
     List<Exercise> exerciseList = training.getExercises();
     String exercises = exerciseList.stream()
         .map(Exercise::getName)
@@ -59,21 +60,28 @@ public class TrainingRestController {
 
   @PostMapping("/{userId}/delete/training/{trainingId}")
   public ResponseEntity<List<Training>> deleteTraining(@PathVariable Long userId, @PathVariable Long trainingId) {
-    trainingService.removeTraining(userId, trainingId);
+    try {
+      trainingService.removeTraining(userId, trainingId);
 
-    UserData user = userDataService.findUserById(userId);
+      UserData user = userDataService.findUserById(userId);
 
-    List<Training> trainings = user.getTrainings();
-//    // Set the Location header to the new URL
-//    String redirectUrl = "/workout/zone/" + userId;
-    return ResponseEntity.ok().body(trainings);
+      List<Training> trainings = user.getTrainings();
+      return ResponseEntity.ok().body(trainings);
+    } catch (TrainingNotFoundException e) {
+      return ResponseEntity.notFound().build();
+    }
   }
 
   @PostMapping("/{userId}/find/types/{trainingId}")
   public ResponseEntity<Map<String, String>> findTypesOfTraininigs(@PathVariable Long userId, @PathVariable Long trainingId) {
-    String exercisesTypes = trainingService.getExercisesTypes(userId, trainingId);
-    Map<String, String> response = new HashMap<>();
-    response.put("types", exercisesTypes);
-    return ResponseEntity.status(HttpStatus.OK).body(response);
+    try {
+      String exercisesTypes = trainingService.getExercisesTypes(userId, trainingId);
+      Map<String, String> response = new HashMap<>();
+      response.put("types", exercisesTypes);
+      return ResponseEntity.status(HttpStatus.OK).body(response);
+
+    } catch (TrainingNotFoundException e) {
+      return ResponseEntity.notFound().build();
+    }
   }
 }

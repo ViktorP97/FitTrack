@@ -27,7 +27,7 @@ public class UserDataControllerTest {
   private UserDataService userService;
 
   @Test
-  public void UserRegistered() throws Exception {
+  public void UserLoginTest() throws Exception {
     when(userService.userRegistered("existingUser")).thenReturn(true);
     when(userService.wrongPassword("correctPassword", "existingUser")).thenReturn(false);
     when(userService.notVerified("existingUser")).thenReturn(false);

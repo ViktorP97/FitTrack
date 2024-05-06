@@ -3,7 +3,8 @@ package com.vp.fittrack.services;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
+import com.vp.fittrack.dtos.DesireCaloriesDto;
+import com.vp.fittrack.exceptions.UserNotFoundException;
 import com.vp.fittrack.models.UserData;
 import com.vp.fittrack.repositories.UserDataRepository;
 import java.util.Optional;
@@ -75,4 +76,38 @@ class UserDataServiceTest {
     assertFalse(result, "Expected notVerified to return false for verified user");
   }
 
+  @Test
+  void testFindUserById() {
+    UserData user = new UserData("testUser", "test", "test@test.com");
+    when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+
+    UserData foundUser = userService.findUserById(1L);
+    assertEquals(user, foundUser);
+  }
+
+  @Test
+  void testSaveCaloriesToUserSuccess() {
+    Long id = 1L;
+    double desireCalories = 100;
+    DesireCaloriesDto desireCaloriesDto = new DesireCaloriesDto(desireCalories);
+    UserData user = new UserData("testUser", "test", "test@test.com");
+    when(userRepository.findById(id)).thenReturn(Optional.of(user));
+
+    double savedCalories = userService.saveCaloriesToUser(id, desireCaloriesDto);
+
+    assertEquals(desireCalories, savedCalories);
+    verify(userRepository, times(1)).save(user);
+    assertEquals(desireCalories, user.getDesireCalories());
+  }
+
+  @Test
+  void testSaveCaloriesUserNotFound() {
+    Long userId = 1L;
+    DesireCaloriesDto desireCaloriesDto = new DesireCaloriesDto(2000);
+    when(userRepository.findById(userId)).thenReturn(Optional.empty());
+
+    assertThrows(
+        UserNotFoundException.class, () -> userService.saveCaloriesToUser(userId, desireCaloriesDto));
+    verify(userRepository, never()).save(any());
+  }
 }

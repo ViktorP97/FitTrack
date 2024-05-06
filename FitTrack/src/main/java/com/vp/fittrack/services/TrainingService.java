@@ -1,6 +1,7 @@
 package com.vp.fittrack.services;
 
 import com.vp.fittrack.dtos.TrainingDto;
+import com.vp.fittrack.exceptions.TrainingNotFoundException;
 import com.vp.fittrack.models.Exercise;
 import com.vp.fittrack.models.Training;
 import com.vp.fittrack.models.UserData;
@@ -38,51 +39,11 @@ public class TrainingService {
     if (trainingOptional.isPresent()) {
       return trainingOptional.get();
     } else {
-      System.out.println("error");
-      return null;
+      throw new TrainingNotFoundException("Training with id " + id + " not found");
     }
   }
 
-  public Training saveTraining(String name, String exerciseOrder) {
-    List<Exercise> exercises = exerciseService.findExercisesById(exerciseOrder);
-    Training training = new Training();
-    training.setName(name);
-    training.setExerciseOrder(exerciseOrder);
-
-    for (Exercise exercise : exercises) {
-      exercise.getTrainings().add(training);
-    }
-    training.setExercises(exercises);
-    trainingRepository.save(training);
-    exerciseRepository.saveAll(exercises);
-    return training;
-  }
-
-  public void saveRoundsToTraining(Long id, int rounds) {
-    Optional<Training> setOptional = trainingRepository.findById(id);
-    if (setOptional.isPresent()) {
-      Training training = setOptional.get();
-      training.setRounds(rounds);
-      trainingRepository.save(training);
-    } else {
-      System.out.println("error");
-    }
-  }
-
-  public boolean trainingNameExist(String trainingName, Long userId) {
-    String editedTrainingName = trainingName.toLowerCase();
-    UserData user = userDataService.findUserById(userId);
-    List<Training> trainings = user.getTrainings();
-    if (trainings != null && trainings.size() > 0) {
-      for (Training training : trainings) {
-        if(training.getName().toLowerCase().equals(editedTrainingName)) {
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-  public Training saveTraining2(Long id, TrainingDto trainingDto) {
+  public Training saveTraining(Long id, TrainingDto trainingDto) {
     UserData user = userDataService.findUserById(id);
     Training training = new Training();
     training.setName(trainingDto.getName());
@@ -115,13 +76,12 @@ public class TrainingService {
       for (Exercise exercise : trainingToRemove.getExercises()) {
         exercise.getTrainings().remove(trainingToRemove);
       }
-      // Perform actions to remove the exercise
       userData.getTrainings().remove(trainingToRemove);
       trainingRepository.delete(trainingToRemove);
       userDataService.saveUser(userData);
     }
     else {
-      System.out.println("not found Exercise");
+      throw new TrainingNotFoundException("Training with id " + trainingId + " not found");
     }
   }
 
@@ -140,8 +100,7 @@ public class TrainingService {
           .collect(Collectors.joining(", "));
     }
     else {
-      System.out.println("not found Exercise");
-      return null;
+      throw new TrainingNotFoundException("Training with id " + trainingId + " not found");
     }
   }
 }
